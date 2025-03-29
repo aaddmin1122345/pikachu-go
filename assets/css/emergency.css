@@ -1,0 +1,4 @@
+/* 核心样式快速还原 */
+.navbar-brand { color: #ffd700 !important; }
+.main-content { padding: 20px; background: #fff; }
+.install-alert { background: #ffeeba; padding: 15px; margin: 20px; }
