@@ -1,0 +1,19 @@
+{{define "sqli/sqli_str.html"}}
+<div class="main-content">
+    <div class="main-content-inner">
+        <div class="breadcrumbs ace-save-state">
+            <ul class="breadcrumb">
+                <li><a href="/vul/sqli/sqli">SQL注入</a></li>
+                <li class="active">字符串注入</li>
+            </ul>
+        </div>
+        <div class="page-content">
+            <form method="get">
+                输入字符串：<input type="text" name="str"><br>
+                <input type="submit" value="提交">
+            </form>
+            <p>{{.HtmlMsg}}</p>
+        </div>
+    </div>
+</div>
+{{end}}

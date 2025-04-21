@@ -1,30 +1,23 @@
 package dir
 
 import (
-	"html/template"
 	"net/http"
-	"os"
-	"path/filepath"
-
 	"pikachu-go/templates"
 )
 
+// DirListHandler 模拟页面列表跳转
 func DirListHandler(renderer templates.Renderer) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
 		title := r.URL.Query().Get("title")
-		if title == "" {
-			title = "index.php"
+		data := templates.NewPageData2(4, 19, "")
+
+		switch title {
+		case "jarheads":
+			renderer.RenderPage(w, "dir/soup/jarheads.html", data)
+		case "truman":
+			renderer.RenderPage(w, "dir/soup/truman.html", data)
+		default:
+			renderer.RenderPage(w, "dir/dir_list.html", data)
 		}
-		title = filepath.Clean(title)
-
-		path := filepath.Join("vul/dir/soup", title)
-		content := ""
-
-		if data, err := os.ReadFile(path); err == nil {
-			content = "<pre>" + template.HTMLEscapeString(string(data)) + "</pre>"
-		}
-
-		data := templates.NewPageData2(80, 82, content)
-		renderer.RenderPage(w, "dir/dir_list.html", data)
 	}
 }

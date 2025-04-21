@@ -1,0 +1,20 @@
+{{define "csrf/csrfget/csrf_get_login.html"}}
+<div class="main-content">
+    <div class="main-content-inner">
+        <div class="breadcrumbs ace-save-state">
+            <ul class="breadcrumb">
+                <li><a href="/vul/csrf/csrf">CSRF</a></li>
+                <li class="active">CSRF GET 登录</li>
+            </ul>
+        </div>
+        <div class="page-content">
+            <form method="post">
+                用户名：<input type="text" name="username"><br>
+                昵称：<input type="text" name="nickname"><br>
+                <input type="submit" value="提交">
+            </form>
+            <p>{{.HtmlMsg}}</p>
+        </div>
+    </div>
+</div>
+{{end}}

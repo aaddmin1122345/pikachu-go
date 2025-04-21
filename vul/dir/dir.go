@@ -1,39 +1,47 @@
 package dir
 
 import (
+	"html/template"
 	"net/http"
 	"os"
 	"path/filepath"
-	"strings"
-
 	"pikachu-go/templates"
+	"strings"
 )
 
+// DirHandler 目录遍历（模拟目录遍历漏洞）
 func DirHandler(renderer templates.Renderer) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
-		query := r.URL.Query().Get("dir")
-		if query == "" {
-			query = "."
+		reqPath := r.URL.Query().Get("path")
+		if reqPath == "" {
+			reqPath = "." // 默认当前目录
 		}
-		query = filepath.Clean(query)
+		// 简单过滤避免穿越
+		cleanPath := filepath.Clean(reqPath)
 
-		html := "<ul>"
-		files, err := os.ReadDir(query)
-		if err == nil {
-			for _, file := range files {
-				name := file.Name()
-				displayPath := strings.TrimPrefix(filepath.Join(query, name), "./")
+		entries, err := os.ReadDir(cleanPath)
+		if err != nil {
+			data := templates.NewPageData2(4, 18, "读取目录失败："+template.HTMLEscapeString(err.Error()))
+			renderer.RenderPage(w, "dir/dir.html", data)
+			return
+		}
 
-				if file.IsDir() {
-					html += `<li>[DIR] <a href="?dir=` + displayPath + `">` + name + `</a></li>`
-				} else {
-					html += `<li>[FILE] <a href="/vul/dir/dir_list?title=` + displayPath + `">` + name + `</a></li>`
-				}
+		// 构造 HTML 表格
+		var builder strings.Builder
+		builder.WriteString(`<p>当前路径：<strong>` + template.HTMLEscapeString(cleanPath) + `</strong></p>`)
+		builder.WriteString(`<table border="1" cellpadding="5"><tr><th>名称</th><th>类型</th></tr>`)
+
+		for _, entry := range entries {
+			name := entry.Name()
+			entryType := "文件"
+			if entry.IsDir() {
+				entryType = "目录"
 			}
+			builder.WriteString(`<tr><td>` + template.HTMLEscapeString(name) + `</td><td>` + entryType + `</td></tr>`)
 		}
-		html += "</ul>"
+		builder.WriteString(`</table>`)
 
-		data := templates.NewPageData2(80, 81, html)
+		data := templates.NewPageData2(4, 18, builder.String())
 		renderer.RenderPage(w, "dir/dir.html", data)
 	}
 }

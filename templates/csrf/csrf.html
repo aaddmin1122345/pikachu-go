@@ -1,0 +1,35 @@
+{{define "csrf/csrf.html"}}
+<div class="main-content">
+    <div class="main-content-inner">
+        <div class="breadcrumbs ace-save-state" id="breadcrumbs">
+            <ul class="breadcrumb">
+                <li><i class="ace-icon fa fa-home home-icon"></i>
+                    <a href="/vul/csrf/csrf">CSRF</a>
+                </li>
+                <li class="active">概述</li>
+            </ul>
+        </div>
+        <div class="page-content">
+            <div id="vul_info">
+                <dl>
+                    <dt class="vul_title">跨站请求伪造（CSRF）漏洞概述</dt>
+                    <dd class="vul_detail">
+                        CSRF（Cross-Site Request Forgery）是一种攻击方式，攻击者诱导用户在已登录认证的情况下访问某个第三方接口，从而在不知情的情况下完成敏感操作。
+                    </dd>
+                    <dd class="vul_detail">
+                        通常 CSRF 攻击依赖用户的 Cookie 和浏览器默认行为。
+                    </dd>
+                    <dd class="vul_detail">
+                        本模块包括：
+                        <ul>
+                            <li><a href="/vul/csrf/csrfget/csrf_get.php">GET 类型 CSRF 攻击</a></li>
+                            <li><a href="/vul/csrf/csrfpost/csrf_post.php">POST 类型 CSRF 攻击</a></li>
+                            <li><a href="/vul/csrf/csrftoken/token_get.php">Token 防御型</a></li>
+                        </ul>
+                    </dd>
+                </dl>
+            </div>
+        </div>
+    </div>
+</div>
+{{end}}

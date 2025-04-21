@@ -1,19 +1,25 @@
 package main
 
 import (
-	"database/sql"
 	"html/template"
 	"log"
 	"net/http"
+	"os"
 
-	_ "github.com/mattn/go-sqlite3"
-
+	"pikachu-go/database"
 	"pikachu-go/templates"
 	"pikachu-go/vul/burteforce"
+	"pikachu-go/vul/csrf"
+	"pikachu-go/vul/csrf/csrfget"
+	"pikachu-go/vul/csrf/csrfpost"
+	"pikachu-go/vul/csrf/csrftoken"
 	"pikachu-go/vul/dir"
 	"pikachu-go/vul/fileinclude"
 	"pikachu-go/vul/infoleak"
 	"pikachu-go/vul/rce"
+	"pikachu-go/vul/sqli"
+	sqliheader "pikachu-go/vul/sqli/sqli_header"
+	sqliiu "pikachu-go/vul/sqli/sqli_iu"
 	"pikachu-go/vul/ssrf"
 	"pikachu-go/vul/unsafedownload"
 	"pikachu-go/vul/unsafeupload"
@@ -30,17 +36,17 @@ func indexHandler(renderer templates.Renderer) http.HandlerFunc {
 		active := make([]string, 130)
 		active[0] = "active open"
 
-		db, err := sql.Open("sqlite3", "./pikachu.db")
+		// 使用数据库连接
+		db := database.DB
 		htmlMsg := ""
 
-		if err != nil {
-			log.Println("数据库打开失败：", err)
-			htmlMsg = `<p><a href="install.php" style="color:red;">提示:欢迎使用, pikachu还没有初始化，点击进行初始化安装!</a></p>`
+		if db == nil {
+			log.Println("数据库打开失败")
+			htmlMsg = `<p><a href="/install" style="color:red;">提示:欢迎使用, pikachu还没有初始化，点击进行初始化安装!</a></p>`
 		} else {
-			defer db.Close()
-			if err = db.Ping(); err != nil {
+			if err := db.Ping(); err != nil {
 				log.Println("数据库连接失败：", err)
-				htmlMsg = `<p><a href="install.php" style="color:red;">提示:欢迎使用, pikachu还没有初始化，点击进行初始化安装!</a></p>`
+				htmlMsg = `<p><a href="/install" style="color:red;">提示:欢迎使用, pikachu还没有初始化，点击进行初始化安装!</a></p>`
 			}
 		}
 
@@ -56,7 +62,45 @@ func indexHandler(renderer templates.Renderer) http.HandlerFunc {
 	}
 }
 
+func installHandler(renderer templates.Renderer) http.HandlerFunc {
+	return func(w http.ResponseWriter, r *http.Request) {
+		htmlMsg := "ok"
+		active := make([]string, 130)
+		active[0] = "active open"
+		data := templates.PageData{
+			Active:  active,
+			HtmlMsg: template.HTML(htmlMsg),
+		}
+		// 检查 install.flag 文件是否存在
+		_, err := os.Stat("./install.flag")
+		installFileExists := os.IsNotExist(err)
+
+		// 如果 install.flag 或 pikachu.db 文件不存在，则初始化数据库
+		if installFileExists {
+			// 调用数据库初始化
+			database.InitializeDatabase()
+
+			// 创建 install.flag 文件
+			_, err := os.Create("./install.flag")
+			if err != nil {
+				log.Println("创建 install.flag 文件失败：", err)
+				http.Error(w, "初始化失败，请重试", http.StatusInternalServerError)
+				return
+			}
+
+			// 返回数据库初始化成功
+			renderer.RenderPage(w, "install_success.html", data)
+		} else {
+			// 数据库已经初始化，返回提示
+			renderer.RenderPage(w, "install_already.html", data)
+		}
+	}
+}
+
 func main() {
+	// 初始化数据库
+	database.InitializeDatabase()
+
 	renderer, err := templates.NewTemplateRenderer()
 	if err != nil {
 		log.Fatal("加载模板失败：", err)
@@ -126,6 +170,34 @@ func main() {
 
 	http.HandleFunc("/vul/burteforce/bf_client", burteforce.BfClientHandler(renderer))
 	http.HandleFunc("/vul/burteforce/bf_token", burteforce.BfTokenHandler(renderer))
+	http.HandleFunc("/vul/csrf/csrf", csrf.CsrfHandler(renderer))
+	http.HandleFunc("/vul/csrf/csrfget/csrf_get_login", csrfget.CsrfGetLoginHandler(renderer))
+	http.HandleFunc("/vul/csrf/csrfget/csrf_get_edit", csrfget.CsrfGetEditHandler())
+	http.HandleFunc("/vul/csrf/csrfget/csrf_get", csrfget.CsrfGetHandler(renderer))
+	http.HandleFunc("/vul/csrf/csrfpost/csrf_post_login", csrfpost.CsrfPostLoginHandler(renderer))
+	http.HandleFunc("/vul/csrf/csrfpost/csrf_post_edit", csrfpost.CsrfPostEditHandler())
+	http.HandleFunc("/vul/csrf/csrfpost/csrf_post", csrfpost.CsrfPostHandler(renderer))
+	http.HandleFunc("/vul/csrf/csrftoken/token_get_login", csrftoken.TokenGetLoginHandler(renderer))
+	http.HandleFunc("/vul/csrf/csrftoken/token_get_edit", csrftoken.TokenGetEditHandler())
+	http.HandleFunc("/vul/csrf/csrftoken/token_get", csrftoken.TokenGetHandler(renderer))
+
+	// 安装路由
+	http.HandleFunc("/install", installHandler(renderer))
+
+	http.HandleFunc("/vul/sqli/sqli", sqli.SqliHandler(renderer))
+	http.HandleFunc("/vul/sqli/sqli_blind_b", sqli.SqliBlindBHandler(renderer))
+	http.HandleFunc("/vul/sqli/sqli_blind_t", sqli.SqliBlindTHandler(renderer))
+	http.HandleFunc("/vul/sqli/sqli_del", sqli.SqliDelHandler(renderer))
+	http.HandleFunc("/vul/sqli/sqli_id", sqli.SqliIDHandler(renderer))
+	http.HandleFunc("/vul/sqli/sqli_search", sqli.SqliSearchHandler(renderer))
+	http.HandleFunc("/vul/sqli/sqli_str", sqli.SqliStrHandler(renderer))
+	http.HandleFunc("/vul/sqli/sqli_widebyte", sqli.SqliWidebyteHandler(renderer))
+	http.HandleFunc("/vul/sqli/sqli_x", sqli.SqliXHandler(renderer))
+	http.HandleFunc("/vul/sqli/sqli_header", sqliheader.SqliHeaderHandler(renderer))
+	http.HandleFunc("/vul/sqli/sqli_header_login", sqliheader.SqliHeaderLoginHandler(renderer))
+	http.HandleFunc("/vul/sqli/sqli_iu/sqli_login", sqliiu.SqliLoginHandler(renderer))
+	http.HandleFunc("/vul/sqli/sqli_iu/sqli_mem", sqliiu.SqliMemHandler(renderer))
+	http.HandleFunc("/vul/sqli/sqli_iu/sqli_reg", sqliiu.SqliRegHandler(renderer))
 
 	// 启动服务
 	log.Println("服务器启动于 http://localhost:8888")

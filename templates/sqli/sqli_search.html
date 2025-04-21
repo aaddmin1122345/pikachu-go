@@ -1,0 +1,19 @@
+{{define "sqli/sqli_search.html"}}
+<div class="main-content">
+    <div class="main-content-inner">
+        <div class="breadcrumbs ace-save-state">
+            <ul class="breadcrumb">
+                <li><a href="/vul/sqli/sqli">SQL注入</a></li>
+                <li class="active">查询注入</li>
+            </ul>
+        </div>
+        <div class="page-content">
+            <form method="get">
+                查询：<input type="text" name="search"><br>
+                <input type="submit" value="搜索">
+            </form>
+            <p>{{.HtmlMsg}}</p>
+        </div>
+    </div>
+</div>
+{{end}}

@@ -1,0 +1,17 @@
+{{define "sqli/sqli_header_login.html"}}
+<div class="main-content">
+    <div class="main-content-inner">
+        <div class="breadcrumbs ace-save-state">
+            <ul class="breadcrumb">
+                <li><a href="/vul/sqli/sqli">SQL注入</a></li>
+                <li class="active">Header注入登录</li>
+            </ul>
+        </div>
+        <div class="page-content">
+            <h3>使用 HTTP Header 注入登录</h3>
+            <p>请通过抓包工具添加 header: <code>username: xxx</code> 来尝试登录。</p>
+            <p>{{.HtmlMsg}}</p>
+        </div>
+    </div>
+</div>
+{{end}}

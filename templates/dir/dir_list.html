@@ -1,17 +1,18 @@
 {{define "dir/dir_list.html"}}
-<h1 class="blue">目录遍历 - 文件预览</h1>
-
-<div class="breadcrumbs" id="breadcrumbs">
-    <ul class="breadcrumb">
-        <li><i class="ace-icon fa fa-home home-icon"></i><a href="/">首页</a></li>
-        <li><a href="/vul/dir/dir">目录遍历</a></li>
-        <li class="active">文件预览</li>
-    </ul>
-</div>
-
-<div class="page-content">
-    <div class="vul_output">
-        {{.HtmlMsg}}
+<div class="main-content">
+    <div class="main-content-inner">
+        <div class="breadcrumbs ace-save-state">
+            <ul class="breadcrumb">
+                <li><a href="/vul/dir/dir_list">目录页面</a></li>
+                <li class="active">影片列表</li>
+            </ul>
+        </div>
+        <div class="page-content">
+            <ul>
+                <li><a href="/vul/dir/dir_list?title=jarheads">血战钢锯岭</a></li>
+                <li><a href="/vul/dir/dir_list?title=truman">楚门的世界</a></li>
+            </ul>
+        </div>
     </div>
 </div>
 {{end}}

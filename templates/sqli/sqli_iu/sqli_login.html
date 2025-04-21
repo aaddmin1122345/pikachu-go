@@ -1,0 +1,21 @@
+{{define "sqli/sqli_login.html"}}
+<div class="main-content">
+    <div class="main-content-inner">
+        <div class="breadcrumbs ace-save-state">
+            <ul class="breadcrumb">
+                <li><a href="/vul/sqli/sqli">SQL注入</a></li>
+                <li class="active">登录</li>
+            </ul>
+        </div>
+        <div class="page-content">
+            <h3>登录页面</h3>
+            <form method="post">
+                用户名：<input type="text" name="username"><br>
+                密码：<input type="text" name="password"><br>
+                <input type="submit" value="登录">
+            </form>
+            <p>{{.HtmlMsg}}</p>
+        </div>
+    </div>
+</div>
+{{end}}
