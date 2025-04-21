@@ -1,0 +1,18 @@
+<div class="main-content">
+    <div class="main-content-inner">
+        <div class="page-content">
+            <div class="vul info">
+                <form method="post">
+                    <label>发表留言（存储型XSS）:</label><br>
+                    <textarea name="msg" rows="3" cols="50"></textarea><br>
+                    <input type="submit" value="提交">
+                </form>
+                <hr>
+                <strong>留言墙:</strong><br>
+                <div style="padding:10px;border:1px solid #ccc;margin-top:5px;">
+                    {{ .HtmlMsg }}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

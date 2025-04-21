@@ -1,0 +1,25 @@
+{{define "burteforce/bf_form.html"}}
+<div class="main-content">
+    <div class="main-content-inner">
+        <div class="breadcrumbs ace-save-state" id="breadcrumbs">
+            <ul class="breadcrumb">
+                <li><i class="ace-icon fa fa-home home-icon"></i>
+                    <a href="/vul/burteforce/burteforce">BurteForce</a>
+                </li>
+                <li class="active">表单暴力破解</li>
+            </ul>
+        </div>
+
+        <div class="page-content">
+            <form method="post" class="loginform">
+                用户名：<input type="text" name="username" /><br />
+                密码：<input type="password" name="password" /><br />
+                <input type="submit" value="登录" />
+            </form>
+            <div style="margin-top:15px;">
+                {{.HtmlMsg}}
+            </div>
+        </div>
+    </div>
+</div>
+{{end}}

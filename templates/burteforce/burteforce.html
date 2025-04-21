@@ -1,0 +1,42 @@
+{{define "burteforce/burteforce.html"}}
+<div class="main-content">
+    <div class="main-content-inner">
+        <div class="breadcrumbs ace-save-state" id="breadcrumbs">
+            <ul class="breadcrumb">
+                <li><i class="ace-icon fa fa-home home-icon"></i>
+                    <a href="/vul/burteforce/burteforce">BurteForce</a>
+                </li>
+                <li class="active">概述</li>
+            </ul>
+        </div>
+        <div class="page-content">
+            <div id="vul_info">
+                <dl>
+                    <dt class="vul_title">暴力破解攻击（BurteForce）概述</dt>
+                    <dd class="vul_detail">
+                        暴力破解是最简单粗暴的攻击方式，攻击者通过自动化脚本不断提交用户名/密码组合，直到破解成功。
+                    </dd>
+                    <dd class="vul_detail">
+                        防御手段包括但不限于：
+                        <ul>
+                            <li>验证码</li>
+                            <li>前端限制尝试次数</li>
+                            <li>服务端限制登录频率（封 IP）</li>
+                            <li>强密码策略、双因子认证</li>
+                        </ul>
+                    </dd>
+                    <dd class="vul_detail">
+                        你可以通过以下几种方式，测试模拟爆破攻击：
+                        <ul>
+                            <li><a href="/vul/burteforce/bf_form">普通表单提交</a></li>
+                            <li><a href="/vul/burteforce/bf_client">前端 JS 限制</a></li>
+                            <li><a href="/vul/burteforce/bf_server">服务端限制</a></li>
+                            <li><a href="/vul/burteforce/bf_token">加入 CSRF Token</a></li>
+                        </ul>
+                    </dd>
+                </dl>
+            </div>
+        </div>
+    </div>
+</div>
+{{end}}

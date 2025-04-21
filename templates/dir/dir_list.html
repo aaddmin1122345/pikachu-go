@@ -1,0 +1,17 @@
+{{define "dir/dir_list.html"}}
+<h1 class="blue">目录遍历 - 文件预览</h1>
+
+<div class="breadcrumbs" id="breadcrumbs">
+    <ul class="breadcrumb">
+        <li><i class="ace-icon fa fa-home home-icon"></i><a href="/">首页</a></li>
+        <li><a href="/vul/dir/dir">目录遍历</a></li>
+        <li class="active">文件预览</li>
+    </ul>
+</div>
+
+<div class="page-content">
+    <div class="vul_output">
+        {{.HtmlMsg}}
+    </div>
+</div>
+{{end}}

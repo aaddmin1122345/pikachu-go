@@ -1,0 +1,25 @@
+{{define "unsafeupload/upload.html"}}
+<div class="main-content">
+    <div class="main-content-inner">
+        <div class="breadcrumbs ace-save-state" id="breadcrumbs">
+            <ul class="breadcrumb">
+                <li>
+                    <i class="ace-icon fa fa-home home-icon"></i>
+                    <a href="/vul/unsafeupload/upload">不安全的文件上传</a>
+                </li>
+                <li class="active">upload</li>
+            </ul>
+        </div>
+        <div class="page-content">
+            <form method="post" enctype="multipart/form-data">
+                <p class="vul_detail">请选择你要上传的头像，只能上传jpg,gif,png文件</p>
+                <input type="file" name="upload_file" />
+                <input type="submit" value="上传" />
+            </form>
+            <div style="margin-top: 20px;">
+                {{.HtmlMsg}}
+            </div>
+        </div>
+    </div>
+</div>
+{{end}}

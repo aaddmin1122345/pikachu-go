@@ -1,0 +1,18 @@
+<div class="main-content">
+    <div class="main-content-inner">
+        <div class="page-content">
+            <div class="vul info">
+                <form action="/vul/xss/xsspost/xss_reflected_post" method="post">
+                    <label>请输入内容：</label><br>
+                    <textarea name="message" rows="3" cols="50"></textarea><br>
+                    <input type="submit" value="提交">
+                </form>
+                <hr>
+                <strong>结果：</strong><br>
+                <div style="border: 1px solid #ccc; padding: 10px;">
+                    {{ .HtmlMsg }}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

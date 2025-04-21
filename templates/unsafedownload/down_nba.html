@@ -1,0 +1,49 @@
+{{define "unsafedownload/down_nba.html"}}
+<div class="main-content">
+    <div class="main-content-inner">
+        <div class="breadcrumbs ace-save-state" id="breadcrumbs">
+            <ul class="breadcrumb">
+                <li>
+                    <i class="ace-icon fa fa-home home-icon"></i>
+                    <a href="/vul/unsafedownload/unsafedownload">unsafe filedownload</a>
+                </li>
+                <li class="active">不安全的文件下载</li>
+            </ul>
+
+            <a href="#" style="float:right" data-container="body" data-toggle="popover" data-placement="bottom"
+                title="tips(再点一下关闭)" data-content="我就说一句,1996年的状元是艾弗森,但是下面这个列表里面kobe排在第一位,你说奇怪不奇怪吧。">
+                点一下提示~
+            </a>
+        </div>
+
+        <div class="page-content">
+            <div id="usd_main" style="width: 600px;">
+                <h2 class="title">NBA 1996年 黄金一代</h2>
+                <p class="mes" style="color: #1d6fa6;">Notice:点击球员名字即可下载头像图片！</p>
+
+                {{/* 球员列表，纯静态复刻 */}}
+                {{range $i, $player := (list
+          "kb.png|科比.布莱恩特"
+          "ai.png|阿伦.艾弗森"
+          "ns.png|史蒂夫.纳什"
+          "rayal.png|雷.阿伦"
+          "mbl.png|斯蒂芬.马布里"
+          "camby.png|马库斯.坎比"
+          "pj.png|斯托贾科维奇"
+          "bigben.png|本.华莱士"
+          "sks.png|伊尔戈斯卡斯"
+          "oldfish.png|德里克.费舍尔"
+          "smallane.png|杰梅因.奥尼尔"
+          "lmx.png|阿卜杜.拉希姆"
+        )}}
+                {{ $parts := split $player "|" }}
+                <div class="png" style="float: left">
+                    <img src="/vul/unsafedownload/download/{{index $parts 0}}" /><br />
+                    <a href="/vul/unsafedownload/execdownload?filename={{index $parts 0}}">{{index $parts 1}}</a>
+                </div>
+                {{end}}
+            </div>
+        </div>
+    </div>
+</div>
+{{end}}

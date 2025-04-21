@@ -1,0 +1,27 @@
+<div class="main-content">
+    <div class="main-content-inner">
+        <div class="breadcrumbs ace-save-state" id="breadcrumbs">
+            <ul class="breadcrumb">
+                <li>
+                    <i class="ace-icon fa fa-home home-icon"></i>
+                    <a href="unsafere"></a>
+                </li>
+                <li class="active">不安全的url跳转</li>
+            </ul>
+            <a href="#" style="float:right" data-container="body" data-toggle="popover" data-placement="bottom"
+                title="tips(再点一下关闭)" data-content="仔细看下每个请求的内容">点一下提示~</a>
+        </div>
+        <div class="page-content">
+            <div class="vul info">
+                我想问一下,你到底是下面哪一种类型的人:<br>
+                <pre>
+<a href="/vul/urlredirect/urlredirect">像春天的花一样的少年</a>
+<a href="/vul/urlredirect/urlredirect">像夏天的雨一样的少年</a>
+<a href="/vul/urlredirect/urlredirect?url=/vul/urlredirect/unsafere">像秋天的风一样的少年</a>
+<a href="/vul/urlredirect/urlredirect?url=i">我就是我,放荡不羁的我</a>
+        </pre>
+                {{ .HtmlMsg }}
+            </div>
+        </div>
+    </div>
+</div>

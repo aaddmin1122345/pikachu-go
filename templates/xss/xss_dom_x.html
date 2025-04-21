@@ -1,0 +1,19 @@
+<div class="main-content">
+    <div class="main-content-inner">
+        <div class="page-content">
+            <div class="vul info">
+                <h3>DOM XSS 扩展版</h3>
+                <input type="text" id="userinput" placeholder="输入将注入DOM">
+                <button onclick="inject()">插入</button>
+                <div id="result"></div>
+
+                <script>
+                    function inject() {
+                        let val = document.getElementById("userinput").value;
+                        document.getElementById("result").innerHTML = val;
+                    }
+                </script>
+            </div>
+        </div>
+    </div>
+</div>

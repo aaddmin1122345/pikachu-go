@@ -1,0 +1,36 @@
+{{define "fileinclude/fileinclude.html"}}
+<div class="main-content">
+    <div class="main-content-inner">
+        <div class="breadcrumbs ace-save-state" id="breadcrumbs">
+            <ul class="breadcrumb">
+                <li>
+                    <i class="ace-icon fa fa-home home-icon"></i>
+                    <a href="/vul/fileinclude/fileinclude">文件包含</a>
+                </li>
+                <li class="active">概述</li>
+            </ul>
+        </div>
+        <div class="page-content">
+            <div id="vul_info">
+                <dl>
+                    <dt class="vul_title">文件包含漏洞概述</dt>
+                    <dd class="vul_detail">
+                        文件包含漏洞，常见于 PHP 中的 include、require、include_once、require_once 函数。<br />
+                        如果参数未严格控制，攻击者可构造恶意路径导致任意文件被包含、执行，甚至可造成远程代码执行。
+                    </dd>
+                    <dd class="vul_detail">
+                        常见类型包括：本地文件包含（LFI）与远程文件包含（RFI）。测试时通常结合 `?file=` 参数发起路径控制。
+                    </dd>
+                    <dd class="vul_detail">
+                        可尝试访问例如：
+                        <ul>
+                            <li><a href="/vul/fileinclude/fi_local?file=include/file1.php">本地包含测试</a></li>
+                            <li><a href="/vul/fileinclude/fi_remote?file=http://example.com/shell.txt">远程包含测试</a></li>
+                        </ul>
+                    </dd>
+                </dl>
+            </div>
+        </div>
+    </div>
+</div>
+{{end}}

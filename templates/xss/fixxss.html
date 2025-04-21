@@ -1,0 +1,19 @@
+<div class="main-content">
+    <div class="main-content-inner">
+        <div class="page-content">
+            <div class="vul info">
+                <h3>修复版 XSS 演示</h3>
+                <form method="post">
+                    <label>安全输入：</label><br>
+                    <input type="text" name="msg" style="width:400px">
+                    <input type="submit" value="提交">
+                </form>
+                <hr>
+                <strong>处理后输出：</strong><br>
+                <div style="padding:10px;border:1px solid #ccc;margin-top:5px;">
+                    {{ .HtmlMsg }}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,20 @@
+<div class="main-content">
+    <div class="main-content-inner">
+        <div class="breadcrumbs ace-save-state" id="breadcrumbs">
+            <ul class="breadcrumb">
+                <li><i class="ace-icon fa fa-home home-icon"></i><a href="/">主页</a></li>
+                <li class="active">RCE - ping 执行</li>
+            </ul>
+        </div>
+        <div class="page-content">
+            <div class="vul info">
+                <form method="post">
+                    目标 IP 或域名：<input name="ip" type="text" value="127.0.0.1">
+                    <input type="submit" value="Ping">
+                </form>
+                <br>
+                <pre>{{ .HtmlMsg }}</pre>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,28 @@
+<div class="main-content">
+    <div class="main-content-inner">
+        <div class="page-content">
+            <div class="vul info">
+                <h3>盲打型 XSS 模拟</h3>
+                <form id="form">
+                    <label>请输入留言（将被偷偷发送给管理员）:</label><br>
+                    <input type="text" id="data" style="width:400px">
+                    <input type="submit" value="提交">
+                </form>
+                <script>
+                    document.getElementById("form").onsubmit = function (e) {
+                        e.preventDefault();
+                        var val = document.getElementById("data").value;
+                        fetch("/vul/xss/xssblind/admin", {
+                            method: "POST",
+                            headers: {
+                                "Content-Type": "application/x-www-form-urlencoded",
+                            },
+                            body: "data=" + encodeURIComponent(val),
+                        });
+                        alert("我们已经记录了你的留言！");
+                    };
+                </script>
+            </div>
+        </div>
+    </div>
+</div>

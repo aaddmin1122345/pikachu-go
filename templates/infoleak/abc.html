@@ -1,0 +1,31 @@
+{{define "infoleak/abc.html"}}
+<div class="main-content">
+    <div class="main-content-inner">
+        <div class="breadcrumbs ace-save-state" id="breadcrumbs">
+            <ul class="breadcrumb">
+                <li><i class="ace-icon fa fa-home home-icon"></i><a href="/">首页</a></li>
+                <li class="active">abc</li>
+            </ul>
+        </div>
+        <div class="page-content">
+            <a href="?logout=1">退出登陆</a><br><br>
+            <p>那一天我二十一岁，在我一生的黄金时代</p>
+            <p>我有好多奢望。我想爱，想吃，还想在一瞬间变成天上半明半暗的云</p>
+            <p>后来我才知道，生活就是个缓慢受锤的过程</p>
+            <dl>
+                <dt class="vul_title">敏感信息泄露概述</dt>
+                <dd class="vul_detail">
+                    由于后台人员的疏忽或者不当的设计，导致不应该被前端用户看到的数据被轻易的访问到。<br>
+                    ---通过访问url下的目录，可以直接列出目录下的文件列表;<br>
+                    ---输入错误的url参数后报错信息里面包含操作系统、中间件、开发语言的版本或其他信息;<br>
+                    ---前端的源码（html,css,js）里面包含了敏感信息，比如后台登录地址、内网接口信息、甚至账号密码等;
+                </dd>
+                <dd class="vul_detail">
+                    类似以上这些情况，我们成为敏感信息泄露。敏感信息泄露虽然一直被评为危害比较低的漏洞，但这些敏感信息往往给攻击着实施进一步的攻击提供很大的帮助,甚至“离谱”的敏感信息泄露也会直接造成严重的损失。
+                    因此,在web应用的开发上，除了要进行安全的代码编写，也需要注意对敏感信息的合理处理。
+                </dd>
+            </dl>
+        </div>
+    </div>
+</div>
+{{end}}

@@ -39,7 +39,7 @@
         <div id="navbar" class="navbar navbar-default ace-save-state">
             <div class="navbar-container ace-save-state" id="navbar-container">
                 <div class="navbar-header pull-left">
-                    <a href="{{.PikaRoot}}index.php" class="navbar-brand">
+                    <a href="{{.PikaRoot}}index" class="navbar-brand">
                         <small>
                             <i class="fa fa-key"></i>
                             Pikachu 漏洞练习平台 pika~pika~
@@ -74,7 +74,7 @@
                 </script>
                 <ul class="nav nav-list">
                     <li class="{{index .Active 0}}">
-                        <a href="{{.PikaRoot}}index.php">
+                        <a href="{{.PikaRoot}}index">
                             <i class="ace-icon glyphicon glyphicon-tags"></i>
                             <span class="menu-text"> 系统介绍 </span>
                         </a>
@@ -89,35 +89,35 @@
                         <b class="arrow"></b>
                         <ul class="submenu">
                             <li class="{{index .Active 2}}">
-                                <a href="{{.PikaRoot}}vul/burteforce/burteforce.php">
+                                <a href="{{.PikaRoot}}vul/burteforce/burteforce">
                                     <i class="menu-icon fa fa-caret-right"></i>
                                     概述
                                 </a>
                                 <b class="arrow"></b>
                             </li>
                             <li class="{{index .Active 3}}">
-                                <a href="{{.PikaRoot}}vul/burteforce/bf_form.php">
+                                <a href="{{.PikaRoot}}vul/burteforce/bf_form">
                                     <i class="menu-icon fa fa-caret-right"></i>
                                     基于表单的暴力破解
                                 </a>
                                 <b class="arrow"></b>
                             </li>
                             <li class="{{index .Active 4}}">
-                                <a href="{{.PikaRoot}}vul/burteforce/bf_server.php">
+                                <a href="{{.PikaRoot}}vul/burteforce/bf_server">
                                     <i class="menu-icon fa fa-caret-right"></i>
                                     验证码绕过(on server)
                                 </a>
                                 <b class="arrow"></b>
                             </li>
                             <li class="{{index .Active 5}}">
-                                <a href="{{.PikaRoot}}vul/burteforce/bf_client.php">
+                                <a href="{{.PikaRoot}}vul/burteforce/bf_client">
                                     <i class="menu-icon fa fa-caret-right"></i>
                                     验证码绕过(on client)
                                 </a>
                                 <b class="arrow"></b>
                             </li>
                             <li class="{{index .Active 6}}">
-                                <a href="{{.PikaRoot}}vul/burteforce/bf_token.php">
+                                <a href="{{.PikaRoot}}vul/burteforce/bf_token">
                                     <i class="menu-icon fa fa-caret-right"></i>
                                     token防爆破?
                                 </a>
@@ -138,7 +138,7 @@
                         <ul class="submenu">
 
                             <li class="{{index .Active 8}}">
-                                <a href="{{.PikaRoot}}vul/xss/xss.php">
+                                <a href="{{.PikaRoot}}vul/xss/xss">
                                     <i class="menu-icon fa fa-caret-right"></i>
                                     概述
                                 </a>
@@ -147,7 +147,7 @@
 
 
                             <li class="{{index .Active 9}}">
-                                <a href="{{.PikaRoot}}vul/xss/xss_reflected_get.php">
+                                <a href="{{.PikaRoot}}vul/xss/xss_reflected_get">
                                     <i class="menu-icon fa fa-caret-right"></i>
                                     反射型xss(get)
                                 </a>
@@ -157,7 +157,7 @@
 
 
                             <li class="{{index .Active 10}}">
-                                <a href="{{.PikaRoot}}vul/xss/xsspost/post_login.php">
+                                <a href="{{.PikaRoot}}vul/xss/xsspost/post_login">
                                     <i class="menu-icon fa fa-caret-right"></i>
                                     反射型xss(post)
                                 </a>
@@ -166,7 +166,7 @@
 
 
                             <li class="{{index .Active 11}}">
-                                <a href="{{.PikaRoot}}vul/xss/xss_stored.php">
+                                <a href="{{.PikaRoot}}vul/xss/xss_stored">
                                     <i class="menu-icon fa fa-caret-right"></i>
                                     存储型xss
                                 </a>
@@ -175,7 +175,7 @@
 
 
                             <li class="{{index .Active 12}}">
-                                <a href="{{.PikaRoot}}vul/xss/xss_dom.php">
+                                <a href="{{.PikaRoot}}vul/xss/xss_dom">
                                     <i class="menu-icon fa fa-caret-right"></i>
                                     DOM型xss
                                 </a>
@@ -183,7 +183,7 @@
                             </li>
 
                             <li class="{{index .Active 12}}">
-                                <a href="{{.PikaRoot}}vul/xss/xss_dom_x.php">
+                                <a href="{{.PikaRoot}}vul/xss/xss_dom_x">
                                     <i class="menu-icon fa fa-caret-right"></i>
                                     DOM型xss-x
                                 </a>
@@ -191,7 +191,7 @@
                             </li>
 
                             <li class="{{index .Active 13}}">
-                                <a href="{{.PikaRoot}}vul/xss/xssblind/xss_blind.php">
+                                <a href="{{.PikaRoot}}vul/xss/xssblind/xss_blind">
                                     <i class="menu-icon fa fa-caret-right"></i>
                                     xss之盲打
                                 </a>
@@ -199,7 +199,7 @@
                             </li>
 
                             <li class="{{index .Active 14}}">
-                                <a href="{{.PikaRoot}}vul/xss/xss_01.php">
+                                <a href="{{.PikaRoot}}vul/xss/xss_01">
                                     <i class="menu-icon fa fa-caret-right"></i>
                                     xss之过滤
                                 </a>
@@ -207,7 +207,7 @@
                             </li>
 
                             <li class="{{index .Active 15}}">
-                                <a href="{{.PikaRoot}}vul/xss/xss_02.php">
+                                <a href="{{.PikaRoot}}vul/xss/xss_02">
                                     <i class="menu-icon fa fa-caret-right"></i>
                                     xss之htmlspecialchars
                                 </a>
@@ -216,7 +216,7 @@
 
 
                             <li class="{{index .Active 16}}">
-                                <a href="{{.PikaRoot}}vul/xss/xss_03.php">
+                                <a href="{{.PikaRoot}}vul/xss/xss_03">
                                     <i class="menu-icon fa fa-caret-right"></i>
                                     xss之href输出
                                 </a>
@@ -225,7 +225,7 @@
 
 
                             <li class="{{index .Active 17}}">
-                                <a href="{{.PikaRoot}}vul/xss/xss_04.php">
+                                <a href="{{.PikaRoot}}vul/xss/xss_04">
                                     <i class="menu-icon fa fa-caret-right"></i>
                                     xss之js输出
                                 </a>
@@ -246,7 +246,7 @@
                         <ul class="submenu">
 
                             <li class="{{index .Active 26}}">
-                                <a href="{{.PikaRoot}}vul/csrf/csrf.php">
+                                <a href="{{.PikaRoot}}vul/csrf/csrf">
                                     <i class="menu-icon fa fa-caret-right"></i>
                                     概述
                                 </a>
@@ -255,7 +255,7 @@
 
 
                             <li class="{{index .Active 27}}">
-                                <a href="{{.PikaRoot}}vul/csrf/csrfget/csrf_get_login.php">
+                                <a href="{{.PikaRoot}}vul/csrf/csrfget/csrf_get_login">
                                     <i class="menu-icon fa fa-caret-right"></i>
                                     CSRF(get)
                                 </a>
@@ -263,7 +263,7 @@
                             </li>
 
                             <li class="{{index .Active 28}}">
-                                <a href="{{.PikaRoot}}vul/csrf/csrfpost/csrf_post_login.php">
+                                <a href="{{.PikaRoot}}vul/csrf/csrfpost/csrf_post_login">
                                     <i class="menu-icon fa fa-caret-right"></i>
                                     CSRF(post)
                                 </a>
@@ -271,7 +271,7 @@
                             </li>
 
                             <li class="{{index .Active 29}}">
-                                <a href="{{.PikaRoot}}vul/csrf/csrftoken/token_get_login.php">
+                                <a href="{{.PikaRoot}}vul/csrf/csrftoken/token_get_login">
                                     <i class="menu-icon fa fa-caret-right"></i>
                                     CSRF Token
                                 </a>
@@ -294,7 +294,7 @@
                         <ul class="submenu">
 
                             <li class="{{index .Active 36}}">
-                                <a href="{{.PikaRoot}}vul/sqli/sqli.php">
+                                <a href="{{.PikaRoot}}vul/sqli/sqli">
                                     <i class="menu-icon fa fa-caret-right"></i>
                                     概述
                                 </a>
@@ -302,7 +302,7 @@
                             </li>
 
                             <li class="{{index .Active 37}}">
-                                <a href="{{.PikaRoot}}vul/sqli/sqli_id.php">
+                                <a href="{{.PikaRoot}}vul/sqli/sqli_id">
                                     <i class="menu-icon fa fa-caret-right"></i>
                                     数字型注入(post)
                                 </a>
@@ -310,7 +310,7 @@
                             </li>
 
                             <li class="{{index .Active 38}}">
-                                <a href="{{.PikaRoot}}vul/sqli/sqli_str.php">
+                                <a href="{{.PikaRoot}}vul/sqli/sqli_str">
                                     <i class="menu-icon fa fa-caret-right"></i>
                                     字符型注入(get)
                                 </a>
@@ -318,7 +318,7 @@
                             </li>
 
                             <li class="{{index .Active 39}}">
-                                <a href="{{.PikaRoot}}vul/sqli/sqli_search.php">
+                                <a href="{{.PikaRoot}}vul/sqli/sqli_search">
                                     <i class="menu-icon fa fa-caret-right"></i>
                                     搜索型注入
                                 </a>
@@ -326,7 +326,7 @@
                             </li>
 
                             <li class="{{index .Active 40}}">
-                                <a href="{{.PikaRoot}}vul/sqli/sqli_x.php">
+                                <a href="{{.PikaRoot}}vul/sqli/sqli_x">
                                     <i class="menu-icon fa fa-caret-right"></i>
                                     xx型注入
                                 </a>
@@ -334,7 +334,7 @@
                             </li>
 
                             <li class="{{index .Active 41}}">
-                                <a href="{{.PikaRoot}}vul/sqli/sqli_iu/sqli_login.php">
+                                <a href="{{.PikaRoot}}vul/sqli/sqli_iu/sqli_login">
                                     <i class="menu-icon fa fa-caret-right"></i>
                                     "insert/update"注入
                                 </a>
@@ -342,7 +342,7 @@
                             </li>
 
                             <li class="{{index .Active 42}}">
-                                <a href="{{.PikaRoot}}vul/sqli/sqli_del.php">
+                                <a href="{{.PikaRoot}}vul/sqli/sqli_del">
                                     <i class="menu-icon fa fa-caret-right"></i>
                                     "delete"注入
                                 </a>
@@ -351,7 +351,7 @@
 
 
                             <li class="{{index .Active 43}}">
-                                <a href="{{.PikaRoot}}vul/sqli/sqli_header/sqli_header_login.php">
+                                <a href="{{.PikaRoot}}vul/sqli/sqli_header/sqli_header_login">
                                     <i class="menu-icon fa fa-caret-right"></i>
                                     "http header"注入
                                 </a>
@@ -360,7 +360,7 @@
 
 
                             <li class="{{index .Active 44}}">
-                                <a href="{{.PikaRoot}}vul/sqli/sqli_blind_b.php">
+                                <a href="{{.PikaRoot}}vul/sqli/sqli_blind_b">
                                     <i class="menu-icon fa fa-caret-right"></i>
                                     盲注(base on boolian)
                                 </a>
@@ -368,7 +368,7 @@
                             </li>
 
                             <li class="{{index .Active 45}}">
-                                <a href="{{.PikaRoot}}vul/sqli/sqli_blind_t.php">
+                                <a href="{{.PikaRoot}}vul/sqli/sqli_blind_t">
                                     <i class="menu-icon fa fa-caret-right"></i>
                                     盲注(base on time)
                                 </a>
@@ -376,7 +376,7 @@
                             </li>
 
                             <li class="{{index .Active 46}}">
-                                <a href="{{.PikaRoot}}vul/sqli/sqli_widebyte.php">
+                                <a href="{{.PikaRoot}}vul/sqli/sqli_widebyte">
                                     <i class="menu-icon fa fa-caret-right"></i>
                                     宽字节注入
                                 </a>
@@ -399,8 +399,8 @@
                         <ul class="submenu">
 
                             <li class="{{index .Active 51}}">
-                                <!-- <a href="{{.PikaRoot}}vul/rce/rce.php"> -->
-                                <a href="{{.PikaRoot}}vul/rce/rce.html">
+                                <!-- <a href="{{.PikaRoot}}vul/rce/rce"> -->
+                                <a href="{{.PikaRoot}}vul/rce/rce">
                                     <i class="menu-icon fa fa-caret-right"></i>
                                     概述
                                 </a>
@@ -408,7 +408,7 @@
                             </li>
 
                             <li class="{{index .Active 52}}">
-                                <a href="{{.PikaRoot}}vul/rce/rce_ping.php">
+                                <a href="{{.PikaRoot}}vul/rce/rce_ping">
                                     <i class="menu-icon fa fa-caret-right"></i>
                                     exec "ping"
                                 </a>
@@ -416,7 +416,7 @@
                             </li>
 
                             <li class="{{index .Active 53}}">
-                                <a href="{{.PikaRoot}}vul/rce/rce_eval.php">
+                                <a href="{{.PikaRoot}}vul/rce/rce_eval">
                                     <i class="menu-icon fa fa-caret-right"></i>
                                     exec "evel"
                                 </a>
@@ -438,7 +438,7 @@
                         <ul class="submenu">
 
                             <li class="{{index .Active 56}}">
-                                <a href="{{.PikaRoot}}vul/fileinclude/fileinclude.php">
+                                <a href="{{.PikaRoot}}vul/fileinclude/fileinclude">
                                     <i class="menu-icon fa fa-caret-right"></i>
                                     概述
                                 </a>
@@ -446,7 +446,7 @@
                             </li>
 
                             <li class="{{index .Active 57}}">
-                                <a href="{{.PikaRoot}}vul/fileinclude/fi_local.php">
+                                <a href="{{.PikaRoot}}vul/fileinclude/fi_local">
                                     <i class="menu-icon fa fa-caret-right"></i>
                                     File Inclusion(local)
                                 </a>
@@ -454,7 +454,7 @@
                             </li>
 
                             <li class="{{index .Active 58}}">
-                                <a href="{{.PikaRoot}}vul/fileinclude/fi_remote.php">
+                                <a href="{{.PikaRoot}}vul/fileinclude/fi_remote">
                                     <i class=" menu-icon fa fa-caret-right"></i>
                                     File Inclusion(remote)
                                 </a>
@@ -477,7 +477,7 @@
                         <ul class="submenu">
 
                             <li class="{{index .Active 61}}">
-                                <a href="{{.PikaRoot}}vul/unsafedownload/unsafedownload.php">
+                                <a href="{{.PikaRoot}}vul/unsafedownload/unsafedownload">
                                     <i class="menu-icon fa fa-caret-right"></i>
                                     概述
                                 </a>
@@ -485,7 +485,7 @@
                             </li>
 
                             <li class="{{index .Active 62}}">
-                                <a href="{{.PikaRoot}}vul/unsafedownload/down_nba.php">
+                                <a href="{{.PikaRoot}}vul/unsafedownload/down_nba">
                                     <i class="menu-icon fa fa-caret-right"></i>
                                     Unsafe Filedownload
                                 </a>
@@ -507,7 +507,7 @@
                         <ul class="submenu">
 
                             <li class="{{index .Active 66}}">
-                                <a href="{{.PikaRoot}}vul/unsafeupload/upload.php">
+                                <a href="{{.PikaRoot}}vul/unsafeupload/upload">
                                     <i class="menu-icon fa fa-caret-right"></i>
                                     概述
                                 </a>
@@ -516,7 +516,7 @@
 
 
                             <li class="{{index .Active 67}}">
-                                <a href="{{.PikaRoot}}vul/unsafeupload/clientcheck.php">
+                                <a href="{{.PikaRoot}}vul/unsafeupload/clientcheck">
                                     <i class="menu-icon fa fa-caret-right"></i>
                                     client check
                                 </a>
@@ -524,7 +524,7 @@
                             </li>
 
                             <li class="{{index .Active 68}}">
-                                <a href="{{.PikaRoot}}vul/unsafeupload/servercheck.php">
+                                <a href="{{.PikaRoot}}vul/unsafeupload/servercheck">
                                     <i class="menu-icon fa fa-caret-right"></i>
                                     MIME type
                                 </a>
@@ -532,7 +532,7 @@
                             </li>
 
                             <li class="{{index .Active 69}}">
-                                <a href="{{.PikaRoot}}vul/unsafeupload/getimagesize.php">
+                                <a href="{{.PikaRoot}}vul/unsafeupload/getimagesize">
                                     <i class="menu-icon fa fa-caret-right"></i>
                                     getimagesize
                                 </a>
@@ -554,7 +554,7 @@
                         <ul class="submenu">
 
                             <li class="{{index .Active 74}}">
-                                <a href="{{.PikaRoot}}vul/overpermission/op.php">
+                                <a href="{{.PikaRoot}}vul/overpermission/op">
                                     <i class="menu-icon fa fa-caret-right"></i>
                                     概述
                                 </a>
@@ -562,7 +562,7 @@
                             </li>
 
                             <li class="{{index .Active 75}}">
-                                <a href="{{.PikaRoot}}vul/overpermission/op1/op1_login.php">
+                                <a href="{{.PikaRoot}}vul/overpermission/op1/op1_login">
                                     <i class="menu-icon fa fa-caret-right"></i>
                                     水平越权
                                 </a>
@@ -570,7 +570,7 @@
                             </li>
 
                             <li class="{{index .Active 76}}">
-                                <a href="{{.PikaRoot}}vul/overpermission/op2/op2_login.php">
+                                <a href="{{.PikaRoot}}vul/overpermission/op2/op2_login">
                                     <i class="menu-icon fa fa-caret-right"></i>
                                     垂直越权
                                 </a>
@@ -593,7 +593,7 @@
                         <ul class="submenu">
 
                             <li class="{{index .Active 81}}">
-                                <a href="{{.PikaRoot}}vul/dir/dir.php">
+                                <a href="{{.PikaRoot}}vul/dir/dir">
                                     <i class="menu-icon fa fa-caret-right"></i>
                                     概述
                                 </a>
@@ -601,7 +601,7 @@
                             </li>
 
                             <li class="{{index .Active 82}}">
-                                <a href="{{.PikaRoot}}vul/dir/dir_list.php">
+                                <a href="{{.PikaRoot}}vul/dir/dir_list">
                                     <i class="menu-icon fa fa-caret-right"></i>
                                     目录遍历
                                 </a>
@@ -623,7 +623,7 @@
                         <ul class="submenu">
 
                             <li class="{{index .Active 86}}">
-                                <a href="{{.PikaRoot}}vul/infoleak/infoleak.php">
+                                <a href="{{.PikaRoot}}vul/infoleak/infoleak">
                                     <i class="menu-icon fa fa-caret-right"></i>
                                     概述
                                 </a>
@@ -632,7 +632,7 @@
 
 
                             <li class="{{index .Active 87}}">
-                                <a href="{{.PikaRoot}}vul/infoleak/findabc.php">
+                                <a href="{{.PikaRoot}}vul/infoleak/findabc">
                                     <i class="menu-icon fa fa-caret-right"></i>
                                     IcanseeyourABC
                                 </a>
@@ -655,7 +655,7 @@
                         <ul class="submenu">
 
                             <li class="{{index .Active 91}}">
-                                <a href="{{.PikaRoot}}vul/unserilization/unserilization.php">
+                                <a href="{{.PikaRoot}}vul/unserilization/unserilization">
                                     <i class="menu-icon fa fa-caret-right"></i>
                                     概述
                                 </a>
@@ -663,7 +663,7 @@
                             </li>
 
                             <li class="{{index .Active 92}}">
-                                <a href="{{.PikaRoot}}vul/unserilization/unser.php">
+                                <a href="{{.PikaRoot}}vul/unserilization/unser">
                                     <i class="menu-icon fa fa-caret-right"></i>
                                     PHP反序列化漏洞
                                 </a>
@@ -686,7 +686,7 @@
                         <ul class="submenu">
 
                             <li class="{{index .Active 96}}">
-                                <a href="{{.PikaRoot}}vul/xxe/xxe.php">
+                                <a href="{{.PikaRoot}}vul/xxe/xxe">
                                     <i class="menu-icon fa fa-caret-right"></i>
                                     概述
                                 </a>
@@ -694,7 +694,7 @@
                             </li>
 
                             <li class="{{index .Active 97}}">
-                                <a href="{{.PikaRoot}}vul/xxe/xxe_1.php">
+                                <a href="{{.PikaRoot}}vul/xxe/xxe_1">
                                     <i class="menu-icon fa fa-caret-right"></i>
                                     XXE漏洞
                                 </a>
@@ -716,7 +716,7 @@
                         <ul class="submenu">
 
                             <li class="{{index .Active 101}}">
-                                <a href="{{.PikaRoot}}vul/urlredirect/unsafere.php">
+                                <a href="{{.PikaRoot}}vul/urlredirect/unsafere">
                                     <i class="menu-icon fa fa-caret-right"></i>
                                     概述
                                 </a>
@@ -724,7 +724,7 @@
                             </li>
 
                             <li class="{{index .Active 102}}">
-                                <a href="{{.PikaRoot}}vul/urlredirect/urlredirect.php">
+                                <a href="{{.PikaRoot}}vul/urlredirect/urlredirect">
                                     <i class="menu-icon fa fa-caret-right"></i>
                                     不安全的URL跳转
                                 </a>
@@ -746,7 +746,7 @@
                         <ul class="submenu">
 
                             <li class="{{index .Active 106}}">
-                                <a href="{{.PikaRoot}}vul/ssrf/ssrf.php">
+                                <a href="{{.PikaRoot}}vul/ssrf/ssrf">
                                     <i class="menu-icon fa fa-caret-right"></i>
                                     概述
                                 </a>
@@ -754,7 +754,7 @@
                             </li>
 
                             <li class="{{index .Active 107}}">
-                                <a href="{{.PikaRoot}}vul/ssrf/ssrf_curl.php">
+                                <a href="{{.PikaRoot}}vul/ssrf/ssrf_curl">
                                     <i class="menu-icon fa fa-caret-right"></i>
                                     SSRF(curl)
                                 </a>
@@ -762,7 +762,7 @@
                             </li>
 
                             <li class="{{index .Active 108}}">
-                                <a href="{{.PikaRoot}}vul/ssrf/ssrf_fgc.php">
+                                <a href="{{.PikaRoot}}vul/ssrf/ssrf_fgc">
                                     <i class="menu-icon fa fa-caret-right"></i>
                                     SSRF(file_get_content)
                                 </a>
@@ -787,7 +787,7 @@
                         <ul class="submenu">
 
                             <li class="{{index .Active 121}}">
-                                <a href="{{.PikaRoot}}pkxss/index.php">
+                                <a href="{{.PikaRoot}}pkxss/index">
                                     <i class="menu-icon fa fa-caret-right"></i>
                                     XSS后台
                                 </a>

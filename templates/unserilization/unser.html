@@ -1,0 +1,25 @@
+{{define "unserilization/unser.html"}}
+<div class="main-content">
+    <div class="main-content-inner">
+        <div class="breadcrumbs ace-save-state" id="breadcrumbs">
+            <ul class="breadcrumb">
+                <li>
+                    <i class="ace-icon fa fa-home home-icon"></i>
+                    <a href="/vul/unserilization/unserilization">unserialize</a>
+                </li>
+                <li class="active">反序列化测试</li>
+            </ul>
+        </div>
+
+        <div class="page-content">
+            <h3>请输入 PHP 的序列化字符串</h3>
+            <form method="post">
+                <textarea name="txt" rows="5" cols="80"></textarea><br />
+                <input type="submit" name="submit" value="提交" />
+            </form>
+
+            <div style="margin-top:20px;">{{.HtmlMsg}}</div>
+        </div>
+    </div>
+</div>
+{{end}}

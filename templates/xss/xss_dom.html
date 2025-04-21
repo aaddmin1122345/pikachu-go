@@ -1,0 +1,13 @@
+<div class="main-content">
+    <div class="main-content-inner">
+        <div class="page-content">
+            <div class="vul info">
+                <h3>DOM XSS 示例</h3>
+                <p id="xss">这里将输出你 URL 的 # 参数</p>
+                <script>
+                    document.getElementById("xss").innerHTML = location.hash;
+                </script>
+            </div>
+        </div>
+    </div>
+</div>

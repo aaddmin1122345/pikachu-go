@@ -1,0 +1,31 @@
+{{define "fileinclude/fi_remote.html"}}
+<div class="main-content">
+    <div class="main-content-inner">
+        <div class="breadcrumbs ace-save-state" id="breadcrumbs">
+            <ul class="breadcrumb">
+                <li>
+                    <i class="ace-icon fa fa-home home-icon"></i>
+                    <a href="/vul/fileinclude/fileinclude">文件包含</a>
+                </li>
+                <li class="active">远程文件包含</li>
+            </ul>
+        </div>
+
+        <div class="page-content">
+            <div class="page-header">
+                <h1>远程文件包含测试</h1>
+            </div>
+
+            <form method="get">
+                远程文件 URL：<br />
+                <input type="text" name="file" style="width: 400px;" />
+                <input type="submit" value="包含远程文件" />
+            </form>
+
+            <div style="margin-top: 10px;">
+                {{.HtmlMsg}}
+            </div>
+        </div>
+    </div>
+</div>
+{{end}}

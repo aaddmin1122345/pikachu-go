@@ -1,0 +1,33 @@
+{{define "dir/dir.html"}}
+<h1 class="blue">目录遍历漏洞概述</h1>
+
+<div class="breadcrumbs" id="breadcrumbs">
+    <ul class="breadcrumb">
+        <li><i class="ace-icon fa fa-home home-icon"></i><a href="/">首页</a></li>
+        <li><a href="#">目录遍历</a></li>
+        <li class="active">概述</li>
+    </ul>
+</div>
+
+<div class="page-content">
+    <div id="vul_info">
+        <dl>
+            <dt class="vul_title">目录遍历漏洞概述</dt>
+            <dd class="vul_detail">
+                在web功能设计中,很多时候我们会要将需要访问的文件定义成变量，从而让前端的功能变得更加灵活。
+                当用户发起请求时，如果后台没有对用户传入的文件路径做安全校验，就可能导致通过"../"的方式遍历系统文件，造成目录遍历漏洞。
+            </dd>
+            <dd class="vul_detail">
+                如果请求的是不带参数的 URL（如：http://xxxx/doc）直接列出了 doc 文件夹，这属于敏感信息泄露，不算目录遍历漏洞。
+            </dd>
+            <dd class="vul_detail">
+                快试试"../../"的方式进行路径遍历吧！
+            </dd>
+        </dl>
+    </div>
+
+    <div class="vul_output">
+        {{.HtmlMsg}}
+    </div>
+</div>
+{{end}}

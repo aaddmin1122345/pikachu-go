@@ -1,0 +1,24 @@
+<div class="main-content">
+    <div class="main-content-inner">
+        <div class="breadcrumbs ace-save-state" id="breadcrumbs">
+            <ul class="breadcrumb">
+                <li><a href="/">首页</a></li>
+                <li class="active">XSS 模拟 - {{ .HtmlMsg }}</li>
+            </ul>
+        </div>
+        <div class="page-content">
+            <div class="vul info">
+                <form method="get">
+                    <label>请输入：</label>
+                    <input type="text" name="keyword" style="width:300px">
+                    <input type="submit" value="提交">
+                </form>
+                <br>
+                <strong>结果输出：</strong>
+                <div style="padding:10px;border:1px solid #ccc;margin-top:5px;">
+                    {{ .HtmlMsg }}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
