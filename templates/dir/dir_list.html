@@ -1,17 +1,26 @@
 {{define "dir/dir_list.html"}}
 <div class="main-content">
     <div class="main-content-inner">
-        <div class="breadcrumbs ace-save-state">
+        <div class="breadcrumbs ace-save-state" id="breadcrumbs">
             <ul class="breadcrumb">
-                <li><a href="/vul/dir/dir_list">目录页面</a></li>
-                <li class="active">影片列表</li>
+                <li><a href="/vul/dir/dir">目录遍历</a></li>
+                <li class="active">../../</li>
             </ul>
+            <a href="#" style="float:right" data-container="body" data-toggle="popover" data-placement="bottom"
+                title="tips(再点一下关闭)" data-content="先好好读一下这两篇小短文在继续学习吧..">
+                点一下提示~
+            </a>
         </div>
+
         <div class="page-content">
-            <ul>
-                <li><a href="/vul/dir/dir_list?title=jarheads">血战钢锯岭</a></li>
-                <li><a href="/vul/dir/dir_list?title=truman">楚门的世界</a></li>
-            </ul>
+            <div id="dt_main">
+                <p class="dt_title">(1)it's time to get up!</p>
+                <a class="dt_title" href="/vul/dir/dir_list?title=jarheads">we're jarheads!</a>
+                <p class="dt_title">(2)it's time to say goodbye!</p>
+                <a class="dt_title" href="/vul/dir/dir_list?title=truman">Truman's world!</a>
+                <hr>
+                <div>{{.HtmlMsg}}</div>
+            </div>
         </div>
     </div>
 </div>

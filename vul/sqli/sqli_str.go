@@ -48,7 +48,7 @@ func SqliStrHandler(renderer templates.Renderer) http.HandlerFunc {
 			}
 		}
 
-		data := templates.NewPageData2(3, 10, result)
+		data := templates.NewPageData2(60, 62, result)
 		renderer.RenderPage(w, "sqli/sqli_str.html", data)
 	}
 }
