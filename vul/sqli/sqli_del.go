@@ -36,7 +36,7 @@ func SqliDelHandler(renderer templates.Renderer) http.HandlerFunc {
 			result = fmt.Sprintf("成功删除 ID：%s", id)
 		}
 
-		data := templates.NewPageData2(3, 7, result)
+		data := templates.NewPageData2(35, 42, result)
 		renderer.RenderPage(w, "sqli/sqli_del.html", data)
 	}
 }

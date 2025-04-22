@@ -30,20 +30,20 @@ func SqliBlindBHandler(renderer templates.Renderer) http.HandlerFunc {
 			query := fmt.Sprintf("SELECT 1 FROM users WHERE username = '%s' AND password = '123456'", input)
 			rows, err := db.Query(query)
 			if err != nil {
-				http.Error(w, "查询错误", http.StatusInternalServerError)
-				return
-			}
-			defer rows.Close()
-
-			// 根据查询结果判断
-			if rows.Next() {
-				result = "True, 用户名存在！"
+				result = `<p style="color:red">查询错误: ` + err.Error() + `</p>`
 			} else {
-				result = "False, 用户名不存在。"
+				defer rows.Close()
+
+				// 根据查询结果判断
+				if rows.Next() {
+					result = "True, 用户名存在！"
+				} else {
+					result = "False, 用户名不存在。"
+				}
 			}
 		}
 
-		data := templates.NewPageData2(3, 5, result)
+		data := templates.NewPageData2(35, 44, result)
 		renderer.RenderPage(w, "sqli/sqli_blind_b.html", data)
 	}
 }

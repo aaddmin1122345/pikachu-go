@@ -30,7 +30,7 @@ func BfTokenHandler(renderer templates.Renderer) http.HandlerFunc {
 		}
 
 		hiddenToken := `<input type="hidden" name="token" value="` + sessionToken + `" />`
-		data := templates.NewPageData2(12, 17, msg+hiddenToken)
+		data := templates.NewPageData2(1, 6, msg+hiddenToken)
 		renderer.RenderPage(w, "burteforce/bf_token.html", data)
 	}
 }

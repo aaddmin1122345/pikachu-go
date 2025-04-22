@@ -20,7 +20,7 @@ func BfClientHandler(renderer templates.Renderer) http.HandlerFunc {
 			}
 		}
 
-		data := templates.NewPageData2(12, 15, msg)
+		data := templates.NewPageData2(1, 5, msg)
 		renderer.RenderPage(w, "burteforce/bf_client.html", data)
 	}
 }

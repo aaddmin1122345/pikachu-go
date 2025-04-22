@@ -51,7 +51,7 @@ func SqliBlindTHandler(renderer templates.Renderer) http.HandlerFunc {
 			}
 		}
 
-		data := templates.NewPageData2(3, 6, result)
+		data := templates.NewPageData2(35, 45, result)
 		renderer.RenderPage(w, "sqli/sqli_blind_t.html", data)
 	}
 }

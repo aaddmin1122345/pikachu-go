@@ -23,8 +23,8 @@ func TokenGetLoginHandler(renderer templates.Renderer) http.HandlerFunc {
 			msg = "登录成功，已生成 token"
 		}
 
-		data := templates.NewPageData2(2, 16, msg)
-		renderer.RenderPage(w, "csrf/csrftoken/token_get_login.html", data)
+		data := templates.NewPageData2(25, 29, msg)
+		renderer.RenderPage(w, "csrf/csrftoken/token_get_login.php", data)
 	}
 	// token 可加盐处理，这里简化为随机数字
 }

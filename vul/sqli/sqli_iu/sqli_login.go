@@ -34,13 +34,13 @@ func SqliLoginHandler(renderer templates.Renderer) http.HandlerFunc {
 					Value: username,
 					Path:  "/",
 				})
-				http.Redirect(w, r, "/vul/sqli/sqli_mem", http.StatusFound)
+				http.Redirect(w, r, "/vul/sqli/sqli_iu/sqli_mem", http.StatusFound)
 				return
 			}
 			msg = "登录失败"
 		}
 
-		data := templates.NewPageData2(3, 12, msg)
-		renderer.RenderPage(w, "sqli/sqli_login.html", data)
+		data := templates.NewPageData2(35, 41, msg)
+		renderer.RenderPage(w, "sqli/sqli_iu/sqli_login.html", data)
 	}
 }

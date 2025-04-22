@@ -16,7 +16,7 @@ func CsrfPostLoginHandler(renderer templates.Renderer) http.HandlerFunc {
 			http.SetCookie(w, &http.Cookie{Name: "csrf_post_nick", Value: nick, Path: "/"})
 			msg = "登录成功"
 		}
-		data := templates.NewPageData2(2, 15, msg)
-		renderer.RenderPage(w, "csrf/csrfpost/csrf_post_login.html", data)
+		data := templates.NewPageData2(25, 28, msg)
+		renderer.RenderPage(w, "csrf/csrfpost/csrf_post_login.php", data)
 	}
 }

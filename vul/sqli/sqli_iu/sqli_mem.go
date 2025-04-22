@@ -15,7 +15,7 @@ func SqliMemHandler(renderer templates.Renderer) http.HandlerFunc {
 			msg = "欢迎你，" + cookie.Value
 		}
 
-		data := templates.NewPageData2(3, 12, msg)
-		renderer.RenderPage(w, "sqli/sqli_mem.html", data)
+		data := templates.NewPageData2(35, 41, msg)
+		renderer.RenderPage(w, "sqli/sqli_iu/sqli_mem.html", data)
 	}
 }

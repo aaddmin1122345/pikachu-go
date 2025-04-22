@@ -18,7 +18,7 @@ func CsrfPostHandler(renderer templates.Renderer) http.HandlerFunc {
 			<input type="submit" value="提交修改">
 		</form>
 		`
-		data := templates.NewPageData2(2, 15, html)
-		renderer.RenderPage(w, "csrf/csrfpost/csrf_post.html", data)
+		data := templates.NewPageData2(25, 28, html)
+		renderer.RenderPage(w, "csrf/csrfpost/csrf_post.php", data)
 	}
 }

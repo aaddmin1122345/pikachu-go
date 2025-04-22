@@ -36,7 +36,7 @@ func SqliEditHandler(renderer templates.Renderer) http.HandlerFunc {
 			result = fmt.Sprintf("成功修改昵称为：%s", nickname)
 		}
 
-		data := templates.NewPageData2(3, 14, result)
-		renderer.RenderPage(w, "sqli/sqli_edit.html", data)
+		data := templates.NewPageData2(35, 41, result)
+		renderer.RenderPage(w, "sqli/sqli_iu/sqli_edit.html", data)
 	}
 }

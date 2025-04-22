@@ -16,7 +16,7 @@ func TokenGetHandler(renderer templates.Renderer) http.HandlerFunc {
 		<p>你好：` + user.Value + `（` + nick.Value + `）</p>
 		<p><a href='/vul/csrf/csrftoken/token_get_edit?nickname=test&token=` + token.Value + `'>修改昵称（带 token）</a></p>
 		`
-		data := templates.NewPageData2(2, 16, html)
-		renderer.RenderPage(w, "csrf/csrftoken/token_get.html", data)
+		data := templates.NewPageData2(25, 29, html)
+		renderer.RenderPage(w, "csrf/csrftoken/token_get.php", data)
 	}
 }

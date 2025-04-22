@@ -1,17 +1,28 @@
 <div class="main-content">
     <div class="main-content-inner">
+        <div class="breadcrumbs ace-save-state" id="breadcrumbs">
+            <ul class="breadcrumb">
+                <li>
+                    <i class="ace-icon fa fa-home home-icon"></i>
+                    <a href="{{.PikaRoot}}vul/xss/xss">xss</a>
+                </li>
+                <li class="active">反射型xss(get)</li>
+            </ul><!-- /.breadcrumb -->
+
+            <a href="#" style="float:right" data-container="body" data-toggle="popover" data-placement="bottom"
+                title="tips(再点一下关闭)" data-content="管tmd什么xss,首先你应该输入kobe看一下再说">
+                点一下提示~
+            </a>
+
+        </div>
         <div class="page-content">
-            <div class="vul info">
+            <div id="xssr_main">
+                <p class="xssr_title">Which NBA player do you like?</p>
                 <form method="get">
-                    <label>请输入内容（GET反射）:</label>
-                    <input type="text" name="keyword">
-                    <input type="submit" value="提交">
+                    <input class="xssr_in" type="text" maxlength="20" name="message" />
+                    <input class="xssr_submit" type="submit" name="submit" value="submit" />
                 </form>
-                <br>
-                <strong>结果：</strong>
-                <div style="padding:10px;border:1px solid #ccc;margin-top:5px;">
-                    {{ .HtmlMsg }}
-                </div>
+                {{ .HtmlMsg }}
             </div>
         </div>
     </div>

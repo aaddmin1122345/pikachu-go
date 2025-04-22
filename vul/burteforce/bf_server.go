@@ -40,7 +40,7 @@ func BfServerHandler(renderer templates.Renderer) http.HandlerFunc {
 			Path:  "/",
 		})
 
-		data := templates.NewPageData2(12, 16, msg)
+		data := templates.NewPageData2(1, 4, msg)
 		renderer.RenderPage(w, "burteforce/bf_server.html", data)
 	}
 }

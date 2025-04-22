@@ -47,7 +47,7 @@ func SqliHeaderHandler(renderer templates.Renderer) http.HandlerFunc {
 			}
 		}
 
-		data := templates.NewPageData2(3, 13, result)
-		renderer.RenderPage(w, "sqli/sqli_header.html", data)
+		data := templates.NewPageData2(35, 43, result)
+		renderer.RenderPage(w, "sqli/sqli_header/sqli_header.html", data)
 	}
 }

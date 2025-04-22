@@ -47,7 +47,7 @@ func SqliXHandler(renderer templates.Renderer) http.HandlerFunc {
 			}
 		}
 
-		data := templates.NewPageData2(3, 12, result)
+		data := templates.NewPageData2(35, 40, result)
 		renderer.RenderPage(w, "sqli/sqli_x.html", data)
 	}
 }

@@ -16,7 +16,7 @@ func SqliWidebyteHandler(renderer templates.Renderer) http.HandlerFunc {
 			result = "注入的字节：" + input
 		}
 
-		data := templates.NewPageData2(3, 11, result)
+		data := templates.NewPageData2(35, 46, result)
 		renderer.RenderPage(w, "sqli/sqli_widebyte.html", data)
 	}
 }

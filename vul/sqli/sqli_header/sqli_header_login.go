@@ -37,7 +37,7 @@ func SqliHeaderLoginHandler(renderer templates.Renderer) http.HandlerFunc {
 			}
 		}
 
-		data := templates.NewPageData2(3, 11, result)
-		renderer.RenderPage(w, "sqli/sqli_header_login.html", data)
+		data := templates.NewPageData2(35, 43, result)
+		renderer.RenderPage(w, "sqli/sqli_header/sqli_header_login.html", data)
 	}
 }

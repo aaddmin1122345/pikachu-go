@@ -193,11 +193,12 @@ func main() {
 	http.HandleFunc("/vul/sqli/sqli_str", sqli.SqliStrHandler(renderer))
 	http.HandleFunc("/vul/sqli/sqli_widebyte", sqli.SqliWidebyteHandler(renderer))
 	http.HandleFunc("/vul/sqli/sqli_x", sqli.SqliXHandler(renderer))
-	http.HandleFunc("/vul/sqli/sqli_header", sqliheader.SqliHeaderHandler(renderer))
-	http.HandleFunc("/vul/sqli/sqli_header_login", sqliheader.SqliHeaderLoginHandler(renderer))
+	http.HandleFunc("/vul/sqli/sqli_header/sqli_header", sqliheader.SqliHeaderHandler(renderer))
+	http.HandleFunc("/vul/sqli/sqli_header/sqli_header_login", sqliheader.SqliHeaderLoginHandler(renderer))
 	http.HandleFunc("/vul/sqli/sqli_iu/sqli_login", sqliiu.SqliLoginHandler(renderer))
 	http.HandleFunc("/vul/sqli/sqli_iu/sqli_mem", sqliiu.SqliMemHandler(renderer))
 	http.HandleFunc("/vul/sqli/sqli_iu/sqli_reg", sqliiu.SqliRegHandler(renderer))
+	http.HandleFunc("/vul/sqli/sqli_iu/sqli_edit", sqliiu.SqliEditHandler(renderer))
 
 	// 启动服务
 	log.Println("服务器启动于 http://localhost:8888")

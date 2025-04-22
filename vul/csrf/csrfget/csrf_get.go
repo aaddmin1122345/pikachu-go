@@ -21,7 +21,7 @@ func CsrfGetHandler(renderer templates.Renderer) http.HandlerFunc {
 		<p>你好：` + user + `(` + nick + `)</p>
 		<p><a href='/vul/csrf/csrfget/csrf_get_edit?nickname=test'>修改昵称</a></p>
 		`
-		data := templates.NewPageData2(2, 14, html)
+		data := templates.NewPageData2(25, 27, html)
 		renderer.RenderPage(w, "csrf/csrfget/csrf_get.php", data)
 	}
 }

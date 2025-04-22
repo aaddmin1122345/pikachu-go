@@ -20,7 +20,7 @@ func BfFormHandler(renderer templates.Renderer) http.HandlerFunc {
 			}
 		}
 
-		data := templates.NewPageData2(12, 14, msg)
+		data := templates.NewPageData2(1, 3, msg)
 		renderer.RenderPage(w, "burteforce/bf_form.html", data)
 	}
 }

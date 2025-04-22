@@ -33,7 +33,7 @@ func SqliRegHandler(renderer templates.Renderer) http.HandlerFunc {
 			}
 		}
 
-		data := templates.NewPageData2(3, 12, msg)
-		renderer.RenderPage(w, "sqli/sqli_reg.html", data)
+		data := templates.NewPageData2(35, 41, msg)
+		renderer.RenderPage(w, "sqli/sqli_iu/sqli_reg.html", data)
 	}
 }

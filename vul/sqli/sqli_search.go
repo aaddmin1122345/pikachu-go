@@ -46,7 +46,7 @@ func SqliSearchHandler(renderer templates.Renderer) http.HandlerFunc {
 			}
 		}
 
-		data := templates.NewPageData2(3, 9, result)
+		data := templates.NewPageData2(35, 39, result)
 		renderer.RenderPage(w, "sqli/sqli_search.html", data)
 	}
 }
