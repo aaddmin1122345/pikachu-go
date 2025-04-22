@@ -25,7 +25,7 @@ func SsrfCurlHandler(renderer templates.Renderer) http.HandlerFunc {
 			}
 		}
 
-		data := templates.NewPageData2(60, 62, result)
+		data := templates.NewPageData2(105, 107, result)
 		renderer.RenderPage(w, "ssrf/ssrf_curl.html", data)
 	}
 }

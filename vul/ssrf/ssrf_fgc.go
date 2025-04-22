@@ -25,7 +25,7 @@ func SsrfFgcHandler(renderer templates.Renderer) http.HandlerFunc {
 			}
 		}
 
-		data := templates.NewPageData2(60, 63, result)
+		data := templates.NewPageData2(105, 108, result)
 		renderer.RenderPage(w, "ssrf/ssrf_fgc.html", data)
 	}
 }
