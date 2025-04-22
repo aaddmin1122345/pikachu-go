@@ -18,6 +18,6 @@ func CsrfGetLoginHandler(renderer templates.Renderer) http.HandlerFunc {
 		}
 
 		data := templates.NewPageData2(25, 27, msg)
-		renderer.RenderPage(w, "csrf/csrfget/csrf_get_login.php", data)
+		renderer.RenderPage(w, "csrf/csrfget/csrf_get_login.html", data)
 	}
 }

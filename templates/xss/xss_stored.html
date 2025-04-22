@@ -1,15 +1,109 @@
 <div class="main-content">
     <div class="main-content-inner">
+        <div class="breadcrumbs ace-save-state" id="breadcrumbs">
+            <ul class="breadcrumb">
+                <li>
+                    <i class="ace-icon fa fa-home home-icon"></i>
+                    <a href="{{.PikaRoot}}vul/xss/xss">xss</a>
+                </li>
+                <li class="active">存储型xss</li>
+            </ul><!-- /.breadcrumb -->
+
+            <a href="#" style="float:right" data-container="body" data-toggle="popover" data-placement="bottom"
+                title="tips(再点一下关闭)" data-content="无用提示:这个留言板的框框是可以拉长和拉宽的,还行不,大兄弟!">
+                点一下提示~
+            </a>
+        </div>
         <div class="page-content">
-            <div class="vul info">
+            <style>
+                #xsss_main {
+                    width: 80%;
+                    margin: 0 auto;
+                    margin-top: 50px;
+                    border: 1px solid #ddd;
+                    padding: 20px;
+                    border-radius: 5px;
+                }
+
+                .xsss_title {
+                    font-size: 18px;
+                    margin-bottom: 20px;
+                    color: #428bca;
+                }
+
+                .xsss_in {
+                    width: 80%;
+                    height: 100px;
+                    padding: 10px;
+                    border: 1px solid #ccc;
+                    border-radius: 3px;
+                    resize: both;
+                }
+
+                .xsss_submit {
+                    padding: 5px 15px;
+                    background-color: #337ab7;
+                    border: none;
+                    color: white;
+                    cursor: pointer;
+                    border-radius: 3px;
+                    margin-top: 10px;
+                }
+
+                #show_message {
+                    margin-top: 20px;
+                }
+
+                .line {
+                    font-weight: bold;
+                    border-bottom: 1px solid #eee;
+                    padding-bottom: 5px;
+                }
+
+                .con {
+                    padding: 10px 0;
+                    margin: 5px 0;
+                    border-bottom: 1px dashed #eee;
+                }
+
+                #op_notice {
+                    color: red;
+                    font-weight: bold;
+                }
+
+                /* 新增样式 */
+                .message-item {
+                    border-bottom: 1px solid #eee;
+                    padding: 10px 0;
+                    margin-bottom: 15px;
+                }
+
+                .message-meta {
+                    font-size: 12px;
+                    color: #888;
+                    margin-top: 5px;
+                    text-align: right;
+                }
+
+                #show_message a {
+                    color: #337ab7;
+                    text-decoration: none;
+                }
+
+                #show_message a:hover {
+                    text-decoration: underline;
+                }
+            </style>
+            <div id="xsss_main">
+                <p class="xsss_title">我是一个留言板：</p>
                 <form method="post">
-                    <label>发表留言（存储型XSS）:</label><br>
-                    <textarea name="msg" rows="3" cols="50"></textarea><br>
-                    <input type="submit" value="提交">
+                    <textarea class="xsss_in" name="message"></textarea><br />
+                    <input class="xsss_submit" type="submit" name="submit" value="submit" />
                 </form>
-                <hr>
-                <strong>留言墙:</strong><br>
-                <div style="padding:10px;border:1px solid #ccc;margin-top:5px;">
+                <div id="show_message">
+                    <br />
+                    <br />
+                    <p class="line">留言列表：</p>
                     {{ .HtmlMsg }}
                 </div>
             </div>

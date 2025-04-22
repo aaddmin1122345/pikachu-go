@@ -7,7 +7,7 @@ import (
 
 func XssBlindHandler(renderer templates.Renderer) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
-		data := templates.NewPageData2(7, 19, "")
-		renderer.RenderPage(w, "xss/xss_blind.html", data)
+		data := templates.NewPageData2(7, 14, "")
+		renderer.RenderPage(w, "xss/xssblind/xss_blind.html", data)
 	}
 }

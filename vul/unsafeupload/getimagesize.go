@@ -34,7 +34,7 @@ func GetimagesizeHandler(renderer templates.Renderer) http.HandlerFunc {
 			}
 		}
 
-		data := templates.NewPageData2(49, 49, msg)
-		renderer.RenderPage(w, "unsafeupload/clientcheck.html", data)
+		data := templates.NewPageData2(65, 69, msg)
+		renderer.RenderPage(w, "unsafeupload/getimagesize.html", data)
 	}
 }

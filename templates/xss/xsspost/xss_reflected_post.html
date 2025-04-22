@@ -1,16 +1,78 @@
 <div class="main-content">
     <div class="main-content-inner">
+        <div class="breadcrumbs ace-save-state" id="breadcrumbs">
+            <ul class="breadcrumb">
+                <li>
+                    <i class="ace-icon fa fa-home home-icon"></i>
+                    <a href="{{.PikaRoot}}vul/xss/xss">xss</a>
+                </li>
+                <li class="active">反射型xss(post)</li>
+            </ul>
+            <a href="#" style="float:right" data-container="body" data-toggle="popover" data-placement="bottom"
+                title="tips(再点一下关闭)" data-content="问题还是那个问题,只是提交方式变成了post,怎么利用?">
+                点一下提示~
+            </a>
+        </div>
         <div class="page-content">
-            <div class="vul info">
+            <style>
+                #xssr_main {
+                    width: 80%;
+                    margin: 0 auto;
+                    margin-top: 50px;
+                    border: 1px solid #ddd;
+                    padding: 20px;
+                    border-radius: 5px;
+                }
+
+                .xssr_title {
+                    font-size: 18px;
+                    margin-bottom: 20px;
+                    color: #428bca;
+                }
+
+                .xssr_in {
+                    width: 70%;
+                    height: 100px;
+                    padding: 5px;
+                    border: 1px solid #ccc;
+                    border-radius: 3px;
+                    resize: both;
+                }
+
+                .xssr_submit {
+                    padding: 5px 15px;
+                    background-color: #337ab7;
+                    border: none;
+                    color: white;
+                    cursor: pointer;
+                    border-radius: 3px;
+                    margin-top: 10px;
+                }
+
+                .notice {
+                    margin-top: 15px;
+                    padding: 10px;
+                    background-color: #f8f8f8;
+                    border-left: 4px solid #5bc0de;
+                }
+
+                .result-section {
+                    margin-top: 20px;
+                    padding: 15px;
+                    border-top: 1px solid #eee;
+                }
+            </style>
+            <div id="xssr_main">
+                <p class="xssr_title">Which NBA player do you like?</p>
                 <form action="/vul/xss/xsspost/xss_reflected_post" method="post">
-                    <label>请输入内容：</label><br>
-                    <textarea name="message" rows="3" cols="50"></textarea><br>
-                    <input type="submit" value="提交">
+                    <textarea class="xssr_in" name="message" placeholder="请输入NBA球星名称"></textarea><br>
+                    <input class="xssr_submit" type="submit" value="提交">
                 </form>
-                <hr>
-                <strong>结果：</strong><br>
-                <div style="border: 1px solid #ccc; padding: 10px;">
-                    {{ .HtmlMsg }}
+                <div class="result-section">
+                    <strong>结果：</strong>
+                    <div class="notice">
+                        {{ .HtmlMsg }}
+                    </div>
                 </div>
             </div>
         </div>

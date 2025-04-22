@@ -1,0 +1,39 @@
+<div class="main-content">
+    <div class="main-content-inner">
+        <div class="breadcrumbs ace-save-state" id="breadcrumbs">
+            <ul class="breadcrumb">
+                <li>
+                    <i class="ace-icon fa fa-home home-icon"></i>
+                    <a href="{{.PikaRoot}}vul/overpermission/op">越权</a>
+                </li>
+                <li class="active">垂直越权</li>
+            </ul>
+            <a href="#" style="float:right" data-container="body" data-toggle="popover" data-placement="bottom"
+                title="tips(再点一下关闭)" data-content="垂直越权指的是不同级别用户之间的权限越级访问">
+                点一下提示~
+            </a>
+        </div>
+        <div class="page-content">
+            <div class="vul-info">
+                <h3>垂直越权登录</h3>
+                <form method="post">
+                    <div class="form-group">
+                        <label for="username">用户名：</label>
+                        <input type="text" class="form-control" id="username" name="username" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="password">密码：</label>
+                        <input type="password" class="form-control" id="password" name="password" required>
+                    </div>
+                    <button type="submit" class="btn btn-primary">登录</button>
+                </form>
+                <div class="alert alert-info" style="margin-top: 20px;">
+                    本页面仅为演示，可用的测试账号：<br>
+                    普通用户：pikachu，密码：123456<br>
+                    管理员：admin，密码：123456
+                </div>
+                {{ .HtmlMsg }}
+            </div>
+        </div>
+    </div>
+</div>

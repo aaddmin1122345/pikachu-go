@@ -21,6 +21,8 @@
     <![endif]-->
         <link rel="stylesheet" href="{{.PikaRoot}}assets/css/ace-skins.min.css" />
         <link rel="stylesheet" href="{{.PikaRoot}}assets/css/ace-rtl.min.css" />
+        <!-- 自定义样式 -->
+        <link rel="stylesheet" href="{{.PikaRoot}}assets/css/pikachu-custom.css" />
         <!--[if lte IE 9]>
     <link rel="stylesheet" href="{{.PikaRoot}}assets/css/ace-ie.min.css" />
     <![endif]-->
@@ -157,7 +159,7 @@
 
 
                             <li class="{{index .Active 10}}">
-                                <a href="{{.PikaRoot}}vul/xss/xsspost/post_login">
+                                <a href="{{.PikaRoot}}vul/xss/xsspost/xss_reflected_post">
                                     <i class="menu-icon fa fa-caret-right"></i>
                                     反射型xss(post)
                                 </a>
@@ -182,7 +184,7 @@
                                 <b class="arrow"></b>
                             </li>
 
-                            <li class="{{index .Active 12}}">
+                            <li class="{{index .Active 13}}">
                                 <a href="{{.PikaRoot}}vul/xss/xss_dom_x">
                                     <i class="menu-icon fa fa-caret-right"></i>
                                     DOM型xss-x
@@ -190,7 +192,7 @@
                                 <b class="arrow"></b>
                             </li>
 
-                            <li class="{{index .Active 13}}">
+                            <li class="{{index .Active 14}}">
                                 <a href="{{.PikaRoot}}vul/xss/xssblind/xss_blind">
                                     <i class="menu-icon fa fa-caret-right"></i>
                                     xss之盲打
@@ -198,7 +200,7 @@
                                 <b class="arrow"></b>
                             </li>
 
-                            <li class="{{index .Active 14}}">
+                            <li class="{{index .Active 15}}">
                                 <a href="{{.PikaRoot}}vul/xss/xss_01">
                                     <i class="menu-icon fa fa-caret-right"></i>
                                     xss之过滤
@@ -206,7 +208,7 @@
                                 <b class="arrow"></b>
                             </li>
 
-                            <li class="{{index .Active 15}}">
+                            <li class="{{index .Active 16}}">
                                 <a href="{{.PikaRoot}}vul/xss/xss_02">
                                     <i class="menu-icon fa fa-caret-right"></i>
                                     xss之htmlspecialchars
@@ -215,7 +217,7 @@
                             </li>
 
 
-                            <li class="{{index .Active 16}}">
+                            <li class="{{index .Active 17}}">
                                 <a href="{{.PikaRoot}}vul/xss/xss_03">
                                     <i class="menu-icon fa fa-caret-right"></i>
                                     xss之href输出
@@ -224,7 +226,7 @@
                             </li>
 
 
-                            <li class="{{index .Active 17}}">
+                            <li class="{{index .Active 18}}">
                                 <a href="{{.PikaRoot}}vul/xss/xss_04">
                                     <i class="menu-icon fa fa-caret-right"></i>
                                     xss之js输出
@@ -772,32 +774,6 @@
                         </ul>
                     </li>
 
-
-
-
-                    <li class="{{index .Active 120}}">
-                        <a href="#" class="dropdown-toggle">
-                            <i class="ace-icon glyphicon glyphicon-cog"></i>
-                            <span class="menu-text">
-                                管理工具
-                            </span>
-                            <b class="arrow fa fa-angle-down"></b>
-                        </a>
-                        <b class="arrow"></b>
-                        <ul class="submenu">
-
-                            <li class="{{index .Active 121}}">
-                                <a href="{{.PikaRoot}}pkxss/index">
-                                    <i class="menu-icon fa fa-caret-right"></i>
-                                    XSS后台
-                                </a>
-                                <b class="arrow"></b>
-                            </li>
-
-
-
-                        </ul>
-                    </li>
                 </ul><!-- /.nav-list -->
 
                 <div class="sidebar-toggle sidebar-collapse" id="sidebar-collapse">

@@ -27,7 +27,7 @@ func FiRemoteHandler(renderer templates.Renderer) http.HandlerFunc {
 			}
 		}
 
-		data := templates.NewPageData2(74, 77, html)
+		data := templates.NewPageData2(55, 58, html)
 		renderer.RenderPage(w, "fileinclude/fi_remote.html", data)
 	}
 }

@@ -34,7 +34,7 @@ func ClientcheckHandler(renderer templates.Renderer) http.HandlerFunc {
 			}
 		}
 
-		data := templates.NewPageData2(47, 47, msg)
+		data := templates.NewPageData2(65, 67, msg)
 		renderer.RenderPage(w, "unsafeupload/clientcheck.html", data)
 	}
 }

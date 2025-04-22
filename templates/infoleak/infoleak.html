@@ -6,14 +6,40 @@
                 <li><i class="ace-icon fa fa-home home-icon"></i><a href="/">首页</a></li>
                 <li class="active">敏感信息泄露</li>
             </ul>
+
+            <a href="#" style="float:right" data-container="body" data-toggle="popover" data-placement="bottom"
+                title="tips(再点一下关闭)" data-content="信息泄露虽然常被评为低危漏洞，但往往是更严重攻击的前奏和基础...">
+                点一下提示~
+            </a>
         </div>
         <div class="page-content">
-            <p>敏感信息泄露是指未加密或者未经授权访问的数据泄漏，常见的泄漏途径包括：</p>
-            <ul>
-                <li>未授权访问：错误的权限配置导致敏感文件暴露</li>
-                <li>错误信息泄露：错误提示包含系统、数据库等敏感信息</li>
-                <li>源代码泄露：前端源代码中包含后台信息</li>
-            </ul>
+            <div class="pika-container">
+                <h3 class="pika-title">敏感信息泄露简介</h3>
+
+                <div style="margin-bottom: 20px;">
+                    <p>敏感信息泄露是指应用程序无意中向用户暴露了敏感数据的安全漏洞。这类漏洞常见的泄漏途径包括：</p>
+                    <ul style="list-style-type: disc; margin-left: 20px;">
+                        <li><strong>未授权访问：</strong>错误的权限配置导致敏感文件暴露</li>
+                        <li><strong>错误信息泄露：</strong>错误提示包含系统、数据库等敏感信息</li>
+                        <li><strong>源代码泄露：</strong>前端源代码中包含后台信息</li>
+                        <li><strong>目录遍历：</strong>可以直接列出服务器目录的文件结构</li>
+                        <li><strong>敏感数据未加密：</strong>在前端暴露了未经加密的敏感数据</li>
+                    </ul>
+                </div>
+
+                <div class="pika-notice">
+                    <p>敏感信息泄露虽然一直被评为危害比较低的漏洞，但这些信息往往给攻击者实施进一步的攻击提供很大的帮助，因此不容忽视。</p>
+                </div>
+
+                <div style="margin-top: 25px;">
+                    <h4 style="color: #438EB9;">本模块实例</h4>
+                    <p>在下面的示例中，您可以尝试查找隐藏的信息：</p>
+                    <ul style="list-style-type: circle; margin-left: 20px;">
+                        <li><a href="/vul/infoleak/findabc" class="pika-link">I can see your ABC</a> - 在这个页面中寻找隐藏的敏感信息
+                        </li>
+                    </ul>
+                </div>
+            </div>
         </div>
     </div>
 </div>

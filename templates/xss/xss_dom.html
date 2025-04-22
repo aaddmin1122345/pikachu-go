@@ -1,12 +1,66 @@
 <div class="main-content">
     <div class="main-content-inner">
+        <div class="breadcrumbs ace-save-state" id="breadcrumbs">
+            <ul class="breadcrumb">
+                <li>
+                    <i class="ace-icon fa fa-home home-icon"></i>
+                    <a href="{{.PikaRoot}}vul/xss/xss">xss</a>
+                </li>
+                <li class="active">DOM型xss</li>
+            </ul><!-- /.breadcrumb -->
+
+            <a href="#" style="float:right" data-container="body" data-toggle="popover" data-placement="bottom"
+                title="tips(再点一下关闭)" data-content="先到这里把什么是dom搞明白了在说http://www.w3school.com.cn/htmldom/">
+                点一下提示~
+            </a>
+        </div>
         <div class="page-content">
-            <div class="vul info">
-                <h3>DOM XSS 示例</h3>
-                <p id="xss">这里将输出你 URL 的 # 参数</p>
+            <style>
+                #xssd_main {
+                    width: 80%;
+                    margin: 0 auto;
+                    margin-top: 50px;
+                    border: 1px solid #ddd;
+                    padding: 20px;
+                    border-radius: 5px;
+                }
+
+                #text {
+                    width: 70%;
+                    height: 30px;
+                    padding: 5px;
+                    border: 1px solid #ccc;
+                    border-radius: 3px;
+                }
+
+                #button {
+                    padding: 5px 15px;
+                    background-color: #337ab7;
+                    border: none;
+                    color: white;
+                    cursor: pointer;
+                    border-radius: 3px;
+                }
+
+                #dom {
+                    margin-top: 20px;
+                    padding: 10px;
+                    border: 1px dashed #eee;
+                    min-height: 30px;
+                }
+            </style>
+            <div id="xssd_main">
                 <script>
-                    document.getElementById("xss").innerHTML = location.hash;
+                    function domxss() {
+                        var str = document.getElementById("text").value;
+                        document.getElementById("dom").innerHTML = "<a href='" + str + "'>what do you see?</a>";
+                    }
+                    //试试：'><img src="#" onmouseover="alert('xss')">
+                    //试试：' onclick="alert('xss')">,闭合掉就行
                 </script>
+                <input id="text" name="text" type="text" value="" />
+                <input id="button" type="button" value="click me!" onclick="domxss()" />
+                <div id="dom"></div>
             </div>
         </div>
     </div>

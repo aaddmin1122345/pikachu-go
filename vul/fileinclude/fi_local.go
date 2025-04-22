@@ -21,7 +21,7 @@ func FiLocalHandler(renderer templates.Renderer) http.HandlerFunc {
 		cleanPath := filepath.Clean(filepath.Join(safeBase, filename))
 
 		if !filepath.HasPrefix(cleanPath, safeBase) {
-			data := templates.NewPageData2(74, 76, `<p style="color:red;">非法访问路径</p>`)
+			data := templates.NewPageData2(55, 57, `<p style="color:red;">非法访问路径</p>`)
 			renderer.RenderPage(w, "fileinclude/fi_local.html", data)
 			return
 		}
@@ -34,7 +34,7 @@ func FiLocalHandler(renderer templates.Renderer) http.HandlerFunc {
 			html = fmt.Sprintf(`<h4>包含文件内容: %s</h4><pre>%s</pre>`, template.HTMLEscapeString(filename), template.HTMLEscapeString(string(content)))
 		}
 
-		data := templates.NewPageData2(74, 76, html)
+		data := templates.NewPageData2(55, 57, html)
 		renderer.RenderPage(w, "fileinclude/fi_local.html", data)
 	}
 }

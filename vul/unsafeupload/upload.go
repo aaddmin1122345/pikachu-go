@@ -33,7 +33,7 @@ func UploadHandler(renderer templates.Renderer) http.HandlerFunc {
 			}
 		}
 
-		data := templates.NewPageData2(45, 46, msg)
+		data := templates.NewPageData2(65, 66, msg)
 		renderer.RenderPage(w, "unsafeupload/upload.html", data)
 	}
 }

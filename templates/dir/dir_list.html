@@ -3,23 +3,73 @@
     <div class="main-content-inner">
         <div class="breadcrumbs ace-save-state" id="breadcrumbs">
             <ul class="breadcrumb">
-                <li><a href="/vul/dir/dir">目录遍历</a></li>
+                <li><i class="ace-icon fa fa-home home-icon"></i><a href="/vul/dir/dir">目录遍历</a></li>
                 <li class="active">../../</li>
             </ul>
             <a href="#" style="float:right" data-container="body" data-toggle="popover" data-placement="bottom"
-                title="tips(再点一下关闭)" data-content="先好好读一下这两篇小短文在继续学习吧..">
+                title="tips(再点一下关闭)" data-content="试试在URL参数中输入../../../等路径，看看能读取到什么文件？">
                 点一下提示~
             </a>
         </div>
 
         <div class="page-content">
-            <div id="dt_main">
-                <p class="dt_title">(1)it's time to get up!</p>
-                <a class="dt_title" href="/vul/dir/dir_list?title=jarheads">we're jarheads!</a>
-                <p class="dt_title">(2)it's time to say goodbye!</p>
-                <a class="dt_title" href="/vul/dir/dir_list?title=truman">Truman's world!</a>
-                <hr>
-                <div>{{.HtmlMsg}}</div>
+            <style>
+                .dir-container {
+                    width: 80%;
+                    margin: 30px auto;
+                    padding: 25px;
+                    border: 1px solid #ddd;
+                    border-radius: 5px;
+                    background-color: #f9f9f9;
+                }
+
+                .dt_title {
+                    font-size: 16px;
+                    color: #438EB9;
+                    margin: 15px 0;
+                    display: block;
+                }
+
+                .dt_title:hover {
+                    color: #3498DB;
+                    text-decoration: none;
+                }
+
+                .article-section {
+                    margin-top: 30px;
+                    padding: 15px;
+                    border-top: 1px solid #eee;
+                    background-color: #fff;
+                    border-radius: 4px;
+                }
+
+                pre {
+                    background-color: #f5f5f5;
+                    border: 1px solid #ccc;
+                    border-radius: 4px;
+                    padding: 10px;
+                    overflow: auto;
+                    max-height: 400px;
+                }
+            </style>
+
+            <div class="dir-container">
+                <h3 style="margin-bottom: 20px; border-bottom: 1px solid #eee; padding-bottom: 10px;">
+                    目录遍历测试
+                </h3>
+
+                <p>请选择要阅读的文章：</p>
+
+                <div class="article-links">
+                    <p class="dt_title">(1) it's time to get up!</p>
+                    <a class="dt_title" href="/vul/dir/dir_list?title=jarheads">we're jarheads!</a>
+                    <p class="dt_title">(2) it's time to say goodbye!</p>
+                    <a class="dt_title" href="/vul/dir/dir_list?title=truman">Truman's world!</a>
+                </div>
+
+                <div class="article-section">
+                    {{.HtmlMsg}}
+                </div>
             </div>
         </div>
     </div>

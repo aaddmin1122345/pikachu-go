@@ -19,7 +19,7 @@ func URLRedirectHandler(renderer templates.Renderer) http.HandlerFunc {
 			}
 		}
 
-		data := templates.NewPageData2(100, 102, html) // index 12 可换你想要激活的导航项
+		data := templates.NewPageData2(100, 102, html) // index 102 for urlredirect
 		renderer.RenderPage(w, "urlredirect/urlredirect.html", data)
 	}
 }

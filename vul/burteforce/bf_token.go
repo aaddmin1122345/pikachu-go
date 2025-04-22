@@ -4,7 +4,9 @@ import (
 	"math/rand"
 	"net/http"
 	"pikachu-go/templates"
+	"pikachu-go/utils"
 	"strconv"
+	"strings"
 	"time"
 )
 
@@ -16,12 +18,20 @@ func BfTokenHandler(renderer templates.Renderer) http.HandlerFunc {
 
 		if r.Method == http.MethodPost {
 			formToken := r.FormValue("token")
+			username := r.FormValue("username")
+			password := r.FormValue("password")
+			vcode := r.FormValue("vcode")
+
 			if formToken != sessionToken {
 				msg = `<p style="color:red;">非法请求，Token 无效！</p>`
+			} else if vcode == "" {
+				msg = `<p style="color:red;">验证码不能为空</p>`
 			} else {
-				username := r.FormValue("username")
-				password := r.FormValue("password")
-				if username == "admin" && password == "123456" {
+				// 验证码验证
+				sessionVcode, ok := utils.GlobalSessions.GetSessionData(r, "vcode")
+				if !ok || strings.ToLower(vcode) != strings.ToLower(sessionVcode.(string)) {
+					msg = `<p style="color:red;">验证码错误，请重新输入</p>`
+				} else if username == "admin" && password == "123456" {
 					msg = `<p style="color:green;">登录成功！</p>`
 				} else {
 					msg = `<p style="color:red;">用户名或密码错误</p>`

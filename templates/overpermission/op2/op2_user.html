@@ -1,0 +1,24 @@
+{{define "overpermission/op2/op2_user.html"}}
+<div class="main-content">
+    <div class="main-content-inner">
+        <div class="breadcrumbs ace-save-state" id="breadcrumbs">
+            <ul class="breadcrumb">
+                <li>
+                    <i class="ace-icon fa fa-home home-icon"></i>
+                    <a href="{{.PikaRoot}}vul/overpermission/op">越权</a>
+                </li>
+                <li class="active">垂直越权用户中心</li>
+            </ul>
+            <a href="#" style="float:right" data-container="body" data-toggle="popover" data-placement="bottom"
+                title="tips(再点一下关闭)" data-content="普通用户能访问管理员页面吗?">
+                点一下提示~
+            </a>
+        </div>
+        <div class="page-content">
+            <div id="user-main">
+                {{ .HtmlMsg }}
+            </div>
+        </div>
+    </div>
+</div>
+{{end}}

@@ -13,6 +13,6 @@ func XssReflectedPostHandler(renderer templates.Renderer) http.HandlerFunc {
 		}
 
 		data := templates.NewPageData2(7, 18, msg)
-		renderer.RenderPage(w, "/xsspost/xss_reflected_post.html", data)
+		renderer.RenderPage(w, "xss/xsspost/xss_reflected_post.html", data)
 	}
 }

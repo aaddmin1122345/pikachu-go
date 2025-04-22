@@ -24,7 +24,7 @@ func TokenGetLoginHandler(renderer templates.Renderer) http.HandlerFunc {
 		}
 
 		data := templates.NewPageData2(25, 29, msg)
-		renderer.RenderPage(w, "csrf/csrftoken/token_get_login.php", data)
+		renderer.RenderPage(w, "csrf/csrftoken/token_get_login.html", data)
 	}
 	// token 可加盐处理，这里简化为随机数字
 }

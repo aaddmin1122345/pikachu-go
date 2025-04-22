@@ -79,7 +79,7 @@ func (tr *TemplateRenderer) RenderPage(w http.ResponseWriter, contentTemplate st
 		return err
 	}
 
-	log.Println("成功渲染页面:", contentTemplate)
+	// log.Println("成功渲染页面:", contentTemplate)
 	return nil
 }
 

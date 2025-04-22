@@ -33,7 +33,7 @@ func Xxe1Handler(renderer templates.Renderer) http.HandlerFunc {
 			}
 		}
 
-		data := templates.NewPageData2(77, 79, htmlMsg)
+		data := templates.NewPageData2(95, 97, htmlMsg)
 		renderer.RenderPage(w, "xxe/xxe_1.html", data)
 	}
 }

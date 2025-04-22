@@ -7,7 +7,7 @@ import (
 
 func DomXssHandler(renderer templates.Renderer) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
-		data := templates.NewPageData2(7, 15, "")
+		data := templates.NewPageData2(7, 12, "")
 		renderer.RenderPage(w, "xss/xss_dom.html", data)
 	}
 }

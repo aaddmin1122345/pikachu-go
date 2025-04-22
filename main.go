@@ -7,6 +7,7 @@ import (
 	"os"
 
 	"pikachu-go/database"
+	"pikachu-go/handlers"
 	"pikachu-go/templates"
 	"pikachu-go/vul/burteforce"
 	"pikachu-go/vul/csrf"
@@ -16,6 +17,9 @@ import (
 	"pikachu-go/vul/dir"
 	"pikachu-go/vul/fileinclude"
 	"pikachu-go/vul/infoleak"
+	"pikachu-go/vul/overpermission"
+	"pikachu-go/vul/overpermission/op1"
+	"pikachu-go/vul/overpermission/op2"
 	"pikachu-go/vul/rce"
 	"pikachu-go/vul/sqli"
 	sqliheader "pikachu-go/vul/sqli/sqli_header"
@@ -109,6 +113,9 @@ func main() {
 	// 首页
 	http.HandleFunc("/", indexHandler(renderer))
 
+	// 验证码路由
+	http.HandleFunc("/captcha", handlers.CaptchaHandler())
+
 	// ========== URL 重定向模块 ==========
 	http.HandleFunc("/vul/urlredirect/urlredirect", urlredirect.URLRedirectHandler(renderer))
 	http.HandleFunc("/vul/urlredirect/unsafere", urlredirect.UnsafeReHandler(renderer))
@@ -141,6 +148,15 @@ func main() {
 	http.HandleFunc("/vul/infoleak/infoleak", infoleak.InfoleakHandler(renderer))
 	http.HandleFunc("/vul/infoleak/findabc", infoleak.FindABCHandler(renderer))
 	http.HandleFunc("/vul/infoleak/abc", infoleak.ABCHandler(renderer))
+
+	// ======== 越权模块 ========
+	http.HandleFunc("/vul/overpermission/op", overpermission.OpHandler(renderer))
+	http.HandleFunc("/vul/overpermission/op1/op1_login", op1.Op1LoginHandler(renderer))
+	http.HandleFunc("/vul/overpermission/op1/op1_mem", op1.Op1MemHandler(renderer))
+	http.HandleFunc("/vul/overpermission/op2/op2_login", op2.Op2LoginHandler(renderer))
+	http.HandleFunc("/vul/overpermission/op2/op2_user", op2.Op2UserHandler(renderer))
+	http.HandleFunc("/vul/overpermission/op2/op2_admin", op2.Op2AdminHandler(renderer))
+	http.HandleFunc("/vul/overpermission/op2/op2_admin_edit", op2.Op2AdminEditHandler(renderer))
 
 	// ========== 静态资源兜底：放最后 ==========
 	http.Handle("/assets/", http.StripPrefix("/assets/", http.FileServer(http.Dir("./assets/"))))

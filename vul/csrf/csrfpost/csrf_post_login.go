@@ -17,6 +17,6 @@ func CsrfPostLoginHandler(renderer templates.Renderer) http.HandlerFunc {
 			msg = "登录成功"
 		}
 		data := templates.NewPageData2(25, 28, msg)
-		renderer.RenderPage(w, "csrf/csrfpost/csrf_post_login.php", data)
+		renderer.RenderPage(w, "csrf/csrfpost/csrf_post_login.html", data)
 	}
 }

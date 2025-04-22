@@ -3,16 +3,67 @@
     <div class="main-content-inner">
         <div class="breadcrumbs ace-save-state">
             <ul class="breadcrumb">
-                <li><a href="/vul/sqli/sqli">SQL注入</a></li>
+                <li><i class="ace-icon fa fa-home home-icon"></i><a href="/vul/sqli/sqli">SQL注入</a></li>
                 <li class="active">获取ID注入</li>
             </ul>
+
+            <a href="#" style="float:right" data-container="body" data-toggle="popover" data-placement="bottom"
+                title="tips(再点一下关闭)" data-content="这里是数字型注入，试试输入 1 或者更复杂的？">
+                点一下提示~
+            </a>
         </div>
         <div class="page-content">
-            <form method="get">
-                输入 ID：<input type="text" name="id"><br>
-                <input type="submit" value="查询">
-            </form>
-            <p>{{.HtmlMsg}}</p>
+            <style>
+                .sqli-container {
+                    width: 80%;
+                    margin: 30px auto;
+                    padding: 20px;
+                    border: 1px solid #ddd;
+                    border-radius: 5px;
+                    background-color: #f9f9f9;
+                }
+
+                .sqli-form {
+                    margin-bottom: 20px;
+                }
+
+                .sqli-form input[type="text"] {
+                    padding: 8px;
+                    width: 200px;
+                    border: 1px solid #ccc;
+                    border-radius: 3px;
+                }
+
+                .sqli-form input[type="submit"] {
+                    padding: 8px 15px;
+                    background-color: #337ab7;
+                    color: white;
+                    border: none;
+                    border-radius: 3px;
+                    cursor: pointer;
+                }
+
+                .sqli-result {
+                    margin-top: 20px;
+                    padding: 15px;
+                    border-top: 1px solid #eee;
+                }
+            </style>
+
+            <div class="sqli-container">
+                <h4>数字型SQL注入测试</h4>
+                <div class="sqli-form">
+                    <form method="get">
+                        <label for="id">请输入用户ID：</label>
+                        <input type="text" name="id" id="id" placeholder="例如: 1">
+                        <input type="submit" value="查询">
+                    </form>
+                </div>
+                <div class="sqli-result">
+                    <strong>查询结果：</strong>
+                    <div>{{.HtmlMsg}}</div>
+                </div>
+            </div>
         </div>
     </div>
 </div>
