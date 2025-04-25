@@ -1,25 +1,44 @@
 {{define "burteforce/bf_token.html"}}
-<div class="main-content">
-    <div class="main-content-inner">
-        <div class="breadcrumbs ace-save-state" id="breadcrumbs">
-            <ul class="breadcrumb">
-                <li><i class="ace-icon fa fa-home home-icon"></i>
-                    <a href="/vul/burteforce/burteforce">BurteForce</a>
-                </li>
-                <li class="active">加入 CSRF Token</li>
-            </ul>
+<div class="page-content">
+    <div class="widget-box">
+        <div class="widget-header">
+            <h4 class="widget-title">暴力破解—Token 验证</h4>
         </div>
-
-        <div class="page-content">
-            <form method="post">
-                用户名：<input type="text" name="username" /><br />
-                密码：<input type="password" name="password" /><br />
-                验证码：<input type="text" name="vcode" /><br />
-                <img src="/captcha" onclick="this.src='/captcha?'+Math.random();" style="cursor:pointer; margin:5px 0;"
-                    title="点击刷新验证码" /><br />
+        <div class="widget-body">
+            <div class="widget-main no-padding">
+                <form id="bf_token" class="form-horizontal" role="form" method="post" action="/burteforce/bf_token">
+                    <fieldset>
+                        <label class="block clearfix">
+                            <span class="block input-icon input-icon-right">
+                                <input type="text" class="form-control" name="username" placeholder="Username" />
+                                <i class="ace-icon fa fa-user"></i>
+                            </span>
+                        </label>
+                        <label class="block clearfix">
+                            <span class="block input-icon input-icon-right">
+                                <input type="password" class="form-control" name="password" placeholder="Password" />
+                                <i class="ace-icon fa fa-lock"></i>
+                            </span>
+                        </label>
+                        <label class="block clearfix">
+                            <span class="block input-icon input-icon-right">
+                                <!-- 隐藏字段提交 -->
+                                <input type="hidden" name="token" value="{{.Extra.Token}}" />
+                                <!-- 显示当前 token -->
+                                <input type="text" class="form-control" readonly value="{{.Extra.Token}}" />
+                                <i class="ace-icon fa fa-key"></i>
+                            </span>
+                        </label>
+                        <div class="clearfix">
+                            <button type="submit" class="width-35 pull-right btn btn-sm btn-primary">
+                                <i class="ace-icon fa fa-key"></i>
+                                <span class="bigger-110">登录</span>
+                            </button>
+                        </div>
+                    </fieldset>
+                </form>
                 {{.HtmlMsg}}
-                <input type="submit" value="登录" />
-            </form>
+            </div>
         </div>
     </div>
 </div>

@@ -2,14 +2,17 @@ package xss
 
 import (
 	"fmt"
+	"html/template"
 	"net/http"
 	"pikachu-go/database"
 	"pikachu-go/templates"
 	"strconv"
 )
 
+// StoredHandler 处理存储型XSS请求
 func StoredHandler(renderer templates.Renderer) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
+		data := templates.NewPageData2(7, 11, "")
 		html := ""
 		db := database.DB
 
@@ -56,15 +59,12 @@ func StoredHandler(renderer templates.Renderer) http.HandlerFunc {
 				if err != nil {
 					continue
 				}
-				// 改进留言显示的HTML格式
-				html += fmt.Sprintf(`<div class="message-item">
-                    <p class="con">%s</p>
-                    <p class="message-meta">时间: %s | <a href='/vul/xss/xss_stored?id=%d'>删除</a></p>
-                </div>`, content, time, id)
+				// XSS漏洞点：直接输出用户输入的内容
+				html += fmt.Sprintf("<p class='con'>%s</p><a href='/vul/xss/xss_stored?id=%d'>删除</a>", content, id)
 			}
 		}
 
-		data := templates.NewPageData2(7, 11, html)
+		data.HtmlMsg = template.HTML(html)
 		renderer.RenderPage(w, "xss/xss_stored.html", data)
 	}
 }

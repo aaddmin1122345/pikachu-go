@@ -1,24 +1,53 @@
+{{define "xss/xss_01.html"}}
 <div class="main-content">
     <div class="main-content-inner">
         <div class="breadcrumbs ace-save-state" id="breadcrumbs">
             <ul class="breadcrumb">
-                <li><a href="/">首页</a></li>
-                <li class="active">XSS 模拟 - {{ .HtmlMsg }}</li>
+                <li>
+                    <i class="ace-icon fa fa-home home-icon"></i>
+                    <a href="/vul/xss/xss">XSS</a>
+                </li>
+                <li class="active">Reflected XSS (GET)</li>
             </ul>
+            <a href="#" style="float:right" data-container="body" data-toggle="popover" data-placement="bottom"
+                title="小提示：XSS (Cross-Site Scripting)"
+                data-content="跨站脚本（Cross-site scripting，通常简称为XSS）是一种网站应用程序的安全漏洞攻击，是代码注入的一种。它允许恶意用户将代码注入到网页上，其他用户在观看网页时就会受到影响。这类攻击通常包含了HTML以及用户端脚本语言。">
+                <i class="ace-icon fa fa-question-circle bigger-150 blue"></i>
+            </a>
         </div>
         <div class="page-content">
-            <div class="vul info">
-                <form method="get">
-                    <label>请输入：</label>
-                    <input type="text" name="keyword" style="width:300px">
-                    <input type="submit" value="提交">
-                </form>
-                <br>
-                <strong>结果输出：</strong>
-                <div style="padding:10px;border:1px solid #ccc;margin-top:5px;">
-                    {{ .HtmlMsg }}
+            <div id="xss_01">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">反射型XSS(GET)</h3>
+                    </div>
+                    <div class="panel-body">
+                        <div class="well">
+                            <p>反射型跨站脚本（Reflected Cross-Site Scripting）是最常见，也是使用最广的一种，可将恶意脚本附加到URL地址的参数中。</p>
+                            <p>反射型XSS的利用一般是攻击者通过特定手法（如电子邮件），诱使用户去访问一个包含恶意代码的URL，当受害者点击这些专门设计的链接的时候，恶意代码会直接在受害者主机上的浏览器执行。此类XSS通常出现在网站的搜索栏、用户登录口等地方，常用来窃取客户端Cookies或进行钓鱼欺骗。
+                            </p>
+                        </div>
+                        <form method="get">
+                            <div class="form-group">
+                                <label for="message">输入下列关键词之一测试：</label>
+                                <span id="keywords" style="color:red">
+                                    "&lt;script&gt;alert(1)&lt;/script&gt;"
+                                    "&lt;sCript&gt;alert(1)&lt;/sCript&gt;"
+                                    '&lt;img src=x onerror=alert(1)&gt;'
+                                    '&lt;a href=javascript:alert(1)&gt;'
+                                </span>
+                                <input class="form-control" type="text" id="message" name="message">
+                            </div>
+                            <button type="submit" name="submit" value="提交" class="btn btn-default">提交</button>
+                        </form>
+                        <hr>
+                        {{if .Msg}}
+                        {{.Msg}}
+                        {{end}}
+                    </div>
                 </div>
             </div>
         </div>
     </div>
 </div>
+{{end}}

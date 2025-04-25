@@ -1,10 +1,11 @@
+{{define "xss/xss_stored.html"}}
 <div class="main-content">
     <div class="main-content-inner">
         <div class="breadcrumbs ace-save-state" id="breadcrumbs">
             <ul class="breadcrumb">
                 <li>
                     <i class="ace-icon fa fa-home home-icon"></i>
-                    <a href="{{.PikaRoot}}vul/xss/xss">xss</a>
+                    <a href="/vul/xss/xss">xss</a>
                 </li>
                 <li class="active">存储型xss</li>
             </ul><!-- /.breadcrumb -->
@@ -88,6 +89,7 @@
                 #show_message a {
                     color: #337ab7;
                     text-decoration: none;
+                    margin-left: 10px;
                 }
 
                 #show_message a:hover {
@@ -110,3 +112,4 @@
         </div>
     </div>
 </div>
+{{end}}

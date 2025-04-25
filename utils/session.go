@@ -4,6 +4,7 @@ import (
 	"math/rand"
 	"net/http"
 	"sync"
+	"time"
 )
 
 // 简单会话管理器，用于存储验证码等会话数据
@@ -13,6 +14,12 @@ type SessionManager struct {
 }
 
 var GlobalSessions = NewSessionManager()
+
+// 初始化随机数生成器
+func init() {
+	// 确保随机数是真随机的
+	rand.Seed(time.Now().UnixNano())
+}
 
 // 创建新的会话管理器
 func NewSessionManager() *SessionManager {
@@ -37,6 +44,7 @@ func (m *SessionManager) setSessionID(w http.ResponseWriter, id string) {
 		Value:    id,
 		Path:     "/",
 		HttpOnly: true,
+		MaxAge:   3600, // 1小时过期
 	}
 	http.SetCookie(w, cookie)
 }
@@ -81,10 +89,23 @@ func (m *SessionManager) GetSessionData(r *http.Request, key string) (interface{
 	return val, ok
 }
 
+// 删除会话数据
+func (m *SessionManager) DeleteSessionData(r *http.Request, key string) {
+	m.mutex.Lock()
+	defer m.mutex.Unlock()
+
+	id := m.getSessionID(r)
+	if id == "" || m.sessions[id] == nil {
+		return
+	}
+
+	delete(m.sessions[id], key)
+}
+
 // 生成唯一会话ID
 func generateSessionID() string {
-	// 简化实现，实际应使用更安全的随机生成方法
-	return "session_" + randString(32)
+	// 使用时间戳和随机字符串生成会话ID
+	return "session_" + time.Now().Format("20060102150405") + "_" + randString(16)
 }
 
 // 生成随机字符串

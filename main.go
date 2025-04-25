@@ -180,12 +180,15 @@ func main() {
 	http.HandleFunc("/vul/ssrf/ssrf_fgc", ssrf.SsrfFgcHandler(renderer))
 	http.HandleFunc("/vul/unserilization/unserilization", unserilization.UnserilizationHandler(renderer))
 	http.HandleFunc("/vul/unserilization/unser", unserilization.UnserHandler(renderer))
+
+	// ========== 暴力破解模块 ==========
 	http.HandleFunc("/vul/burteforce/burteforce", burteforce.BurteforceHandler(renderer))
 	http.HandleFunc("/vul/burteforce/bf_form", burteforce.BfFormHandler(renderer))
 	http.HandleFunc("/vul/burteforce/bf_server", burteforce.BfServerHandler(renderer))
-
 	http.HandleFunc("/vul/burteforce/bf_client", burteforce.BfClientHandler(renderer))
+	http.HandleFunc("/vul/burteforce/vcode", burteforce.VcodeHandler)
 	http.HandleFunc("/vul/burteforce/bf_token", burteforce.BfTokenHandler(renderer))
+
 	http.HandleFunc("/vul/csrf/csrf", csrf.CsrfHandler(renderer))
 	http.HandleFunc("/vul/csrf/csrfget/csrf_get_login", csrfget.CsrfGetLoginHandler(renderer))
 	http.HandleFunc("/vul/csrf/csrfget/csrf_get_edit", csrfget.CsrfGetEditHandler())

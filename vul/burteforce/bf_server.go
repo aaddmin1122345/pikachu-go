@@ -1,61 +1,45 @@
 package burteforce
 
 import (
+	"html/template"
 	"net/http"
-	"pikachu-go/templates"
-	"pikachu-go/utils"
-	"strconv"
 	"strings"
+
+	"pikachu-go/templates"
 )
 
-// BfServerHandler 服务端控制爆破尝试次数（添加验证码验证）
+// BfServerHandler 服务端控制爆破尝试 + 验证码校验
 func BfServerHandler(renderer templates.Renderer) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
-		var tryCount int
-		cookie, err := r.Cookie("bf_try")
-		if err == nil {
-			tryCount, _ = strconv.Atoi(cookie.Value)
-		}
+		sess, _ := sessionStore.Get(r, "pikachu-session")
+		data := templates.NewPageData2(1, 4, "")
 
-		msg := ""
+		// 漏洞点：不主动刷新验证码，只有在用户点击验证码图片时才会刷新
+		// 这样可以用于模拟绕过验证码的暴力破解
 
 		if r.Method == http.MethodPost {
 			username := r.FormValue("username")
 			password := r.FormValue("password")
-			vcode := r.FormValue("vcode")
+			formVcode := r.FormValue("vcode")
+			sessVcode, _ := sess.Values["vcode"].(string)
 
-			// 验证表单输入项是否为空
-			if username == "" {
-				msg = `<p style="color:red;">用户名不能为空</p>`
-			} else if password == "" {
-				msg = `<p style="color:red;">密码不能为空</p>`
-			} else if vcode == "" {
-				msg = `<p style="color:red;">验证码不能为空</p>`
-			} else {
-				// 验证码验证
-				sessionVcode, ok := utils.GlobalSessions.GetSessionData(r, "vcode")
-				if !ok || strings.ToLower(vcode) != strings.ToLower(sessionVcode.(string)) {
-					msg = `<p style="color:red;">验证码错误，请重新输入</p>`
-				} else {
-					// 验证用户名和密码
-					if username == "admin" && password == "123456" {
-						msg = `<p style="color:green;">登录成功！</p>`
-						tryCount = 0 // 登录成功则重置
-					} else {
-						tryCount++
-						msg = `<p style="color:red;">用户名或密码错误（当前尝试次数：` + strconv.Itoa(tryCount) + `）</p>`
-					}
-				}
+			switch {
+			case username == "":
+				data.HtmlMsg = template.HTML("<p>please input username～</p>")
+			case password == "":
+				data.HtmlMsg = template.HTML("<p>please input password～</p>")
+			case formVcode == "":
+				data.HtmlMsg = template.HTML("<p>please input verification code～</p>")
+			case strings.ToLower(formVcode) != strings.ToLower(sessVcode):
+				data.HtmlMsg = template.HTML("<p>verification code error～</p>")
+			case username == "admin" && password == "123456":
+				data.HtmlMsg = template.HTML("<p>login success</p>")
+			default:
+				data.HtmlMsg = template.HTML("<p>username or password is not exists～</p>")
 			}
 		}
 
-		http.SetCookie(w, &http.Cookie{
-			Name:  "bf_try",
-			Value: strconv.Itoa(tryCount),
-			Path:  "/",
-		})
-
-		data := templates.NewPageData2(1, 4, msg)
+		data.Extra["VcodeURL"] = "/vul/burteforce/vcode"
 		renderer.RenderPage(w, "burteforce/bf_server.html", data)
 	}
 }

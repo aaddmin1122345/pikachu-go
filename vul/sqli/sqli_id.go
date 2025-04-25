@@ -1,52 +1,60 @@
 package sqli
 
 import (
-	"database/sql"
 	"fmt"
+	"html/template"
 	"net/http"
+	"pikachu-go/database"
 	"pikachu-go/templates"
-
-	_ "github.com/lib/pq"
 )
 
-// SqliIDHandler 获取 ID 注入
+// SqliIDHandler 数字型注入漏洞演示
 func SqliIDHandler(renderer templates.Renderer) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
+		htmlMsg := ""
+
 		// 获取用户输入
 		id := r.URL.Query().Get("id")
-		result := "未找到数据"
 
-		// 模拟 SQL 注入获取 ID
 		if id != "" {
-			db, err := sql.Open("postgres", "user=pgsql password=pgsql dbname=pikachu-go sslmode=disable")
-			if err != nil {
-				http.Error(w, "数据库连接失败", http.StatusInternalServerError)
-				return
-			}
-			defer db.Close()
+			// 使用全局数据库连接
+			db := database.DB
+			if db == nil {
+				htmlMsg = "数据库连接失败"
+			} else {
+				// 故意保留SQL注入漏洞 - 直接拼接用户输入到SQL语句中
+				query := fmt.Sprintf("SELECT username, email FROM users WHERE id = %s", id)
 
-			// 使用输入的 ID 执行查询
-			query := fmt.Sprintf("SELECT username FROM users WHERE id = '%s'", id)
-			rows, err := db.Query(query)
-			if err != nil {
-				http.Error(w, "查询错误", http.StatusInternalServerError)
-				return
-			}
-			defer rows.Close()
-
-			// 获取查询结果
-			if rows.Next() {
-				var username string
-				err := rows.Scan(&username)
+				rows, err := db.Query(query)
 				if err != nil {
-					http.Error(w, "读取数据失败", http.StatusInternalServerError)
-					return
+					htmlMsg = fmt.Sprintf("<p class='notice'>查询错误: %s</p>", err.Error())
+				} else {
+					defer rows.Close()
+
+					found := false
+					for rows.Next() {
+						found = true
+						var username, email string
+						if err := rows.Scan(&username, &email); err != nil {
+							htmlMsg = fmt.Sprintf("<p class='notice'>读取数据失败: %s</p>", err.Error())
+						} else {
+							htmlMsg = fmt.Sprintf("<p class='notice'>Hello, %s <br />Your email is: %s</p>",
+								username, email)
+						}
+					}
+
+					if !found {
+						htmlMsg = "<p class='notice'>您输入的user id不存在，请重新输入！</p>"
+					}
 				}
-				result = fmt.Sprintf("查询到的用户名：%s", username)
 			}
 		}
 
-		data := templates.NewPageData2(35, 37, result)
+		data := templates.PageData{
+			Active:  templates.NewActiveSlice(35, 37),
+			HtmlMsg: template.HTML(htmlMsg),
+		}
+
 		renderer.RenderPage(w, "sqli/sqli_id.html", data)
 	}
 }

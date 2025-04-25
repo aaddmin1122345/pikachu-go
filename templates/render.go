@@ -13,6 +13,7 @@ type PageData struct {
 	PikaRoot string
 	Active   []string
 	HtmlMsg  template.HTML
+	Extra    map[string]interface{}
 }
 
 type Renderer interface {
@@ -98,5 +99,6 @@ func NewPageData2(activeMain, activeSub int, htmlMsg string) PageData {
 		PikaRoot: "/",
 		Active:   active,
 		HtmlMsg:  template.HTML(htmlMsg),
+		Extra:    make(map[string]interface{}),
 	}
 }

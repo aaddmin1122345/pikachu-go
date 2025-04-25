@@ -1,49 +1,98 @@
 {{define "burteforce/bf_client.html"}}
-<div class="main-content">
+<div class="main-content" xmlns="http://www.w3.org/1999/html">
     <div class="main-content-inner">
         <div class="breadcrumbs ace-save-state" id="breadcrumbs">
             <ul class="breadcrumb">
-                <li><i class="ace-icon fa fa-home home-icon"></i>
-                    <a href="/vul/burteforce/burteforce">BurteForce</a>
+                <li>
+                    <i class="ace-icon fa fa-home home-icon"></i>
+                    <a href="/vul/burteforce/burteforce">暴力破解</a>
                 </li>
-                <li class="active">客户端防护</li>
+                <li class="active">验证码绕过(on client)</li>
             </ul>
+            <a href="#" style="float:right" data-container="body" data-toggle="popover" data-placement="bottom"
+                title="tips(再点一下关闭)" data-content="仔细看下,这个验证码到底是个什么鬼?..看看前端JS源码,发现什么了吗?">
+                点一下提示~
+            </a>
         </div>
-
         <div class="page-content">
-            <form method="post" id="loginForm">
-                用户名：<input type="text" name="username" /><br />
-                密码：<input type="password" name="password" /><br />
-                验证码：<input type="text" name="vcode" class="vcode" /><br />
-                <img src="/captcha" onclick="this.src='/captcha?'+Math.random();" style="cursor:pointer; margin:5px 0;"
-                    title="点击刷新验证码" /><br />
-                <input type="submit" value="登录" />
-            </form>
+            <div class="bf_form">
+                <div class="bf_form_main">
+                    <h4 class="header blue lighter bigger">
+                        <i class="ace-icon fa fa-coffee green"></i>
+                        Please Enter Your Information
+                    </h4>
 
-            <div style="margin-top:15px;">
-                {{.HtmlMsg}}
-            </div>
-        </div>
+                    <form id="bf_client" method="post" action="/vul/burteforce/bf_client" onsubmit="return validate();">
+                        <label>
+                            <span>
+                                <input type="text" name="username" placeholder="Username" />
+                                <i class="ace-icon fa fa-user"></i>
+                            </span>
+                        </label>
+                        </br>
+
+                        <label>
+                            <span>
+                                <input type="password" name="password" placeholder="Password" />
+                                <i class="ace-icon fa fa-lock"></i>
+                            </span>
+                        </label>
+                        </br>
+
+                        <label>
+                            <span>
+                                <input class="vcode" name="vcode" placeholder="验证码" type="text" />
+                                <i class="ace-icon fa fa-lock"></i>
+                            </span>
+                        </label>
+                        </br>
+
+                        <label><input type="text" onclick="createCode()" readonly="readonly" id="checkCode"
+                                class="unchanged" style="width: 100px" /></label><br />
+
+                        <label><input class="submit" name="submit" type="submit" value="Login" /></label>
+                    </form>
+                    {{.HtmlMsg}}
+                </div><!-- /.bf_form_main -->
+            </div><!-- /.bf_form -->
+        </div><!-- /.page-content -->
     </div>
-</div>
+</div><!-- /.main-content -->
 
-<script>
-    var tryCount = 0;
-    document.getElementById("loginForm").onsubmit = function () {
-        tryCount++;
-        if (tryCount > 3) {
-            alert("尝试次数过多！");
-            return false;
+<script language="javascript" type="text/javascript">
+    var code; //在全局 定义验证码
+    function createCode() {
+        code = "";
+        var codeLength = 5;//验证码的长度
+        var checkCode = document.getElementById("checkCode");
+        var selectChar = new Array(0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z');//所有候选组成验证码的字符，当然也可以用中文的
+
+        for (var i = 0; i < codeLength; i++) {
+            var charIndex = Math.floor(Math.random() * 36);
+            code += selectChar[charIndex];
         }
+        //alert(code);
+        if (checkCode) {
+            checkCode.className = "code";
+            checkCode.value = code;
+        }
+    }
 
-        // 验证码前端验证（但实际是无效的，因为没有真正验证码的值）
-        var inputCode = document.querySelector('#loginForm .vcode').value;
-        if (!inputCode) {
+    function validate() {
+        var inputCode = document.querySelector('#bf_client .vcode').value;
+        if (inputCode.length <= 0) {
             alert("请输入验证码！");
             return false;
+        } else if (inputCode.toLowerCase() != code.toLowerCase()) {
+            alert("验证码输入错误！");
+            createCode();//刷新验证码
+            return false;
         }
+        else {
+            return true;
+        }
+    }
 
-        return true;
-    };
+    createCode();
 </script>
 {{end}}
