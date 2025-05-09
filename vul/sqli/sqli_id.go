@@ -2,7 +2,6 @@ package sqli
 
 import (
 	"fmt"
-	"html/template"
 	"net/http"
 	"pikachu-go/database"
 	"pikachu-go/templates"
@@ -50,11 +49,7 @@ func SqliIDHandler(renderer templates.Renderer) http.HandlerFunc {
 			}
 		}
 
-		data := templates.PageData{
-			Active:  templates.NewActiveSlice(35, 37),
-			HtmlMsg: template.HTML(htmlMsg),
-		}
-
+		data := templates.NewPageData2(35, 37, htmlMsg)
 		renderer.RenderPage(w, "sqli/sqli_id.html", data)
 	}
 }

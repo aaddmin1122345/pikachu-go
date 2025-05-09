@@ -5,32 +5,45 @@ import (
 	"net/http"
 	"os/exec"
 	"pikachu-go/templates"
-	"regexp"
+	"runtime"
 )
 
-// 这个代码还没写好，
+// RcePingHandler 实现命令注入漏洞演示
 func RcePingHandler(renderer templates.Renderer) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
 		result := ""
 
 		if r.Method == http.MethodPost {
-			ip := r.FormValue("ip")
+			ip := r.FormValue("ipaddress")
+			if ip != "" {
+				// 模拟PHP版本中的命令注入漏洞
+				// 故意直接拼接用户输入到命令中
+				var cmd *exec.Cmd
 
-			// 简单校验只允许 IP/域名格式
-			validInput := regexp.MustCompile(`^[a-zA-Z0-9\.\-]+$`).MatchString
-			if validInput(ip) {
-				cmd := exec.Command("ping", "-c", "1", ip)
-				out, err := cmd.CombinedOutput()
-				if err != nil {
-					result += err.Error() + "\n"
+				if runtime.GOOS == "windows" {
+					// Windows系统
+					cmd = exec.Command("cmd", "/c", "ping "+ip)
+				} else {
+					// Linux/Unix系统
+					cmd = exec.Command("sh", "-c", "ping -c 4 "+ip)
 				}
-				result += string(out)
-			} else {
-				result = "输入非法，疑似注入命令，已拦截。\n"
+
+				// 执行命令并获取输出
+				output, err := cmd.CombinedOutput()
+				if err != nil {
+					result = err.Error() + "\n"
+				}
+				result += string(output)
 			}
 		}
 
-		data := templates.NewPageData2(50, 52, template.HTMLEscapeString(result))
+		data := templates.PageData{
+			Active:  make([]string, 130),
+			HtmlMsg: template.HTML("<pre>" + template.HTMLEscapeString(result) + "</pre>"),
+		}
+		data.Active[50] = "active open"
+		data.Active[52] = "active"
+
 		renderer.RenderPage(w, "rce/rce_ping.html", data)
 	}
 }

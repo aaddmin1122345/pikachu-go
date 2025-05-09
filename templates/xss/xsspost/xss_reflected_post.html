@@ -14,7 +14,7 @@
             </a>
         </div>
         <div class="page-content">
-            <style>
+            <!-- <style>
                 #xssr_main {
                     width: 80%;
                     margin: 0 auto;
@@ -61,19 +61,19 @@
                     padding: 15px;
                     border-top: 1px solid #eee;
                 }
-            </style>
+            </style> -->
             <div id="xssr_main">
                 <p class="xssr_title">Which NBA player do you like?</p>
                 <form action="/vul/xss/xsspost/xss_reflected_post" method="post">
-                    <textarea class="xssr_in" name="message" placeholder="请输入NBA球星名称"></textarea><br>
-                    <input class="xssr_submit" type="submit" value="提交">
+                    <input class="xssr_in" type="text" name="message" />
+                    <input class="xssr_submit" type="submit" name="submit" value="submit" />
                 </form>
-                <div class="result-section">
-                    <strong>结果：</strong>
-                    <div class="notice">
-                        {{ .HtmlMsg }}
-                    </div>
-                </div>
+                <br />
+                {{if .Extra.state}}
+                {{.Extra.state}}
+                <br />
+                {{end}}
+                {{ .HtmlMsg }}
             </div>
         </div>
     </div>
