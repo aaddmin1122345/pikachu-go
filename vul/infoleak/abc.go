@@ -4,73 +4,63 @@ import (
 	"fmt"
 	"net/http"
 	"pikachu-go/templates"
-	"strings"
 )
 
-// ABCHandler 模拟信息泄露页面
+// ABCHandler 处理abc页面的逻辑
 func ABCHandler(renderer templates.Renderer) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
-		// 退出逻辑
-		if r.URL.Query().Get("logout") == "1" {
-			http.SetCookie(w, &http.Cookie{Name: "abc[uname]", Value: "", Path: "/"})
-			http.SetCookie(w, &http.Cookie{Name: "abc[pw]", Value: "", Path: "/"})
-			http.Redirect(w, r, "/vul/infoleak/findabc", http.StatusSeeOther)
-			return
-		}
-
-		// 模拟信息泄露：读取 cookie
-		var username, password string
-		var hasRequiredCookies bool = false
-
-		for _, cookie := range r.Cookies() {
-			if cookie.Name == "abc[uname]" {
-				username = cookie.Value
-			}
-			if cookie.Name == "abc[pw]" {
-				password = cookie.Value
-			}
-		}
-
-		// 检查是否具有正确的cookie访问权限
-		if username == "admin" && password == "123456" {
-			hasRequiredCookies = true
-		}
-
-		// 如果没有正确的cookie，返回错误页面
-		if !hasRequiredCookies {
-			htmlMsg := `
-				<div class="pika-error" style="padding: 15px; border-radius: 4px;">
-					<h4 style="margin-top: 0;"><i class="ace-icon fa fa-exclamation-circle"></i> 访问受限</h4>
-					<p>您没有查看此页面的权限。请通过正确途径获取访问权限。</p>
-					<p>提示：您可能需要先设置正确的cookie值...</p>
-				</div>
-			`
-			data := templates.NewPageData2(85, 87, htmlMsg)
+		// 调试模式：直接查看页面，跳过验证
+		if r.URL.Query().Get("debug") == "1" {
+			fmt.Println("调试模式：直接显示页面")
+			data := templates.NewPageData2(85, 87, "")
 			renderer.RenderPage(w, "infoleak/abc.html", data)
 			return
 		}
 
-		// 如果具有正确的cookie值，显示成功页面
-		var leakInfo []string
+		// 退出逻辑
+		if r.URL.Query().Get("logout") == "1" {
+			http.SetCookie(w, &http.Cookie{Name: "abc_uname", Value: "", Path: "/"})
+			http.SetCookie(w, &http.Cookie{Name: "abc_pw", Value: "", Path: "/"})
+			http.Redirect(w, r, "/vul/infoleak/findabc", http.StatusSeeOther)
+			return
+		}
+
+		// 读取cookie验证身份
+		var username, password string
+		var isAuthenticated bool = false
+
+		// 打印调试信息
+		fmt.Println("当前请求的所有Cookie:")
 		for _, cookie := range r.Cookies() {
-			if strings.HasPrefix(cookie.Name, "abc[") {
-				leakInfo = append(leakInfo, cookie.Name+" = "+cookie.Value)
+			fmt.Printf("Cookie: %s = %s\n", cookie.Name, cookie.Value)
+			if cookie.Name == "abc_uname" {
+				username = cookie.Value
+			}
+			if cookie.Name == "abc_pw" {
+				password = cookie.Value
 			}
 		}
 
-		cookieInfo := ""
-		if len(leakInfo) > 0 {
-			cookieInfo = strings.Join(leakInfo, "\n")
+		fmt.Printf("提取到的用户信息: username=%s, password=%s\n", username, password)
+
+		// 简单验证，只要cookie存在即可访问
+		if username == "lili" && password == "123456" {
+			isAuthenticated = true
+			fmt.Println("验证通过，允许访问")
+		} else {
+			fmt.Println("验证失败，拒绝访问")
 		}
 
-		htmlMsg := fmt.Sprintf(`
-			<div style="display:none">
-				<!-- Cookie信息：%s -->
-				<!-- 这是一个隐藏的信息泄露演示 -->
-			</div>
-		`, cookieInfo)
+		// 若未通过验证，则使用标准HTML警告用户未授权
+		if !isAuthenticated {
+			htmlMsg := `<p class="notice">未授权访问！请通过正确途径登录。</p><p class="notice">提示：请使用lili/123456账号登录</p>`
+			data := templates.NewPageData2(85, 87, htmlMsg)
+			renderer.RenderPage(w, "infoleak/findabc.html", data)
+			return
+		}
 
-		data := templates.NewPageData2(85, 87, htmlMsg)
+		// 已授权，显示内容
+		data := templates.NewPageData2(85, 87, "")
 		renderer.RenderPage(w, "infoleak/abc.html", data)
 	}
 }

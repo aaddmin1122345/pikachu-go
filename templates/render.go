@@ -18,6 +18,7 @@ type PageData struct {
 
 type Renderer interface {
 	RenderPage(w http.ResponseWriter, contentTemplate string, data PageData) error
+	// RenderPartial(w http.ResponseWriter, contentTemplate string, data interface{}) error
 }
 
 type TemplateRenderer struct {
@@ -63,7 +64,7 @@ func NewTemplateRenderer() (Renderer, error) {
 }
 
 func (tr *TemplateRenderer) RenderPage(w http.ResponseWriter, contentTemplate string, data PageData) error {
-	log.Println("开始渲染页面:", contentTemplate)
+	// log.Println("开始渲染页面:", contentTemplate)
 
 	if err := tr.templates.ExecuteTemplate(w, "header.html", data); err != nil {
 		log.Println("执行 header 模板错误：", err)
@@ -82,6 +83,11 @@ func (tr *TemplateRenderer) RenderPage(w http.ResponseWriter, contentTemplate st
 
 	// log.Println("成功渲染页面:", contentTemplate)
 	return nil
+}
+
+// RenderPartial 仅渲染指定模板，不包含头尾
+func (tr *TemplateRenderer) RenderPartial(w http.ResponseWriter, contentTemplate string, data interface{}) error {
+	return tr.templates.ExecuteTemplate(w, contentTemplate, data)
 }
 
 // 旧版已弃用，请使用 NewPageData2 替代

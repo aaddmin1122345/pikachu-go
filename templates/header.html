@@ -21,8 +21,12 @@
     <![endif]-->
         <link rel="stylesheet" href="{{.PikaRoot}}assets/css/ace-skins.min.css" />
         <link rel="stylesheet" href="{{.PikaRoot}}assets/css/ace-rtl.min.css" />
-        <!-- 自定义样式 -->
+        <!-- 自定义样式
         <link rel="stylesheet" href="{{.PikaRoot}}assets/css/pikachu-custom.css" />
+        <! 不安全文件上传模块样式 -->
+        <!-- <link rel="stylesheet" href="{{.PikaRoot}}assets/css/unsafeupload.css" /> -->
+        <!-- CSRF模块样式 -->
+        <!-- <link rel="stylesheet" href="{{.PikaRoot}}assets/css/csrf.css" /> -->
         <!--[if lte IE 9]>
     <link rel="stylesheet" href="{{.PikaRoot}}assets/css/ace-ie.min.css" />
     <![endif]-->
@@ -41,7 +45,7 @@
         <div id="navbar" class="navbar navbar-default ace-save-state">
             <div class="navbar-container ace-save-state" id="navbar-container">
                 <div class="navbar-header pull-left">
-                    <a href="{{.PikaRoot}}index" class="navbar-brand">
+                    <a href="{{.PikaRoot}}" class="navbar-brand">
                         <small>
                             <i class="fa fa-key"></i>
                             Pikachu 漏洞练习平台 pika~pika~
@@ -76,7 +80,7 @@
                 </script>
                 <ul class="nav nav-list">
                     <li class="{{index .Active 0}}">
-                        <a href="{{.PikaRoot}}index">
+                        <a href="{{.PikaRoot}}">
                             <i class="ace-icon glyphicon glyphicon-tags"></i>
                             <span class="menu-text"> 系统介绍 </span>
                         </a>
@@ -118,13 +122,14 @@
                                 </a>
                                 <b class="arrow"></b>
                             </li>
-                            <li class="{{index .Active 6}}">
+                            <!-- 暂时下线 -->
+                            <!-- <li class="{{index .Active 6}}">
                                 <a href="{{.PikaRoot}}vul/burteforce/bf_token">
                                     <i class="menu-icon fa fa-caret-right"></i>
                                     token防爆破?
                                 </a>
                                 <b class="arrow"></b>
-                            </li>
+                            </li> -->
                         </ul>
                     </li>
                     <!-- 其它导航项请按需补充 -->
@@ -236,7 +241,7 @@
                         </ul>
                     </li>
 
-                    <li class="{{index .Active 25}}">
+                    <!-- <li class="{{index .Active 25}}">
                         <a href="#" class="dropdown-toggle">
                             <i class="ace-icon glyphicon glyphicon-share"></i>
                             <span class="menu-text">
@@ -281,7 +286,7 @@
                             </li>
 
                         </ul>
-                    </li>
+                    </li> -->
 
 
                     <li class="{{index .Active 35}}">
@@ -352,13 +357,13 @@
                             </li>
 
 
-                            <li class="{{index .Active 43}}">
+                            <!-- <li class="{{index .Active 43}}">
                                 <a href="{{.PikaRoot}}vul/sqli/sqli_header/sqli_header_login">
                                     <i class="menu-icon fa fa-caret-right"></i>
                                     "http header"注入
                                 </a>
                                 <b class="arrow"></b>
-                            </li>
+                            </li> -->
 
 
                             <li class="{{index .Active 44}}">
@@ -377,13 +382,13 @@
                                 <b class="arrow"></b>
                             </li>
 
-                            <li class="{{index .Active 46}}">
+                            <!-- <li class="{{index .Active 46}}">
                                 <a href="{{.PikaRoot}}vul/sqli/sqli_widebyte">
                                     <i class="menu-icon fa fa-caret-right"></i>
                                     宽字节注入
                                 </a>
                                 <b class="arrow"></b>
-                            </li>
+                            </li> -->
                         </ul>
                     </li>
 
@@ -417,13 +422,13 @@
                                 <b class="arrow"></b>
                             </li>
 
-                            <li class="{{index .Active 53}}">
+                            <!-- <li class="{{index .Active 53}}">
                                 <a href="{{.PikaRoot}}vul/rce/rce_eval">
                                     <i class="menu-icon fa fa-caret-right"></i>
                                     exec "evel"
                                 </a>
                                 <b class="arrow"></b>
-                            </li>
+                            </li> -->
 
                         </ul>
                     </li>
@@ -497,54 +502,9 @@
                         </ul>
                     </li>
 
-                    <li class="{{index .Active 65}}">
-                        <a href="#" class="dropdown-toggle">
-                            <i class="ace-icon glyphicon glyphicon-upload"></i>
-                            <span class="menu-text">
-                                Unsafe Fileupload
-                            </span>
-                            <b class="arrow fa fa-angle-down"></b>
-                        </a>
-                        <b class="arrow"></b>
-                        <ul class="submenu">
 
-                            <li class="{{index .Active 66}}">
-                                <a href="{{.PikaRoot}}vul/unsafeupload/upload">
-                                    <i class="menu-icon fa fa-caret-right"></i>
-                                    概述
-                                </a>
-                                <b class="arrow"></b>
-                            </li>
-
-
-                            <li class="{{index .Active 67}}">
-                                <a href="{{.PikaRoot}}vul/unsafeupload/clientcheck">
-                                    <i class="menu-icon fa fa-caret-right"></i>
-                                    client check
-                                </a>
-                                <b class="arrow"></b>
-                            </li>
-
-                            <li class="{{index .Active 68}}">
-                                <a href="{{.PikaRoot}}vul/unsafeupload/servercheck">
-                                    <i class="menu-icon fa fa-caret-right"></i>
-                                    MIME type
-                                </a>
-                                <b class="arrow"></b>
-                            </li>
-
-                            <li class="{{index .Active 69}}">
-                                <a href="{{.PikaRoot}}vul/unsafeupload/getimagesize">
-                                    <i class="menu-icon fa fa-caret-right"></i>
-                                    getimagesize
-                                </a>
-                                <b class="arrow"></b>
-                            </li>
-
-                        </ul>
-                    </li>
-
-                    <li class="{{index .Active 73}}">
+                    <!-- 暂时下线，重新优化一下 -->
+                    <!-- <li class="{{index .Active 73}}">
                         <a href="#" class="dropdown-toggle">
                             <i class="ace-icon glyphicon glyphicon-text-height"></i>
                             <span class="menu-text">
@@ -580,72 +540,66 @@
                             </li>
 
                         </ul>
-                    </li>
+                    </li> -->
 
 
-                    <li class="{{index .Active 80}}">
+                    <!-- <li class="{{index .Active 80}}">
                         <a href="#" class="dropdown-toggle">
-                            <i class="ace-icon glyphicon glyphicon-align-left"></i>
+                            <i class="ace-icon glyphicon glyphicon-file"></i>
                             <span class="menu-text">
-                                ../../
+                                Template Injection
                             </span>
                             <b class="arrow fa fa-angle-down"></b>
                         </a>
                         <b class="arrow"></b>
                         <ul class="submenu">
-
                             <li class="{{index .Active 81}}">
-                                <a href="{{.PikaRoot}}vul/dir/dir">
+                                <a href="{{.PikaRoot}}vul/templateinj">
                                     <i class="menu-icon fa fa-caret-right"></i>
                                     概述
                                 </a>
                                 <b class="arrow"></b>
                             </li>
-
                             <li class="{{index .Active 82}}">
-                                <a href="{{.PikaRoot}}vul/dir/dir_list">
+                                <a href="{{.PikaRoot}}vul/templateinj/test">
                                     <i class="menu-icon fa fa-caret-right"></i>
-                                    目录遍历
+                                    漏洞测试
                                 </a>
                                 <b class="arrow"></b>
                             </li>
                         </ul>
-                    </li>
+                    </li> -->
 
-
-                    <li class="{{index .Active 85}}">
+                    <!-- 重复的API Unauthorized菜单项，注释掉 -->
+                    <!-- <li class="{{index .Active 85}}">
                         <a href="#" class="dropdown-toggle">
-                            <i class="ace-icon glyphicon glyphicon-camera"></i>
+                            <i class="ace-icon glyphicon glyphicon-lock"></i>
                             <span class="menu-text">
-                                敏感信息泄露
+                                API Unauthorized
                             </span>
                             <b class="arrow fa fa-angle-down"></b>
                         </a>
                         <b class="arrow"></b>
                         <ul class="submenu">
-
                             <li class="{{index .Active 86}}">
-                                <a href="{{.PikaRoot}}vul/infoleak/infoleak">
+                                <a href="{{.PikaRoot}}vul/apiunauth/apiunauth">
                                     <i class="menu-icon fa fa-caret-right"></i>
                                     概述
                                 </a>
                                 <b class="arrow"></b>
                             </li>
-
-
                             <li class="{{index .Active 87}}">
-                                <a href="{{.PikaRoot}}vul/infoleak/findabc">
+                                <a href="{{.PikaRoot}}vul/apiunauth/apiunauth_demo">
                                     <i class="menu-icon fa fa-caret-right"></i>
-                                    IcanseeyourABC
+                                    漏洞演示
                                 </a>
                                 <b class="arrow"></b>
                             </li>
-
-
                         </ul>
-                    </li>
+                    </li> -->
 
-                    <li class="{{index .Active 90}}">
+                    <!-- 在go当中，php反序列化是无法实现的 -->
+                    <!-- <li class="{{index .Active 90}}">
                         <a href="#" class="dropdown-toggle">
                             <i class="ace-icon glyphicon glyphicon-align-left"></i>
                             <span class="menu-text">
@@ -673,10 +627,10 @@
                             </li>
 
                         </ul>
-                    </li>
+                    </li> -->
 
-
-                    <li class="{{index .Active 95}}">
+                    <!-- 后续换为html模板注入 -->
+                    <!-- <li class="{{index .Active 95}}">
                         <a href="#" class="dropdown-toggle">
                             <i class="ace-icon glyphicon glyphicon-flag"></i>
                             <span class="menu-text">
@@ -704,7 +658,7 @@
                             </li>
 
                         </ul>
-                    </li>
+                    </li> -->
 
                     <li class="{{index .Active 100}}">
                         <a href="#" class="dropdown-toggle">
@@ -763,14 +717,67 @@
                                 <b class="arrow"></b>
                             </li>
 
-                            <li class="{{index .Active 108}}">
+                            <!-- <li class="{{index .Active 108}}">
                                 <a href="{{.PikaRoot}}vul/ssrf/ssrf_fgc">
                                     <i class="menu-icon fa fa-caret-right"></i>
                                     SSRF(file_get_content)
                                 </a>
                                 <b class="arrow"></b>
-                            </li>
+                            </li> -->
 
+                        </ul>
+                    </li>
+
+                    <li class="{{index .Active 111}}">
+                        <a href="#" class="dropdown-toggle">
+                            <i class="ace-icon glyphicon glyphicon-cloud"></i>
+                            <span class="menu-text">API未授权访问</span>
+                            <b class="arrow fa fa-angle-down"></b>
+                        </a>
+                        <b class="arrow"></b>
+                        <ul class="submenu">
+                            <li class="{{index .Active 112}}">
+                                <a href="{{.PikaRoot}}vul/apiunauth/apiunauth">
+                                    <i class="menu-icon fa fa-caret-right"></i>
+                                    概述
+                                </a>
+                                <b class="arrow"></b>
+                            </li>
+                            <li class="{{index .Active 113}}">
+                                <a href="{{.PikaRoot}}vul/apiunauth/apiunauth_demo">
+                                    <i class="menu-icon fa fa-caret-right"></i>
+                                    漏洞演示
+                                </a>
+                                <b class="arrow"></b>
+                            </li>
+                        </ul>
+                    </li>
+
+
+                    <li class="{{index .Active 116}}">
+                        <a href="#" class="dropdown-toggle">
+                            <i class="ace-icon fa fa-code"></i>
+                            <span class="menu-text">
+                                SSTI模板注入
+                            </span>
+                            <b class="arrow fa fa-angle-down"></b>
+                        </a>
+                        <b class="arrow"></b>
+                        <ul class="submenu">
+                            <li class="{{index .Active 117}}">
+                                <a href="{{.PikaRoot}}vul/ssti/ssti">
+                                    <i class="menu-icon fa fa-caret-right"></i>
+                                    概述
+                                </a>
+                                <b class="arrow"></b>
+                            </li>
+                            <li class="{{index .Active 118}}">
+                                <a href="{{.PikaRoot}}vul/ssti/test">
+                                    <i class="menu-icon fa fa-caret-right"></i>
+                                    漏洞测试
+                                </a>
+                                <b class="arrow"></b>
+                            </li>
                         </ul>
                     </li>
 

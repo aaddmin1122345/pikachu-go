@@ -22,7 +22,7 @@ func SqliIDHandler(renderer templates.Renderer) http.HandlerFunc {
 				htmlMsg = "数据库连接失败"
 			} else {
 				// 故意保留SQL注入漏洞 - 直接拼接用户输入到SQL语句中
-				query := fmt.Sprintf("SELECT username, email FROM users WHERE id = %s", id)
+				query := fmt.Sprintf("SELECT username, email FROM member WHERE id = %s", id)
 
 				rows, err := db.Query(query)
 				if err != nil {

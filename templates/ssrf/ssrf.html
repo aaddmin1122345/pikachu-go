@@ -3,34 +3,34 @@
     <div class="main-content-inner">
         <div class="breadcrumbs ace-save-state" id="breadcrumbs">
             <ul class="breadcrumb">
-                <li><i class="ace-icon fa fa-home home-icon"></i>
-                    <a href="/vul/ssrf/ssrf">ssrf</a>
+                <li>
+                    <i class="ace-icon fa fa-home home-icon"></i>
+                    <a href="/vul/ssrf/ssrf"></a>
                 </li>
                 <li class="active">概述</li>
             </ul>
         </div>
-
         <div class="page-content">
-            <div id="vul_info">
-                <dl>
-                    <dt class="vul_title">SSRF(Server-Side Request Forgery) 服务器端请求伪造</dt>
-                    <dd class="vul_detail">
-                        SSRF 是一种由攻击者构造请求，由服务器端发起的漏洞攻击方式。攻击目标通常是内网应用、云服务元数据等无法直接访问的目标。
-                    </dd>
-                    <dd class="vul_detail">
-                        SSRF 利用场景常见于：
-                        <ul>
-                            <li>头像上传 URL 回显</li>
-                            <li>服务器数据抓取（爬虫、RSS、Webhook）</li>
-                            <li>后台接口调度（API 请求）</li>
-                        </ul>
-                    </dd>
-                    <dd class="vul_detail">
-                        SSRF 漏洞若结合任意协议支持（如 gopher、file）或响应信息回显，则可进一步提升为 RCE 等高危漏洞。
-                    </dd>
-                </dl>
-            </div>
-        </div>
+            <b>SSRF(Server-Side Request Forgery:服务器端请求伪造)</b>
+            <p>其形成的原因大都是由于服务端<b>提供了从其他服务器应用获取数据的功能</b>,但又没有对目标地址做严格过滤与限制</p>
+            导致攻击者可以传入任意的地址来让后端服务器对其发起请求,并返回对该目标地址请求的数据<br>
+            <br>
+            数据流:攻击者----->服务器---->目标地址<br>
+            <br>
+            根据后台使用的函数的不同,对应的影响和利用方法又有不一样
+            <pre style="width: 500px;">
+Go中下面函数的使用不当会导致SSRF:
+http.Get()
+io.ReadAll()
+http.Client.Do()
+os.ReadFile()
+            </pre><br>
+            如果一定要通过后台服务器远程去对用户指定("或者预埋在前端的请求")的地址进行资源请求,<b>则请做好目标地址的过滤</b>。
+<br>
+            <br>
+
+            你可以根据"SSRF"里面的项目来搞懂问题的原因
+        </div><!-- /.page-content -->
     </div>
-</div>
+</div><!-- /.main-content -->
 {{end}}

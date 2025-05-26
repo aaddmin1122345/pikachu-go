@@ -2,15 +2,19 @@
     <div class="main-content-inner">
         <div class="breadcrumbs ace-save-state" id="breadcrumbs">
             <ul class="breadcrumb">
-                <li><i class="ace-icon fa fa-home home-icon"></i><a href="/">主页</a></li>
-                <li class="active">RCE - eval 漏洞演示</li>
+                <li><i class="ace-icon fa fa-home home-icon"></i><a href="/vul/rce/rce">rce</a></li>
+                <li class="active">exec "eval"</li>
             </ul>
+            <a href="#" style="float:right" data-container="body" data-toggle="popover" data-placement="bottom" title="tips(再点一下关闭)" data-content="后台不会使用了eval()吧....">
+                点一下提示~
+            </a>
         </div>
         <div class="page-content">
-            <div class="vul info">
+            <div id="comm_main">
+                <p class="comm_title">Here, 请提交一个你喜欢的字符串:</p>
                 <form method="post">
-                    命令输入：<input name="cmd" type="text" style="width:300px">
-                    <input type="submit" value="执行">
+                    <input class="ipadd" type="text" name="txt" />
+                    <input class="sub" type="submit" name="submit" value="提交" />
                 </form>
                 <br>
                 <pre>{{ .HtmlMsg }}</pre>

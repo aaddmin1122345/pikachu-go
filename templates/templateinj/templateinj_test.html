@@ -1,0 +1,43 @@
+{{define "templateinj/templateinj_test.html"}}
+<div class="main-content">
+    <div class="main-content-inner">
+        <div class="breadcrumbs ace-save-state" id="breadcrumbs">
+            <ul class="breadcrumb">
+                <li>
+                    <i class="ace-icon fa fa-home home-icon"></i>
+                    <a href="/">首页</a>
+                </li>
+                <li>
+                    <a href="/vul/templateinj">SSTI模板注入</a>
+                </li>
+                <li class="active">漏洞测试</li>
+            </ul>
+            <a href="#" style="float:right" data-container="body" data-toggle="popover" data-placement="bottom"
+                title="tips(再点一下关闭)"
+                data-content="这是一个SSTI模板注入漏洞的测试页面，尝试在个性签名中注入模板语法（如&lbrace;&lbrace;.user&rbrace;&rbrace;或&lbrace;&lbrace;exec &quot;whoami&quot;&rbrace;&rbrace;）看看会发生什么。详细说明请看概述页面。">
+                点一下提示~
+            </a>
+        </div>
+        <div class="page-content">
+            <div class="widget-box">
+                <div class="widget-header widget-header-flat">
+                    <h4 class="widget-title smaller">SSTI模板注入漏洞测试</h4>
+                </div>
+                <div id="templateinj_test_main">
+                    <p class="templateinj_test_title">个性化欢迎语</p>
+                    {{if .HtmlMsg}}
+                    {{.HtmlMsg}}
+                    {{else}}
+                        <p>尊敬的用户 {{.Extra.user}}，欢迎您！请在下方输入您的个性签名，它将显示在您的欢迎语中。</p>
+                        {{end}}
+                        <form method="post">
+                            <label for="tpl">个性签名：</label>
+                            <textarea id="tpl" name="tpl" rows="3" placeholder="输入个性签名">{{.Extra.tpl}}</textarea>
+                            <input type="submit" name="submit" value="更新欢迎语" />
+                        </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{{end}}

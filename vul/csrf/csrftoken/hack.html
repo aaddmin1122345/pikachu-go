@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>钓鱼网站 - CSRF Token攻击演示（已防护）</title>
+    <meta charset="utf-8">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            line-height: 1.6;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            border: 1px solid #ddd;
+            padding: 20px;
+            border-radius: 5px;
+        }
+        h1 {
+            color: #333;
+        }
+        .warning {
+            color: red;
+            font-weight: bold;
+        }
+        .hidden {
+            display: none;
+        }
+        .btn {
+            background-color: #4CAF50;
+            border: none;
+            color: white;
+            padding: 10px 20px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            margin: 10px 2px;
+            cursor: pointer;
+            border-radius: 4px;
+        }
+        .btn-warning {
+            background-color: #f44336;
+        }
+        .info {
+            background-color: #f8f9fa;
+            border-left: 4px solid #5bc0de;
+            padding: 10px;
+            margin: 20px 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>免费抽奖活动！</h1>
+        <p>点击下方按钮抽取价值10000元的大奖！</p>
+        
+        <button class="btn btn-warning" onclick="attemptAttack()">立即抽奖</button>
+        
+        <div id="result" style="margin-top: 20px; display: none;">
+            <h2 class="warning">攻击失败！</h2>
+            <p>尝试修改用户信息的CSRF攻击已被阻止。</p>
+            <p>原因：目标网站已实施CSRF Token防护。</p>
+        </div>
+        
+        <div class="info">
+            <p><strong>安全说明：</strong>此页面演示了CSRF Token防护机制的有效性。</p>
+            <p>当攻击者尝试伪造请求时，由于无法获取到目标用户会话中的有效Token，攻击会被服务器拒绝。</p>
+            <p>CSRF Token工作原理：</p>
+            <ol>
+                <li>服务器为每个用户会话生成一个唯一的随机令牌</li>
+                <li>表单提交时必须包含此令牌</li>
+                <li>服务器验证提交的令牌与会话中存储的是否匹配</li>
+                <li>攻击者无法获取其他用户会话中的令牌，因此无法构造有效请求</li>
+            </ol>
+        </div>
+        
+        <!-- 隐藏的表单，尝试但会失败的CSRF攻击 -->
+        <form id="csrf-form" action="http://localhost:8888/vul/csrf/csrftoken/token_get_edit" method="get" class="hidden">
+            <input type="hidden" name="sex" value="Token攻击失败">
+            <input type="hidden" name="phonenum" value="13999999999">
+            <input type="hidden" name="add" value="黑客无法通过CSRF攻击修改">
+            <input type="hidden" name="email" value="attack-failed@example.com">
+            <!-- 注意：缺少有效的token，所以攻击会失败 -->
+            <input type="hidden" name="token" value="fake-token-will-not-work">
+            <input type="hidden" name="submit" value="submit">
+        </form>
+    </div>
+
+    <script>
+        function attemptAttack() {
+            // 提交表单尝试攻击
+            document.getElementById('csrf-form').submit();
+            
+            // 显示攻击失败信息
+            setTimeout(function() {
+                document.getElementById('result').style.display = 'block';
+            }, 1000);
+        }
+    </script>
+</body>
+</html> 

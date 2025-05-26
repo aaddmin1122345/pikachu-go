@@ -1,35 +1,96 @@
 package csrftoken
 
 import (
-	"math/rand"
 	"net/http"
 	"pikachu-go/templates"
-	"strconv"
-	"time"
+	"pikachu-go/utils"
 )
 
-// TokenGetLoginHandler 登录并生成 token
+// TokenGetLoginHandler 处理带Token保护的登录
 func TokenGetLoginHandler(renderer templates.Renderer) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
-		msg := ""
-		if r.Method == http.MethodPost {
-			user := r.FormValue("username")
-			nick := r.FormValue("nickname")
-
-			token := generateToken()
-			http.SetCookie(w, &http.Cookie{Name: "token_get_user", Value: user, Path: "/"})
-			http.SetCookie(w, &http.Cookie{Name: "token_get_nick", Value: nick, Path: "/"})
-			http.SetCookie(w, &http.Cookie{Name: "token_get_token", Value: token, Path: "/"})
-			msg = "登录成功，已生成 token"
+		// 检查是否已登录，如果已登录直接重定向到会员中心
+		loggedIn, _ := utils.CheckCSRFLogin(r)
+		if loggedIn {
+			http.Redirect(w, r, "/vul/csrf/csrftoken/token_get", http.StatusFound)
+			return
 		}
 
-		data := templates.NewPageData2(25, 29, msg)
+		// 处理登录逻辑
+		message := ""
+		if r.Method == http.MethodPost {
+			username := r.FormValue("username")
+			password := r.FormValue("password")
+
+			if username != "" && password != "" {
+				// 设置会话
+				if utils.SetCSRFSession(w, username, password) {
+					// 生成CSRF token并设置到cookie
+					token := utils.GenerateCSRFToken()
+					http.SetCookie(w, &http.Cookie{
+						Name:     "csrf_token",
+						Value:    token,
+						Path:     "/",
+						HttpOnly: true,
+						MaxAge:   3600, // 1小时过期
+					})
+
+					// 登录成功，重定向到会员中心
+					http.Redirect(w, r, "/vul/csrf/csrftoken/token_get", http.StatusFound)
+					return
+				} else {
+					message = "登录失败，用户名或密码错误"
+				}
+			} else {
+				message = "请输入用户名和密码"
+			}
+		}
+
+		// 构建登录表单HTML
+		html := `
+		<div class="xss_form">
+			<div class="xss_form_main">
+				<h4 class="header blue lighter bigger">
+					<i class="ace-icon fa fa-coffee green"></i>
+					请输入登录信息
+				</h4>
+				
+				<form method="post" action="/vul/csrf/csrftoken/token_get_login">
+					<label>
+						<span>
+							<input type="text" name="username" placeholder="用户名" />
+							<i class="ace-icon fa fa-user"></i>
+						</span>
+					</label>
+					</br>
+					
+					<label>
+						<span>
+							<input type="password" name="password" placeholder="密码" />
+							<i class="ace-icon fa fa-lock"></i>
+						</span>
+					</label>
+					
+					<div class="space"></div>
+					
+					<div class="clearfix">
+						<label><input class="submit" name="submit" type="submit" value="登录" /></label>
+					</div>
+				</form>
+		`
+
+		if message != "" {
+			html += "<p>" + message + "</p>"
+		}
+
+		html += `
+				<p style="color:red">提示: 用户名有 vince/allen/kobe/grady/kevin/lucy/lili，密码全部是 123456</p>
+				<p>此功能区域使用了CSRF Token来防护CSRF攻击</p>
+			</div>
+		</div>
+		`
+
+		data := templates.NewPageData2(25, 29, html)
 		renderer.RenderPage(w, "csrf/csrftoken/token_get_login.html", data)
 	}
-	// token 可加盐处理，这里简化为随机数字
-}
-
-func generateToken() string {
-	rand.Seed(time.Now().UnixNano())
-	return strconv.FormatInt(rand.Int63(), 16)
 }

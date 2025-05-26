@@ -1,0 +1,38 @@
+{{define "apiunauth/apiunauth_demo.html"}}
+<div class="main-content">
+    <div class="main-content-inner">
+        <div class="breadcrumbs ace-save-state" id="breadcrumbs">
+            <ul class="breadcrumb">
+                <li>
+                    <i class="ace-icon fa fa-home home-icon"></i>
+                    <a href="/vul/apiunauth/apiunauth">API未授权访问</a>
+                </li>
+                <li class="active">漏洞演示</li>
+            </ul>
+            <a href="#" style="float:right" data-container="body" data-toggle="popover" data-placement="bottom"
+                title="tips(再点一下关闭)" data-content="尝试使用 ffuf 等工具对 API 进行目录扫描，看看是否能发现未授权的接口">
+                点一下提示~
+            </a>
+        </div>
+        <div class="page-content">
+            <div id="apiunauth_demo_main">
+                <h3>API未授权访问漏洞演示</h3>
+                {{if .HtmlMsg}}
+                {{.HtmlMsg}}
+                {{end}}
+                <p>这个页面用于演示API未授权访问漏洞。后台存在一个API接口 <code>/vul/apiunauth/api/users</code>，可以通过GET请求访问，而不需要任何认证。</p>
+                <p>你可以尝试使用工具（如ffuf）对 <code>http://localhost:8080/vul/apiunauth/api/</code> 路径进行目录扫描，可能会发现其他未授权访问的API接口。
+                </p>
+
+                <h4>使用 <a href="https://github.com/ffuf/ffuf">ffuf</a> 进行 API 扫描</h4>
+                <pre
+                    class="prettyprint">ffuf -w /path/to/wordlist.txt -c -u http://localhost:8080/vul/apiunauth/api/FUZZ -mc 400</pre>
+
+                <h4>字典文件</h4>
+                <p>可以使用<a href="https://github.com/TheKingOfDuck/fuzzDicts">字典</a>文件进行扫描：</p>
+
+            </div>
+        </div><!-- /.page-content -->
+    </div>
+</div><!-- /.main-content -->
+{{end}}

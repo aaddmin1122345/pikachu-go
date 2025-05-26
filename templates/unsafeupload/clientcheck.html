@@ -5,7 +5,7 @@
             <ul class="breadcrumb">
                 <li>
                     <i class="ace-icon fa fa-home home-icon"></i>
-                    <a href="/vul/unsafeupload/upload">unsafe upfileupload</a>
+                    <a href="/vul/unsafeupload/upload">不安全的文件上传</a>
                 </li>
                 <li class="active">客户端check</li>
             </ul>
@@ -20,7 +20,7 @@
                     <input class="uploadfile" type="file" name="uploadfile" onchange="checkFileExt(this.value)" /><br />
                     <input class="sub" type="submit" name="submit" value="开始上传" />
                 </form>
-                <div style="margin-top:10px;">{{.HtmlMsg}}</div>
+                {{.HtmlMsg}}
             </div>
         </div>
     </div>
@@ -28,8 +28,20 @@
 
 <script>
     function checkFileExt(filename) {
-        var ext = filename.substring(filename.lastIndexOf('.') + 1).toLowerCase();
-        if (!["jpg", "png", "gif"].includes(ext)) {
+        var flag = false; // 状态
+        var arr = ["jpg", "png", "gif"];
+        // 取出上传文件的扩展名
+        var index = filename.lastIndexOf(".");
+        var ext = filename.substr(index + 1);
+        // 比较
+        for (var i = 0; i < arr.length; i++) {
+            if (ext == arr[i]) {
+                flag = true; // 一旦找到合适的，立即退出循环
+                break;
+            }
+        }
+        // 条件判断
+        if (!flag) {
             alert("上传的文件不符合要求，请重新选择！");
             location.reload(true);
         }

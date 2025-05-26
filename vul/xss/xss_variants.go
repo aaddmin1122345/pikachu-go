@@ -1,6 +1,7 @@
 package xss
 
 import (
+	"fmt"
 	"html/template"
 	"net/http"
 	"pikachu-go/templates"
@@ -44,13 +45,30 @@ func RenderXssVariant(renderer templates.Renderer, variant string) http.HandlerF
 					message = strings.ReplaceAll(strings.ReplaceAll(strings.ReplaceAll(message, "&", "&amp;"), "<", "&lt;"), ">", "&gt;")
 					data.HtmlMsg = template.HTML("<p>输入的内容是：" + message + "</p>")
 				case "xss_03":
-					// 替换尖括号
-					message = strings.ReplaceAll(strings.ReplaceAll(message, "<", "["), ">", "]")
-					data.HtmlMsg = template.HTML("<p>输入的内容是：" + message + "</p>")
+					// 用于href属性中，替换尖括号
+					if message == "" {
+						data.HtmlMsg = template.HTML("<p class='notice'>叫你输入个url,你咋不听?</p>")
+					} else if message == "www.baidu.com" {
+						data.HtmlMsg = template.HTML("<p class='notice'>我靠,我真想不到你是这样的一个人</p>")
+					} else {
+						// 这里应该使用htmlspecialchars编码后再输出到href属性
+						message = strings.ReplaceAll(strings.ReplaceAll(message, "<", "["), ">", "]")
+						data.HtmlMsg = template.HTML(fmt.Sprintf("<a href='%s'> 阁下自己输入的url还请自己点一下吧</a>", message))
+					}
 				case "xss_04":
-					// 使用htmlentities编码
-					message = strings.ReplaceAll(strings.ReplaceAll(strings.ReplaceAll(strings.ReplaceAll(message, "&", "&amp;"), "<", "&lt;"), ">", "&gt;"), "\"", "&quot;")
-					data.HtmlMsg = template.HTML("<p>输入的内容是：" + message + "</p>")
+					// JS输出场景，直接将用户输入嵌入JS中
+					// 这里应将用户输入进行JavaScript转义
+					jsvar := message
+					imgTag := ""
+
+					if message == "tmac" {
+						imgTag = "<img src='/assets/images/nbaplayer/tmac.jpeg' />"
+					}
+
+					// 添加JS变量到Extra
+					data.Extra = make(map[string]interface{})
+					data.Extra["Jsvar"] = jsvar
+					data.HtmlMsg = template.HTML(imgTag)
 				}
 			}
 		}

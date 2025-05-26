@@ -1,3 +1,4 @@
+{{define "overpermission/op1/op1_login.html"}}
 <div class="main-content">
     <div class="main-content-inner">
         <div class="breadcrumbs ace-save-state" id="breadcrumbs">
@@ -6,34 +7,47 @@
                     <i class="ace-icon fa fa-home home-icon"></i>
                     <a href="{{.PikaRoot}}vul/overpermission/op">越权</a>
                 </li>
-                <li class="active">水平越权</li>
+                <li class="active">op1 login</li>
             </ul>
             <a href="#" style="float:right" data-container="body" data-toggle="popover" data-placement="bottom"
-                title="tips(再点一下关闭)" data-content="水平越权指的是同级别用户之间的权限越级访问">
+                title="tips(再点一下关闭)" data-content="lucy/123456,lili/123456,kobe/123456">
                 点一下提示~
             </a>
         </div>
         <div class="page-content">
-            <div class="vul-info">
-                <h3>水平越权登录</h3>
-                <form method="post">
-                    <div class="form-group">
-                        <label for="username">用户名：</label>
-                        <input type="text" class="form-control" id="username" name="username" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="password">密码：</label>
-                        <input type="password" class="form-control" id="password" name="password" required>
-                    </div>
-                    <button type="submit" class="btn btn-primary">登录</button>
-                </form>
-                <div class="alert alert-info" style="margin-top: 20px;">
-                    本页面仅为演示，可用的测试账号：<br>
-                    用户名：pikachu，密码：123456<br>
-                    用户名：admin，密码：123456
-                </div>
-                {{ .HtmlMsg }}
-            </div>
-        </div>
+            <div class="op_form">
+                <div class="op_form_main">
+                    <h4 class="header blue lighter bigger">
+                        <i class="ace-icon fa fa-coffee green"></i>
+                        Please Enter Your Information
+                    </h4>
+
+                    <form method="post">
+                        <label>
+                            <span>
+                                <input type="text" name="username" placeholder="Username" />
+                                <i class="ace-icon fa fa-user"></i>
+                            </span>
+                        </label>
+                        </br>
+
+                        <label>
+                            <span>
+                                <input type="password" name="password" placeholder="Password" />
+                                <i class="ace-icon fa fa-lock"></i>
+                            </span>
+                        </label>
+
+                        <div class="space"></div>
+
+                        <div class="clearfix">
+                            <label><input class="submit" name="submit" type="submit" value="Login" /></label>
+                        </div>
+                    </form>
+                    {{ .HtmlMsg }}
+                </div><!-- /.widget-main -->
+            </div><!-- /.widget-body -->
+        </div><!-- /.page-content -->
     </div>
-</div>
+</div><!-- /.main-content -->
+{{end}}

@@ -3,49 +3,49 @@
     <div class="main-content-inner">
         <div class="breadcrumbs ace-save-state" id="breadcrumbs">
             <ul class="breadcrumb">
-                <li><i class="ace-icon fa fa-home home-icon"></i><a href="/vul/infoleak/infoleak">敏感信息泄露</a></li>
-                <li class="active">IcanseeyourABC</li>
+                <li>
+                    <i class="ace-icon fa fa-home home-icon"></i>
+                    <a href="/vul/infoleak/infoleak">敏感信息泄露</a>
+                </li>
+                <li class="active">find abc</li>
             </ul>
-
             <a href="#" style="float:right" data-container="body" data-toggle="popover" data-placement="bottom"
-                title="tips(再点一下关闭)" data-content="可能的敏感信息会在哪里泄露？cookie? 源代码? 你仔细找找...">
+                title="tips(再点一下关闭)" data-content="找找看,很多地方都漏点了...">
                 点一下提示~
             </a>
         </div>
         <div class="page-content">
-            <div class="pika-container">
-                <h3 class="pika-title">敏感信息泄露测试</h3>
+            <div class="form">
+                <div class="form_main">
+                    <h4 class="header blue lighter bigger">
+                        <i class="ace-icon fa fa-coffee green"></i>
+                        Please Enter Your Information
+                    </h4>
 
-                <div class="pika-form">
-                    <form action="/vul/infoleak/findabc" method="get">
-                        <label for="uname">用户名：</label>
-                        <input type="text" id="uname" name="uname" placeholder="请输入用户名">
+                    <form method="get">
+                        <label>
+                            <span>
+                                <input type="text" name="username" placeholder="Username" />
+                                <i class="ace-icon fa fa-user"></i>
+                            </span>
+                        </label>
+                        </br>
 
-                        <label for="pw">密码：</label>
-                        <input type="text" id="pw" name="pw" placeholder="请输入密码">
+                        <label>
+                            <span>
+                                <input type="password" name="password" placeholder="Password" />
+                                <i class="ace-icon fa fa-lock"></i>
+                            </span>
+                        </label>
 
-                        <p style="margin: 15px 0;">
-                            <input type="submit" value="提交">
-                        </p>
+                        <div class="space"></div>
+
+                        <div class="clearfix">
+                            <label><input class="submit" name="submit" type="submit" value="Login" /></label>
+                        </div>
                     </form>
-                </div>
-
-                <div class="pika-result">
-                    <div class="pika-notice">
-                        {{.HtmlMsg}}
-                    </div>
-                </div>
-
-                <!-- 隐藏的HTML注释，模拟源码中的敏感信息 -->
-                <!-- 
-                    开发提示: 用户abc页面地址为 /vul/infoleak/abc
-                    访问密钥: cookie需包含abc[uname]=admin&abc[pw]=123456
-                    TODO: 上线前移除此注释
-                -->
-
-                <div style="margin-top: 20px; border-top: 1px solid #eee; padding-top: 15px;">
-                    <p>提示：查看网页源代码和Cookie可能会发现一些有趣的信息...</p>
-                </div>
+                    {{.HtmlMsg}}
+                </div><!-- 测试账号:lili/123456-->
             </div>
         </div>
     </div>

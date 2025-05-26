@@ -1,12 +1,10 @@
 package sqli
 
 import (
-	"database/sql"
 	"fmt"
 	"net/http"
+	"pikachu-go/database"
 	"pikachu-go/templates"
-
-	_ "github.com/lib/pq"
 )
 
 // SqliBlindBHandler 布尔型盲注
@@ -18,16 +16,15 @@ func SqliBlindBHandler(renderer templates.Renderer) http.HandlerFunc {
 
 		// 使用输入值执行 SQL 查询，模拟 SQL 注入
 		if input != "" {
-			// 模拟 SQL 注入的查询语句
-			db, err := sql.Open("postgres", "user=pgsql password=pgsql dbname=pikachu-go sslmode=disable")
-			if err != nil {
+			// 使用全局数据库连接
+			db := database.DB
+			if db == nil {
 				http.Error(w, "数据库连接失败", http.StatusInternalServerError)
 				return
 			}
-			defer db.Close()
 
-			// 执行注入查询
-			query := fmt.Sprintf("SELECT 1 FROM users WHERE username = '%s' AND password = '123456'", input)
+			// 故意保留SQL注入漏洞，直接拼接SQL
+			query := fmt.Sprintf("SELECT 1 FROM member WHERE username = '%s' AND password = '123456'", input)
 			rows, err := db.Query(query)
 			if err != nil {
 				result = `<p style="color:red">查询错误: ` + err.Error() + `</p>`

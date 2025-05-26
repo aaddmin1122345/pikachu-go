@@ -1,12 +1,10 @@
 package sqliheader
 
 import (
-	"database/sql"
 	"fmt"
 	"net/http"
+	"pikachu-go/database"
 	"pikachu-go/templates"
-
-	_ "github.com/lib/pq"
 )
 
 // SqliHeaderLoginHandler 模拟基于 header 的注入登录
@@ -17,15 +15,15 @@ func SqliHeaderLoginHandler(renderer templates.Renderer) http.HandlerFunc {
 		result := "请设置 HTTP Header 中的 username 来进行登录测试。"
 
 		if username != "" {
-			db, err := sql.Open("postgres", "user=pgsql password=pgsql dbname=pikachu-go sslmode=disable")
-			if err != nil {
+			// 使用全局数据库连接
+			db := database.DB
+			if db == nil {
 				http.Error(w, "数据库连接失败", http.StatusInternalServerError)
 				return
 			}
-			defer db.Close()
 
-			// 模拟 SQL 注入
-			query := fmt.Sprintf("SELECT * FROM users WHERE username = '%s'", username)
+			// 故意保留SQL注入漏洞，直接拼接SQL
+			query := fmt.Sprintf("SELECT id, username, password FROM users WHERE username = '%s'", username)
 			row := db.QueryRow(query)
 
 			var id int

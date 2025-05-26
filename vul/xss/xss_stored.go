@@ -21,9 +21,7 @@ func StoredHandler(renderer templates.Renderer) http.HandlerFunc {
 			id := r.URL.Query().Get("id")
 			idNum, err := strconv.Atoi(id)
 			if err == nil {
-				// SQL注入漏洞（故意保留，作为彩蛋）
-				query := fmt.Sprintf("DELETE FROM message WHERE id=%d", idNum)
-				_, err := db.Exec(query)
+				_, err := db.Exec("DELETE FROM message WHERE id=$1", idNum)
 				if err != nil {
 					html += "<p id='op_notice'>删除失败,请重试并检查数据库是否还好!</p>"
 				} else {
@@ -38,17 +36,18 @@ func StoredHandler(renderer templates.Renderer) http.HandlerFunc {
 		if r.Method == http.MethodPost {
 			message := r.FormValue("message")
 			if message != "" {
-				_, err := db.Exec("INSERT INTO message(content,time) VALUES(?,now())", message)
+				// 修正PostgreSQL占位符
+				_, err := db.Exec("INSERT INTO message(content, time) VALUES($1, now())", message)
 				if err != nil {
-					html += "<p>数据库出现异常，提交失败！</p>"
+					html += "<p>数据库出现异常，提交失败！" + err.Error() + "</p>"
 				}
 			}
 		}
 
-		// 获取所有留言
-		rows, err := db.Query("SELECT * FROM message")
+		// 获取所有留言，按时间降序排列
+		rows, err := db.Query("SELECT id, content, time FROM message ORDER BY time DESC")
 		if err != nil {
-			html += "<p>获取留言列表失败！</p>"
+			html += "<p>获取留言列表失败！" + err.Error() + "</p>"
 		} else {
 			defer rows.Close()
 			for rows.Next() {
@@ -60,7 +59,7 @@ func StoredHandler(renderer templates.Renderer) http.HandlerFunc {
 					continue
 				}
 				// XSS漏洞点：直接输出用户输入的内容
-				html += fmt.Sprintf("<p class='con'>%s</p><a href='/vul/xss/xss_stored?id=%d'>删除</a>", content, id)
+				html += fmt.Sprintf("<p class='con'>%s</p><p class='time'>%s</p><a href='/vul/xss/xss_stored?id=%d'>删除</a><br><br>", content, time, id)
 			}
 		}
 

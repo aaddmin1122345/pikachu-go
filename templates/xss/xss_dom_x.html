@@ -1,19 +1,42 @@
+{{define "xss/xss_dom_x.html"}}
 <div class="main-content">
     <div class="main-content-inner">
+        <div class="breadcrumbs ace-save-state" id="breadcrumbs">
+            <ul class="breadcrumb">
+                <li>
+                    <i class="ace-icon fa fa-home home-icon"></i>
+                    <a href="/vul/xss/xss">xss</a>
+                </li>
+                <li class="active">DOM型xss-x</li>
+            </ul>
+            <a href="#" style="float:right" data-container="body" data-toggle="popover" data-placement="bottom"
+                title="tips(再点一下关闭)" data-content="dom型XSS是鸡肋吗?">
+                点一下提示~
+            </a>
+        </div>
         <div class="page-content">
-            <div class="vul info">
-                <h3>DOM XSS 扩展版</h3>
-                <input type="text" id="userinput" placeholder="输入将注入DOM">
-                <button onclick="inject()">插入</button>
-                <div id="result"></div>
-
+            <div id="xssd_main">
                 <script>
-                    function inject() {
-                        let val = document.getElementById("userinput").value;
-                        document.getElementById("result").innerHTML = val;
+                    function domxss() {
+                        var str = window.location.search;
+                        var txss = decodeURIComponent(str.split("text=")[1]);
+                        var xss = txss.replace(/\+/g, ' ');
+                        // alert(xss);
+
+                        document.getElementById("dom").innerHTML = "<a href='" + xss + "'>就让往事都随风,都随风吧</a>";
                     }
+                    //试试：'><img src="#" onmouseover="alert('xss')">
+                    //试试：' onclick="alert('xss')">,闭合掉就行
                 </script>
+                <form method="get">
+                    <input id="text" name="text" type="text" value="" />
+                    <input id="submit" type="submit" value="请说出你的伤心往事" />
+                </form>
+                <div id="dom"></div>
             </div>
+
+            {{ .HtmlMsg }}
         </div>
     </div>
 </div>
+{{end}}

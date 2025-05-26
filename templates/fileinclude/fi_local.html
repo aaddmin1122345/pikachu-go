@@ -5,24 +5,31 @@
             <ul class="breadcrumb">
                 <li>
                     <i class="ace-icon fa fa-home home-icon"></i>
-                    <a href="/vul/fileinclude/fileinclude">文件包含</a>
+                    <a href="/vul/fileinclude/fileinclude">file include</a>
                 </li>
                 <li class="active">本地文件包含</li>
             </ul>
+            <a href="#" style="float:right" data-container="body" data-toggle="popover" data-placement="bottom" title="tips(再点一下关闭)"
+                data-content="先了解一下include()函数的用法吧">
+                点一下提示~
+            </a>
         </div>
-
         <div class="page-content">
-            <div class="page-header">
-                <h1>本地文件包含测试</h1>
+            <div id="fi_main">
+                <p class="fi_title">which NBA player do you like?</p>
+                <form method="get">
+                    <select name="filename">
+                        <option value="">--------------</option>
+                        <option value="file1.php">Kobe bryant</option>
+                        <option value="file2.php">Allen Iverson</option>
+                        <option value="file3.php">Kevin Durant</option>
+                        <option value="file4.php">Tracy McGrady</option>
+                        <option value="file5.php">Ray Allen</option>
+                    </select>
+                    <input class="sub" type="submit" name="submit" />
+                </form>
+                {{.HtmlMsg}}
             </div>
-
-            <form method="get" style="margin-bottom: 10px;">
-                文件名 (相对于 vul/fileinclude/include): <br />
-                <input type="text" name="file" value="{{.HtmlMsg | html}}" style="width: 300px;" />
-                <input type="submit" value="包含文件" />
-            </form>
-
-            <div>{{.HtmlMsg}}</div>
         </div>
     </div>
 </div>

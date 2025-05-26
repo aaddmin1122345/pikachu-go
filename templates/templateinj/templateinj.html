@@ -1,0 +1,62 @@
+{{define "templateinj/templateinj.html"}}
+<div class="main-content">
+    <div class="main-content-inner">
+        <div class="breadcrumbs ace-save-state" id="breadcrumbs">
+            <ul class="breadcrumb">
+                <li>
+                    <i class="ace-icon fa fa-home home-icon"></i>
+                    <a href="/">首页</a>
+                </li>
+                <li class="active">SSTI模板注入</li>
+            </ul>
+        </div>
+        <div class="page-content">
+            <div id="templateinj_main">
+                <h3>什么是SSTI模板注入？</h3>
+                <p>模板注入漏洞（Template Injection）是指攻击者通过在Web应用程序的输入字段中注入恶意模板代码，利用服务器端模板引擎的处理逻辑，实现代码执行或敏感信息泄露。</p>
+
+                <h3>漏洞原理</h3>
+                <p>当应用程序未对用户输入进行充分过滤，并将用户输入直接或间接拼接到模板中进行渲染时，攻击者可以注入模板引擎特定的语法，例如Go语言模板中的<code>&lbrace;&lbrace; .&rbrace;&rbrace;</code>、<code>&lbrace;&lbrace;.Extra.User&rbrace;&rbrace;</code>、<code>&lbrace;&lbrace;exec &quot;cmd&quot;&rbrace;&rbrace;</code>等。如果模板引擎注册了危险函数（如执行系统命令的函数），攻击者就可以利用这些语法执行任意代码。
+                </p>
+                <pre class="prettyprint">&lbrace;&lbrace;.Extra.User&rbrace;&rbrace;
+&lbrace;&lbrace;.Extra.Secret&rbrace;&rbrace;
+&lbrace;&lbrace;exec &quot;whoami&quot;&rbrace;&rbrace;
+&lbrace;&lbrace;exec &quot;date&quot;&rbrace;&rbrace;</pre>
+                <p>可用变量和函数：</p>
+                <ul>
+                    <li><code>&lbrace;&lbrace;.user&rbrace;&rbrace;</code> 当前用户名</li>
+                    <li><code>&lbrace;&lbrace;.date&rbrace;&rbrace;</code> 当前时间</li>
+                    <li><code>&lbrace;&lbrace;exec &quot;cmd&quot;&rbrace;&rbrace;</code> 执行系统命令（**靶场演示功能，实际应用中应严格控制**）
+                    </li>
+                </ul>
+
+                <h3>漏洞危害</h3>
+                <ul>
+                    <li>服务器端代码执行</li>
+                    <li>敏感信息泄露（如数据库信息、配置文件等）</li>
+                    <li>攻击内网服务</li>
+                    <li>控制整个服务器</li>
+                </ul>
+
+                <h3>防护建议</h3>
+                <ul>
+                    <li>对用户输入进行严格的过滤和验证，避免将用户输入直接作为模板或模板的一部分进行渲染。</li>
+                    <li>尽量使用安全的模板引擎配置，例如在Go语言中，优先使用<code>html/template</code>包，它提供了自动转义功能。</li>
+                    <li>限制模板引擎可用的变量和函数，移除不必要的危险函数（如exec）。</li>
+                    <li>对敏感操作进行权限控制和审计。</li>
+                </ul>
+
+                <h3>漏洞演示</h3>
+                <p>点击下方链接进行模板注入漏洞测试：</p>
+                <ul>
+                    <li><a href="/vul/ssti/test">模板注入漏洞测试</a></li>
+                </ul>
+
+                {{if .HtmlMsg}}
+                {{.HtmlMsg}}
+                {{end}}
+            </div>
+        </div>
+    </div>
+</div>
+{{end}}

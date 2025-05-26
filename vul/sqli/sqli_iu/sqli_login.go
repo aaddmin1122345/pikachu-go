@@ -1,12 +1,11 @@
 package sqliiu
 
 import (
-	"database/sql"
+	"crypto/md5"
 	"fmt"
 	"net/http"
+	"pikachu-go/database"
 	"pikachu-go/templates"
-
-	_ "github.com/lib/pq"
 )
 
 // SqliLoginHandler 登录页面
@@ -17,14 +16,18 @@ func SqliLoginHandler(renderer templates.Renderer) http.HandlerFunc {
 			username := r.FormValue("username")
 			password := r.FormValue("password")
 
-			db, err := sql.Open("postgres", "user=pgsql password=pgsql dbname=pikachu-go sslmode=disable")
-			if err != nil {
+			// 使用全局数据库连接
+			db := database.DB
+			if db == nil {
 				http.Error(w, "数据库连接失败", http.StatusInternalServerError)
 				return
 			}
-			defer db.Close()
 
-			query := fmt.Sprintf("SELECT id FROM users WHERE username = '%s' AND password = '%s'", username, password)
+			// 使用MD5进行密码加密后比较
+			hashedPassword := fmt.Sprintf("%x", md5.Sum([]byte(password)))
+
+			// 故意保留SQL注入漏洞，直接拼接SQL
+			query := fmt.Sprintf("SELECT id FROM member WHERE username = '%s' AND password = '%s'", username, hashedPassword)
 			row := db.QueryRow(query)
 
 			var id int

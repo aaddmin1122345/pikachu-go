@@ -1,7 +1,9 @@
 package op1
 
 import (
+	"crypto/md5"
 	"database/sql"
+	"fmt"
 	"net/http"
 	"pikachu-go/database"
 	"pikachu-go/templates"
@@ -47,6 +49,18 @@ func Op1LoginHandler(renderer templates.Renderer) http.HandlerFunc {
 			}
 		}
 
+		// 添加测试账号提示
+		if msg == "" {
+			msg = `<div class="alert alert-info" style="margin-top: 20px;">
+                本页面仅为演示，可用的测试账号：<br>
+                用户名：pikachu，密码：123456<br>
+                用户名：admin，密码：123456<br>
+                用户名：lucy，密码：123456<br>
+                用户名：lili，密码：123456<br>
+                用户名：kobe，密码：123456
+            </div>`
+		}
+
 		data := templates.NewPageData2(73, 75, msg)
 		data.PikaRoot = "/"
 		renderer.RenderPage(w, "overpermission/op1/op1_login.html", data)
@@ -62,7 +76,7 @@ func validateLogin(username, password string) bool {
 
 	// 查询用户
 	var dbPassword string
-	err := db.QueryRow("SELECT pw FROM member WHERE username = ?", username).Scan(&dbPassword)
+	err := db.QueryRow("SELECT pw FROM member WHERE username = $1", username).Scan(&dbPassword)
 	if err != nil {
 		if err == sql.ErrNoRows {
 			return false // 用户不存在
@@ -70,6 +84,7 @@ func validateLogin(username, password string) bool {
 		return false // 数据库错误
 	}
 
-	// 简化验证，实际应使用密码哈希比较
-	return password == dbPassword
+	// 使用MD5进行密码加密后比较
+	hashedPassword := fmt.Sprintf("%x", md5.Sum([]byte(password)))
+	return hashedPassword == dbPassword
 }

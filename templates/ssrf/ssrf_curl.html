@@ -3,20 +3,25 @@
     <div class="main-content-inner">
         <div class="breadcrumbs ace-save-state" id="breadcrumbs">
             <ul class="breadcrumb">
-                <li><i class="ace-icon fa fa-home home-icon"></i>
-                    <a href="/vul/ssrf/ssrf">ssrf</a>
+                <li>
+                    <i class="ace-icon fa fa-home home-icon"></i>
+                    <a href="/vul/ssrf/ssrf">SSRF</a>
                 </li>
-                <li class="active">curl 模拟</li>
+                <li class="active">SSRF-CURL</li>
             </ul>
+            <a href="#" style="float:right" data-container="body" data-toggle="popover" data-placement="bottom"
+                title="tips(再点一下关闭)" data-content="先了解一下Go中http.Get/http.Client相关函数的用法吧">
+                点一下提示~
+            </a>
         </div>
         <div class="page-content">
-            <form method="post">
-                <label>目标 URL：</label><br />
-                <input type="text" name="url" style="width:400px;" />
-                <input type="submit" value="提交" />
-            </form>
-            <div style="margin-top:20px;">{{.HtmlMsg}}</div>
+            <!-- GET方式访问示例 -->
+            <div style="margin-bottom:10px;">
+                {{.HtmlMsg}}
+            </div>
+
         </div>
     </div>
+</div>
 </div>
 {{end}}

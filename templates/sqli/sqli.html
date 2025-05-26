@@ -9,14 +9,48 @@
         </div>
         <div class="page-content">
             <h3>SQL注入漏洞概述</h3>
-            <p>SQL注入漏洞（SQL Injection）是指攻击者通过在Web应用程序的输入框、URL或者Cookie等输入字段中插入恶意的SQL语句，迫使数据库执行不应执行的操作。</p>
+            <p>
+                SQL 注入（SQL Injection，简称 SQLi）是一种非常经典且常见的 Web 漏洞，本质原因是在数据和代码之间边界不清，开发者把用户输入直接拼接进 SQL
+                语句，没有做严格校验和过滤。攻击者就可以通过精心构造的数据，把自己的 SQL 代码“注入”到后端数据库的查询中，实现未授权的数据读取、修改、甚至远程命令执行等操作。
+            </p>
+            <p>
+                实际开发中，SQL 注入一般出现在登录、注册、搜索、留言等功能，比如下面这个登录的伪代码：<br>
+                <code>
+                    SELECT * FROM users WHERE username = '$username' AND password = '$password';
+                </code>
+                <br>
+                如果用户输入 <b>admin' --</b>，SQL 就变成了：<br>
+                <code>
+                    SELECT * FROM users WHERE username = 'admin' -- ' AND password = '';
+                </code><br>
+                <b>--</b> 代表注释，后面的内容全部失效，直接绕过了密码校验，导致越权登录。
+            </p>
+            <p>
+                SQL 注入常见危害包括：
             <ul>
-                <li><a href="/vul/sqli/sqli_blind_b">布尔型盲注</a></li>
-                <li><a href="/vul/sqli/sqli_blind_t">时间型盲注</a></li>
-                <li><a href="/vul/sqli/sqli_del">删除操作注入</a></li>
-                <li><a href="/vul/sqli/sqli_id">获取ID注入</a></li>
-                <li><a href="/vul/sqli/sqli_search">查询注入</a></li>
+                <li>越权访问后台或敏感数据</li>
+                <li>批量获取用户信息（如手机号、邮箱、密码等）</li>
+                <li>数据库表结构或数据被篡改、删除</li>
+                <li>配合堆叠注入等技巧，部分情况下甚至可远程执行系统命令，控制服务器</li>
             </ul>
+            </p>
+            <p>
+                根据攻击手法，常见的 SQL 注入又分为：<br>
+                <b>1. 联合注入（Union-based）</b>：用 <code>UNION SELECT</code> 拼接查询，直接拿数据<br>
+                <b>2. 错误回显注入（Error-based）</b>：利用报错信息把数据带出来<br>
+                <b>3. 盲注（Blind）</b>：页面没有报错也没有回显，靠页面响应内容/时间慢慢猜数据
+            <ul>
+                <li>布尔盲注：根据页面内容变化判断 true/false</li>
+                <li>时间盲注：用 <code>sleep()</code> 等函数，根据响应时间来判断结果</li>
+            </ul>
+            </p>
+            <p>
+                防御 SQL 注入最可靠的办法，就是<strong>永远不用字符串拼接 SQL</strong>，一律用<strong>预编译</strong>（Prepared Statements）、ORM
+                框架参数化查询。其次，对所有外部输入都要做类型校验和过滤，不暴露详细数据库错误信息。
+            </p>
+            <p>
+                实战中，SQL 注入依然是最容易被利用、危害最直接的 Web 漏洞之一，也是 CTF/web 安全攻防的入门必修课。本项目后续会带你通过各种实际场景，体验不同类型的 SQL 注入漏洞利用过程。
+            </p>
         </div>
     </div>
 </div>

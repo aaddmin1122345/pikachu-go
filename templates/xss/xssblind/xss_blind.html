@@ -1,28 +1,32 @@
+{{define "xss/xssblind/xss_blind.html"}}
 <div class="main-content">
     <div class="main-content-inner">
+        <div class="breadcrumbs ace-save-state" id="breadcrumbs">
+            <ul class="breadcrumb">
+                <li>
+                    <i class="ace-icon fa fa-home home-icon"></i>
+                    <a href="/vul/xss/xss">xss</a>
+                </li>
+                <li class="active">xss盲打</li>
+            </ul>
+            <a href="#" style="float:right" data-container="body" data-toggle="popover" data-placement="bottom"
+                title="tips(再点一下关闭)" data-content="登录后台,看会发生啥?后台登录地址是/xssblind/admin_login.php">
+                点一下提示~
+            </a>
+        </div>
         <div class="page-content">
-            <div class="vul info">
-                <h3>盲打型 XSS 模拟</h3>
-                <form id="form">
-                    <label>请输入留言（将被偷偷发送给管理员）:</label><br>
-                    <input type="text" id="data" style="width:400px">
-                    <input type="submit" value="提交">
+            <div id="xss_blind">
+                <p class="blindxss_tip">请在下面输入你对"锅盖头"这种发型的看法：</p>
+                <p class="blindxss_tip">我们将会随机抽出一名送出麻港一日游</p>
+                <form method="post">
+                    <textarea class="content" name="content"></textarea><br />
+                    <label>你的大名：</label><br />
+                    <input class="name" type="text" name="name" /><br />
+                    <input type="submit" name="submit" value="提交" />
                 </form>
-                <script>
-                    document.getElementById("form").onsubmit = function (e) {
-                        e.preventDefault();
-                        var val = document.getElementById("data").value;
-                        fetch("/vul/xss/xssblind/admin", {
-                            method: "POST",
-                            headers: {
-                                "Content-Type": "application/x-www-form-urlencoded",
-                            },
-                            body: "data=" + encodeURIComponent(val),
-                        });
-                        alert("我们已经记录了你的留言！");
-                    };
-                </script>
+                {{ .HtmlMsg }}
             </div>
         </div>
     </div>
 </div>
+{{end}}

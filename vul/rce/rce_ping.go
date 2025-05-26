@@ -8,41 +8,38 @@ import (
 	"runtime"
 )
 
-// RcePingHandler 实现命令注入漏洞演示
+// RcePingHandler 处理ping命令注入漏洞展示
 func RcePingHandler(renderer templates.Renderer) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
 		result := ""
 
-		if r.Method == http.MethodPost {
+		if r.Method == http.MethodPost && r.FormValue("submit") != "" {
 			ip := r.FormValue("ipaddress")
 			if ip != "" {
-				// 模拟PHP版本中的命令注入漏洞
-				// 故意直接拼接用户输入到命令中
-				var cmd *exec.Cmd
-
+				// 直接使用用户输入进行命令拼接，模拟命令注入漏洞
 				if runtime.GOOS == "windows" {
 					// Windows系统
-					cmd = exec.Command("cmd", "/c", "ping "+ip)
+					cmd := exec.Command("cmd", "/c", "ping "+ip)
+					output, err := cmd.CombinedOutput()
+					if err != nil {
+						result = err.Error() + "\n"
+					}
+					result += string(output)
 				} else {
 					// Linux/Unix系统
-					cmd = exec.Command("sh", "-c", "ping -c 4 "+ip)
+					cmd := exec.Command("sh", "-c", "ping -c 4 "+ip)
+					output, err := cmd.CombinedOutput()
+					if err != nil {
+						result = err.Error() + "\n"
+					}
+					result += string(output)
 				}
-
-				// 执行命令并获取输出
-				output, err := cmd.CombinedOutput()
-				if err != nil {
-					result = err.Error() + "\n"
-				}
-				result += string(output)
 			}
 		}
 
-		data := templates.PageData{
-			Active:  make([]string, 130),
-			HtmlMsg: template.HTML("<pre>" + template.HTMLEscapeString(result) + "</pre>"),
-		}
-		data.Active[50] = "active open"
-		data.Active[52] = "active"
+		// 使用NewPageData2创建页面数据，使用正确的菜单ID
+		htmlOutput := "<pre>" + template.HTMLEscapeString(result) + "</pre>"
+		data := templates.NewPageData2(50, 52, htmlOutput)
 
 		renderer.RenderPage(w, "rce/rce_ping.html", data)
 	}

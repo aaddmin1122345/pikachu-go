@@ -1,12 +1,10 @@
 package sqli
 
 import (
-	"database/sql"
 	"fmt"
 	"net/http"
+	"pikachu-go/database"
 	"pikachu-go/templates"
-
-	_ "github.com/mattn/go-sqlite3"
 )
 
 // SqliXHandler 其他 SQL 注入类型
@@ -17,16 +15,15 @@ func SqliXHandler(renderer templates.Renderer) http.HandlerFunc {
 		result := "请输入一个值进行测试。"
 
 		if input != "" {
-			// 使用输入的值执行 SQL 注入
-			db, err := sql.Open("sqlite3", "./pikachu.db")
-			if err != nil {
+			// 使用全局数据库连接
+			db := database.DB
+			if db == nil {
 				http.Error(w, "数据库连接失败", http.StatusInternalServerError)
 				return
 			}
-			defer db.Close()
 
-			// 假设执行注入查询
-			query := fmt.Sprintf("SELECT * FROM users WHERE username='%s'", input)
+			// 故意保留SQL注入漏洞，直接拼接SQL
+			query := fmt.Sprintf("SELECT id, username, password FROM member WHERE username='%s'", input)
 			rows, err := db.Query(query)
 			if err != nil {
 				http.Error(w, "查询错误", http.StatusInternalServerError)

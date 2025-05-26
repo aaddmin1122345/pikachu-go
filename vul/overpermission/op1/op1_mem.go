@@ -46,6 +46,17 @@ func Op1MemHandler(renderer templates.Renderer) http.HandlerFunc {
 					<p class="per_email">邮箱: %s</p>
 				</div>
 				`, userInfo.Username, userInfo.Username, userInfo.Sex, userInfo.PhoneNum, userInfo.Address, userInfo.Email)
+
+				// 添加水平越权提示
+				if queryUsername != username {
+					html += `
+					<div style="margin-top:20px;padding:10px;background-color:#ffdddd;border-left:6px solid #f44336;">
+						<strong>安全提示!</strong> 您刚刚查看了其他用户的信息 (水平越权漏洞)。<br>
+						这是因为后端仅验证了登录状态，但没有验证当前登录用户是否有权查看所请求的用户信息。<br>
+						正确的做法是：验证请求的用户名与当前登录用户是否一致。
+					</div>
+					`
+				}
 			}
 		}
 
@@ -58,15 +69,31 @@ func Op1MemHandler(renderer templates.Renderer) http.HandlerFunc {
 		}
 
 		// 渲染页面，添加一个查询自己信息的表单和当前登录用户显示
-		html = `
-		<p class="mem_title">欢迎来到个人信息中心，当前用户: ` + username + ` | <a style="color:blue;" href="/vul/overpermission/op1/op1_mem?logout=1">退出登录</a></p>
-		<form class="msg1" method="get">
-			<input type="hidden" name="username" value="` + username + `" />
+		welcomeMsg := fmt.Sprintf(`<p class="mem_title">欢迎来到个人信息中心，当前用户: %s | <a style="color:blue;" href="/vul/overpermission/op1/op1_mem?logout=1">退出登录</a></p>`, username)
+
+		// 添加正常查询表单和越权测试表单
+		formHtml := fmt.Sprintf(`
+		<form class="msg1" method="get" style="margin-bottom:10px;">
+			<input type="hidden" name="username" value="%s" />
 			<input type="submit" name="submit" value="点击查看个人信息" />
 		</form>
-		` + html
+		
+		<div style="margin:15px 0;border-top:1px dashed #ccc;padding-top:15px;">
+			<h4>水平越权漏洞测试</h4>
+			<p>尝试查看其他用户信息 (可用测试账号: pikachu, admin, lucy, lili, kobe)</p>
+			<form class="msg1" method="get">
+				<input type="text" name="username" placeholder="输入要查询的用户名" style="width:200px;margin-right:10px;" />
+				<input type="submit" name="submit" value="查看此用户信息" />
+			</form>
+			<div style="margin-top:10px;padding:8px;background-color:#e7f3fe;border-left:6px solid #2196F3;">
+				<strong>漏洞说明:</strong> 此页面演示了水平越权漏洞。登录用户可以查看任意其他用户的个人信息，而不仅限于自己的信息。
+			</div>
+		</div>
+		`, username)
 
-		data := templates.NewPageData2(73, 77, html)
+		finalHtml := welcomeMsg + formHtml + html
+
+		data := templates.NewPageData2(73, 77, finalHtml)
 		data.PikaRoot = "/"
 		renderer.RenderPage(w, "overpermission/op1/op1_mem.html", data)
 	}

@@ -1,13 +1,11 @@
 package sqli
 
 import (
-	"database/sql"
 	"fmt"
 	"net/http"
+	"pikachu-go/database"
 	"pikachu-go/templates"
 	"time"
-
-	_ "github.com/lib/pq"
 )
 
 // SqliBlindTHandler 时间型盲注
@@ -19,22 +17,21 @@ func SqliBlindTHandler(renderer templates.Renderer) http.HandlerFunc {
 
 		// 如果用户输入不为空，则模拟时间型盲注
 		if input != "" {
-			// 使用输入的值构造查询语句
-			db, err := sql.Open("postgres", "user=pgsql password=pgsql dbname=pikachu-go sslmode=disable")
-			if err != nil {
+			// 使用全局数据库连接
+			db := database.DB
+			if db == nil {
 				http.Error(w, "数据库连接失败", http.StatusInternalServerError)
 				return
 			}
-			defer db.Close()
 
 			// 构造时间型盲注查询，模拟长时间查询
-			query := fmt.Sprintf("SELECT 1 FROM users WHERE username = '%s' AND password = '123456'", input)
+			query := fmt.Sprintf("SELECT 1 FROM member WHERE username = '%s' AND password = '123456'", input)
 
 			// 开始时间记录
 			start := time.Now()
 
 			// 执行查询
-			_, err = db.Query(query)
+			_, err := db.Query(query)
 			if err != nil {
 				http.Error(w, "查询错误", http.StatusInternalServerError)
 				return

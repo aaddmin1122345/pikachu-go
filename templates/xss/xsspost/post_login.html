@@ -1,0 +1,53 @@
+{{define "xss/xsspost/post_login.html"}}
+<div class="main-content">
+    <div class="main-content-inner">
+        <div class="breadcrumbs ace-save-state" id="breadcrumbs">
+            <ul class="breadcrumb">
+                <li>
+                    <i class="ace-icon fa fa-home home-icon"></i>
+                    <a href="{{.PikaRoot}}vul/xss/xss">xss</a>
+                </li>
+                <li class="active">反射性xss(post)</li>
+            </ul>
+            <a href="#" style="float:right" data-container="body" data-toggle="popover" data-placement="bottom"
+                title="tips(再点一下关闭)" data-content="为了能够让你练习xss获取cookie,我们还是登陆一下,账号admin/123456">
+                点一下提示~
+            </a>
+        </div>
+        <div class="page-content">
+            <div class="xss_form">
+                <div class="xss_form_main">
+                    <h4 class="header blue lighter bigger">
+                        <i class="ace-icon fa fa-coffee green"></i>
+                        Please Enter Your Information
+                    </h4>
+
+                    <form method="post" action="/vul/xss/xsspost/post_login">
+                        <label>
+                            <span>
+                                <input type="text" name="username" placeholder="Username" />
+                                <i class="ace-icon fa fa-user"></i>
+                            </span>
+                        </label>
+                        </br>
+
+                        <label>
+                            <span>
+                                <input type="password" name="password" placeholder="Password" />
+                                <i class="ace-icon fa fa-lock"></i>
+                            </span>
+                        </label>
+
+                        <div class="space"></div>
+
+                        <div class="clearfix">
+                            <label><input class="submit" name="submit" type="submit" value="Login" /></label>
+                        </div>
+                    </form>
+                    {{ .HtmlMsg }}
+                </div><!-- /.widget-main -->
+            </div><!-- /.widget-body -->
+        </div><!-- /.page-content -->
+    </div>
+</div><!-- /.main-content -->
+{{end}} 

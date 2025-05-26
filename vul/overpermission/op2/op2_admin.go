@@ -34,6 +34,12 @@ func Op2AdminHandler(renderer templates.Renderer) http.HandlerFunc {
 			<p>当前登录用户: %s</p>
 			<p><a href="/vul/overpermission/op2/op2_user?logout=1">退出登录</a></p>
 			
+			<div style="margin:15px 0;padding:10px;background-color:#ffdddd;border-left:6px solid #f44336;">
+				<strong>安全提示!</strong> 您正在访问仅限管理员的页面 (垂直越权漏洞)。<br>
+				这是因为后端仅验证了登录状态，但没有验证用户是否具有管理员权限。<br>
+				正确的做法是：验证当前用户是否拥有管理员角色。
+			</div>
+			
 			<div class="user-list">
 				<h3>用户列表</h3>
 				<table border="1" cellpadding="5">
@@ -45,6 +51,10 @@ func Op2AdminHandler(renderer templates.Renderer) http.HandlerFunc {
 					</tr>
 					%s
 				</table>
+			</div>
+			
+			<div style="margin-top:15px;padding:8px;background-color:#e7f3fe;border-left:6px solid #2196F3;">
+				<strong>漏洞说明:</strong> 此页面演示了垂直越权漏洞。普通用户可以访问仅限管理员的功能页面，因为系统没有进行权限检查。
 			</div>
 		</div>
 		`, username, getUserListHTML())

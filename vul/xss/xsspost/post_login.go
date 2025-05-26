@@ -5,8 +5,9 @@ import (
 	"crypto/sha1"
 	"database/sql"
 	"fmt"
+	"html/template"
 	"net/http"
-	"pikachu-go/db"
+	"pikachu-go/database"
 	"pikachu-go/templates"
 	"time"
 )
@@ -24,16 +25,18 @@ func PostLoginHandler(renderer templates.Renderer) http.HandlerFunc {
 
 			if username != "" && password != "" {
 				// 获取数据库连接
-				database := db.GetDB()
+				db := database.DB
 
 				// 查询用户
-				var id int
+				// var id int
 				var storedUsername string
 
 				// 使用MD5进行密码加密后比较
 				hashedPassword := fmt.Sprintf("%x", md5.Sum([]byte(password)))
-				err := database.QueryRow("SELECT id, username FROM users WHERE username=? AND password=?",
-					username, hashedPassword).Scan(&id, &storedUsername)
+
+				// 修正PostgreSQL占位符格式，从?改为$1, $2
+				err := db.QueryRow("SELECT  username FROM users WHERE username=$1 AND password=$2",
+					username, hashedPassword).Scan(&storedUsername)
 
 				if err == nil {
 					// 登录成功，设置cookie
@@ -68,7 +71,7 @@ func PostLoginHandler(renderer templates.Renderer) http.HandlerFunc {
 			}
 		}
 
-		data.HtmlMsg = templates.HTML(htmlMsg)
+		data.HtmlMsg = template.HTML(htmlMsg)
 		renderer.RenderPage(w, "xss/xsspost/post_login.html", data)
 	}
 }

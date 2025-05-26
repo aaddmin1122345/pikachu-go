@@ -1,7 +1,9 @@
 package op2
 
 import (
+	"crypto/md5"
 	"database/sql"
+	"fmt"
 	"net/http"
 	"pikachu-go/database"
 	"pikachu-go/templates"
@@ -85,7 +87,7 @@ func validateOp2Login(username, password string) (bool, bool) {
 	// 查询用户
 	var dbPassword string
 	var role string
-	err := db.QueryRow("SELECT password, role FROM users WHERE username = ?", username).Scan(&dbPassword, &role)
+	err := db.QueryRow("SELECT password, role FROM users WHERE username = $1", username).Scan(&dbPassword, &role)
 	if err != nil {
 		if err == sql.ErrNoRows {
 			return false, false // 用户不存在
@@ -93,8 +95,9 @@ func validateOp2Login(username, password string) (bool, bool) {
 		return false, false // 数据库错误
 	}
 
-	// 验证密码
-	if password != dbPassword {
+	// 使用MD5进行密码加密后比较
+	hashedPassword := fmt.Sprintf("%x", md5.Sum([]byte(password)))
+	if hashedPassword != dbPassword {
 		return false, false
 	}
 
