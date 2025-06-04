@@ -17,7 +17,7 @@ import (
 	"pikachu-go/vul/sqli"
 	sqliiu "pikachu-go/vul/sqli/sqli_iu"
 	"pikachu-go/vul/ssrf"
-	"pikachu-go/vul/templateinj"
+	"pikachu-go/vul/ssti"
 	"pikachu-go/vul/unsafedownload"
 	"pikachu-go/vul/unsafeupload"
 	"pikachu-go/vul/urlredirect"
@@ -261,6 +261,6 @@ func InitRoutes() {
 	http.HandleFunc("/vul/apiunauth/api/delete", apiunauth.ApiDeleteUserHandler())
 
 	// ========== 模板注入模块 ==========
-	http.HandleFunc("/vul/ssti/ssti", templateinj.TemplateInjHandler(renderer))
-	http.HandleFunc("/vul/ssti/test", templateinj.TemplateInjTestHandler(renderer))
+	http.HandleFunc("/vul/ssti/ssti", ssti.TemplateInjHandler(renderer))
+	http.HandleFunc("/vul/ssti/exec", ssti.TemplateInjTestHandler(renderer))
 }

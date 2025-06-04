@@ -29,10 +29,21 @@
 
 ## 快速开始
 
-### 1. 已安装好go的情况
+### 
+
+### 1. pgsql数据库
+
+```
+database/database.go中的13-20行改为自己的pgsql数据库信息
+```
+
+### 2. 已安装好go的情况
 
 ```bash
 git https://github.com/aaddmin1122345/pikachu-go
 cd pikachu-go
 go run . or go build . && ./pikachu-go
 ```
+
+
+
